@@ -5,8 +5,9 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">{{ __('Login') }}</div>
-
+                <div class="card-header" style="text-align:center;">
+                <img src="{!! asset('images/kakashi.jpg') !!}" style="width:150px;height:150px;"><br>
+                {{ __('Login') }}</div>
                 <div class="card-body">
                     <form method="POST" action="{{ route('login') }}">
                         @csrf
