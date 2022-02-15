@@ -33,7 +33,8 @@
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
-                    {{ config('app.name', 'Laravel') }}
+                    <!-- {{ config('app.name', 'iDeliver Home') }} -->
+                    iDeliver Home
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
@@ -49,8 +50,23 @@
                     
                     <ul class="nav navbar-top-links navbar-right">
                         <!-- Authentication Links -->
-                        
+                            
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ url('/contact-us') }}">Contact Us</a>
+                            </li>
+
+                            <!-- <li class="nav-item" >
+                                <select class="form-select" aria-label="Default select example" >
+                                    <option selected>Categories</option>
+                                    <option value="1">Western</option>
+                                    <option value="2">Drinks</option>
+                                    <option value="3">Malay Food</option>
+                                    <option value="3">Indian Food</option>
+                                    <option value="3">Chinese Food</option>
+                                </select>
+                            </li>  -->
                         @guest
+
                             @if (Route::has('login'))
                                 <li class="nav-item">
                                     <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
@@ -67,12 +83,17 @@
                               <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 Welcome {{Auth::user()->name}}
                               </button>
+                              
                               <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                <a class="dropdown-item" href="{{ route('home') }}">
+                                    My Dashboard
+                                </a>
                                 <a class="dropdown-item" href="{{ route('logout') }}"
                                    onclick="event.preventDefault();
                                                  document.getElementById('logout-form').submit();">
                                     {{ __('Logout') }}
                                 </a>
+                                
 
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                                         @csrf
