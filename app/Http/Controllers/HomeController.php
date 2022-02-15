@@ -23,6 +23,18 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        // return view('home');
+        return view('adminlte');
+    }
+
+    public function first_page(Request $request)
+    {
+        // return $request->route()->uri();
+        return view('first_page');
+    }
+
+    public function second_page()
+    {
+        return view('second_page');
     }
 }

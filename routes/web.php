@@ -25,7 +25,10 @@ Route::get('/contact-us', function () {
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/', [App\Http\Controllers\HomeController::class, 'index']);
+Route::get('/first_page', [App\Http\Controllers\HomeController::class, 'first_page']);
+Route::get('/second_page', [App\Http\Controllers\HomeController::class, 'second_page']);
 
 Route::group(['middleware' => ['guest']], function() {
     
