@@ -16,17 +16,30 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('first-page'); 
 });
+Route::get('/', function () {
+    return view('dashboard'); 
+});
 Route::get('/categories', function () {
     return view('categories'); 
 });
 Route::get('/contact-us', function () {
     return view('contact-us'); 
 });
+Route::get('/first-page', function () {
+    return view('first-page'); 
+});
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/home', [App\Http\Controllers\contactUsController::class, 'index'])->name('home');
+Route::get('/dashboard', [App\Http\Controllers\HomeController::class, 'dashboard'])->name('dashboard');
+Route::get('/', [App\Http\Controllers\contactUsController::class, 'index']); 
+Route::get('/first_page', [App\Http\Controllers\HomeController::class, 'first_page']);
+Route::get('/second_page', [App\Http\Controllers\HomeController::class, 'second_page']);
 
 Route::group(['middleware' => ['guest']], function() {
     
 });
+
+Route::get('/email', [App\Http\Controllers\EmailController::class, 'create']);
+Route::post('/email', [App\Http\Controllers\EmailController::class, 'sendEmail'])->name('send.email');
