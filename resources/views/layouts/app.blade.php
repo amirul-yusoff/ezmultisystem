@@ -85,7 +85,7 @@
                               </button>
                               
                               <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                <a class="dropdown-item" href="{{ route('home') }}">
+                                <a class="dropdown-item" href="{{ route('dashboard') }}">
                                     My Dashboard
                                 </a>
                                 <a class="dropdown-item" href="{{ route('logout') }}"
