@@ -22,9 +22,12 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 // http://ezmultisystem/api/getUsers
 Route::GET("getUsers",[apiController::class,'getUsers']);
 
+
 // //push the Data into the Database
 // http://ezmultisystem/api/getDataFromOutside
 Route::POST("getDataFromOutside",[apiController::class,'getDataFromOutside']);
+Route::POST("registerUser",[apiController::class,'registerUser']);
+Route::POST("loginUser",[apiController::class,'loginUser']);
 
 
 // //Update
