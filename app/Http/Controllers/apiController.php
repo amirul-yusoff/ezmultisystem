@@ -125,7 +125,7 @@ class apiController extends Controller
         else{ 
 
             foreach($data as $usernameCheck){
-                if($username == $usernameCheck['phone_number']){
+                if($dataFromUser->phone_number == $usernameCheck['phone_number']){
                     $ifAccExist = 1;
 
                 }
