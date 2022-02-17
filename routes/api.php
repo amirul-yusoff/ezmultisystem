@@ -2,7 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\apiController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -17,3 +17,18 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+// view
+// http://ezmultisystem/api/getUsers
+Route::GET("getUsers",[apiController::class,'getUsers']);
+
+// //push the Data into the Database
+// http://ezmultisystem/api/getDataFromOutside
+Route::POST("getDataFromOutside",[apiController::class,'getDataFromOutside']);
+
+
+// //Update
+// Route::PUT("")
+
+// //Delete
+// Route::DLETE("")
