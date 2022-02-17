@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Models\User;
 use Illuminate\Support\Facades\Auth;
-
+use App\Models\module;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -29,8 +29,6 @@ class HomeController extends Controller
     public function dashboard()
     {
         $user = Auth::user();
-        // return view('home');
-        // return view('adminlte');
         return view('dashboard',compact('user'));
     }
 

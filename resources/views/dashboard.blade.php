@@ -3,6 +3,7 @@
 This is a starter template page. Use this page to start your new project from
 scratch. This page gets rid of all links and provides the needed markup only.
 -->
+
 <html lang="en">
 <head>
   <meta charset="utf-8">
@@ -16,6 +17,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <!-- Theme style -->
   <link rel="stylesheet" href="{{asset("/assets/dist/css/adminlte.min.css")}}">
 </head>
+<?php
+    $dashboard = \App\Models\module::get();
+?>
 <body class="hold-transition sidebar-mini">
 <div class="wrapper">
 
@@ -59,7 +63,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
       </li>
 
       <!-- Messages Dropdown Menu -->
-      <li class="nav-item dropdown">
+      {{-- <li class="nav-item dropdown">
         <a class="nav-link" data-toggle="dropdown" href="#">
           <i class="far fa-comments"></i>
           <span class="badge badge-danger navbar-badge">3</span>
@@ -115,9 +119,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
           <div class="dropdown-divider"></div>
           <a href="#" class="dropdown-item dropdown-footer">See All Messages</a>
         </div>
-      </li>
+      </li> --}}
       <!-- Notifications Dropdown Menu -->
-      <li class="nav-item dropdown">
+      {{-- <li class="nav-item dropdown">
         <a class="nav-link" data-toggle="dropdown" href="#">
           <i class="far fa-bell"></i>
           <span class="badge badge-warning navbar-badge">15</span>
@@ -142,7 +146,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
           <div class="dropdown-divider"></div>
           <a href="#" class="dropdown-item dropdown-footer">See All Notifications</a>
         </div>
-      </li>
+      </li> --}}
+
+
+
       <li class="nav-item">
         <a class="nav-link" data-widget="fullscreen" href="#" role="button">
           <i class="fas fa-expand-arrows-alt"></i>
@@ -205,30 +212,43 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
-          <li class="nav-item menu-open">
-            <a href="#" class="nav-link active">
-              <i class="nav-icon fas fa-tachometer-alt"></i>
-              <p>
-                Starter Pages
-                <i class="right fas fa-angle-left"></i>
-              </p>
-            </a>
+        @foreach ($dashboard as $item)
+            @if ($item->parent_id == 0 && $item->url == NULL)
+            <li class="nav-item menu-close">
+                <a href="#" class="nav-link active">
+                <i class="nav-icon fas fa-tachometer-alt"></i>
+                <p>
+                    {{$item->module_name}}
+                    <i class="right fas fa-angle-left"></i>
+                </p>
+                </a>
+                
+            @elseif ($item->parent_id == 0 && $item->url != NULL)
+            <li class="nav-item">
+                <a href="{!! $item->url !!}" class="nav-link {{ (app('request')->route()->uri()== "{!! $item->url !!}") ? "active" : ""}} "> 
+                    <i class="nav-icon fas fa-th"></i>
+                    <p>
+                        {{$item->module_name}}
+                    {{-- <span class="right badge badge-danger">New</span> --}}
+                    </p>
+                </a>   
+            @endif
+
+            @foreach ($dashboard as $itemSub)
+            @if ($itemSub->parent_id == $item->id)
             <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="{{url("/first_page")}}" class="nav-link {{ (app('request')->route()->uri()== "first_page") ? "active" : ""}} ">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>First Page</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="{{url("/second_page")}}" class="nav-link {{ (app('request')->route()->uri()== "second_page") ? "active" : ""}} ">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Second Page</p>
-                </a>
-              </li>
-            </ul>
+                <li class="nav-item">
+                    <a href="{!! $itemSub->url !!}" class="nav-link {{ (app('request')->route()->uri()== "{!! $itemSub->url !!}") ? "active" : ""}} "> 
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>{{$itemSub->module_name}}</p>
+                  </a>
+                </li>
+              </ul>  
+            @endif
+            @endforeach
           </li>
-          <li class="nav-item">
+          @endforeach
+          {{-- <li class="nav-item">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-th"></i>
               <p>
@@ -236,7 +256,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <span class="right badge badge-danger">New</span>
               </p>
             </a>
-          </li>
+          </li> --}}
         </ul>
       </nav>
       <!-- /.sidebar-menu -->
