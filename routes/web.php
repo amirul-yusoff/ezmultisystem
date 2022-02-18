@@ -37,6 +37,22 @@ Route::get('/', [App\Http\Controllers\contactUsController::class, 'index']);
 Route::get('/first_page', [App\Http\Controllers\HomeController::class, 'first_page']);
 Route::get('/second_page', [App\Http\Controllers\HomeController::class, 'second_page']);
 
+// Profile
+Route::get('/profile/index', [App\Http\Controllers\ProfileController::class, 'index']);
+Route::get('/profile/view', [App\Http\Controllers\ProfileController::class, 'view']);
+
+// Members
+// Admin Members
+Route::get('/admin-members', [App\Http\Controllers\AdminMembersController::class, 'index']);
+Route::get('/admin-members/edit', [App\Http\Controllers\AdminMembersController::class, 'edit']);
+
+// Restaurants Members
+Route::get('/restaurants-members', [App\Http\Controllers\RestaurantsMembersController::class, 'index']);
+
+// Riders Members
+Route::get('/riders-members', [App\Http\Controllers\RidersMembersController::class, 'index']);
+
+
 Route::group(['middleware' => ['guest']], function() {
     
 });
