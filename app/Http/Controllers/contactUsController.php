@@ -29,7 +29,7 @@ class contactUsController extends Controller
     {
         // return view('home');
         // return view('adminlte');
-        return view('first-page');
+        return view('contact-us.index');
     }
     
 }
