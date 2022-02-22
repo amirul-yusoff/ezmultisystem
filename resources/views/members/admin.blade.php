@@ -1,4 +1,4 @@
-@extends('dashboard')
+@extends('dashboard.index')
 @section('content')
 <!-- Content Header (Page header) -->
 <section class="content-header">
@@ -52,7 +52,7 @@
                   <i class="fa-regular fa-eye"> </i>
                   View
                 </a>
-                <a class="btn btn-info btn-sm" href="#">
+                <a class="btn btn-info btn-sm" href="{{ route('admin-members.edit',$item->id ) }}">
                 <i class="fas fa-pencil-alt"> </i>
                 Edit
                 </a>

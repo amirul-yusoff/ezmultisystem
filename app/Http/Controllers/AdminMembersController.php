@@ -43,4 +43,19 @@ class AdminMembersController extends Controller
 
         return view('members.edit',compact('user','members'));
     }
+
+    public function update(Request $request,$id)
+    {
+        $user = Auth::user();
+        $input = $request->all();
+        $members = User :: find($id);
+
+        if(array_key_exists('password',$input)){
+            $input['password'] = $input['password'];
+        }
+        $members->update($input);
+
+        return redirect()->back()->with('success', 'Member Profile updated successfully');
+        // ->with('success','Member Profile updated successfully');
+    }
 }

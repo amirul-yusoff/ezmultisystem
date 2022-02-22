@@ -1,4 +1,4 @@
-@extends('dashboard')
+@extends('dashboard.index')
 @section('content')
 <!-- Content Header (Page header) -->
 <section class="content-header">
@@ -11,7 +11,9 @@
   </div>
 </section>
 <div class="container-xl px-4 mt-4">
-  <div class="row">
+  @include('partials.message')
+  {{ Form::open(['url' => route('admin-members.update',$members->id), 'method' => 'PUT']) }}
+    <div class="row">
       <div class="col-xl-4">
           <!-- Profile picture card-->
           <div class="card mb-4 mb-xl-0">
@@ -57,16 +59,16 @@
                                         <form>
                                           <div class="mb-3">
                                               <label class="small mb-1" for="name">Username</label>
-                                              {{ Form::text('name', $user->name,['class' => 'form-control capitalize','autocomplete'=>'off', 'required']) }}
+                                              {{ Form::text('name', $members->name,['class' => 'form-control capitalize','autocomplete'=>'off', 'required']) }}
                                           </div>
                                           <div class="row gx-3 mb-3">
                                               <div class="col-md-6">
                                                   <label class="small mb-1" for="first_name">First name</label>
-                                                  {{ Form::text('first_name', $user->first_name,['class' => 'form-control capitalize','autocomplete'=>'off', 'required']) }}
+                                                  {{ Form::text('first_name', $members->first_name,['class' => 'form-control capitalize','autocomplete'=>'off', 'required']) }}
                                               </div>
                                               <div class="col-md-6">
                                                   <label class="small mb-1" for="last_name">Last name</label>
-                                                  {{ Form::text('last_name', $user->last_name,['class' => 'form-control capitalize','autocomplete'=>'off', 'required']) }}
+                                                  {{ Form::text('last_name', $members->last_name,['class' => 'form-control capitalize','autocomplete'=>'off', 'required']) }}
                                               </div>
                                           </div>
                                           <div class="row gx-3 mb-3">
@@ -81,15 +83,18 @@
                                           </div>
                                           <div class="mb-3">
                                               <label class="small mb-1" for="inputEmailAddress">Email address</label>
-                                                  {{ Form::text('email', $user->email,['class' => 'form-control capitalize','autocomplete'=>'off', 'required']) }}
+                                                  {{ Form::text('email', $members->email,['class' => 'form-control capitalize','autocomplete'=>'off', 'required']) }}
                                           </div>
                                           <div class="row gx-3 mb-3">
                                               <div class="col-md-6">
                                                   <label class="small mb-1" for="inputPhone">Phone number</label>
-                                                  {{ Form::text('phone_number', $user->phone_number,['class' => 'form-control capitalize','autocomplete'=>'off', 'required']) }}
+                                                  {{ Form::text('phone_number', $members->phone_number,['class' => 'form-control capitalize','autocomplete'=>'off', 'required']) }}
                                               </div>
                                           </div>
-                                          <button class="btn btn-primary" type="button">Save changes</button>
+                                          <button class="btn btn-primary" type="submit">
+                                            <i class="fa fa-plus"> </i>
+                                            Update
+                                        </button>
                                         </form>
                                     </div>
                                   {{-- /Tab panes for Home --}}
@@ -165,19 +170,23 @@
                                   {{-- Tab panes for password --}}
                                     <div role="tabpanel" class="tab-pane" id="password">
                                       <form><div class="mb-3">
-                                        <label class="small mb-1" for="inputUsername">Current Password</label>
-                                        <input class="form-control" id="inputUsername" type="password" placeholder="Enter your Current Password">
+                                        <label class="small mb-1" for="password">Current Password</label>
+                                        <input class="form-control" id="password" type="password" placeholder="Enter your Current Password">
                                       </div>
                                       <div class="mb-3">
-                                        <label class="small mb-1" for="inputUsername">New Password</label>
-                                        <input class="form-control" id="inputUsername" type="password" placeholder="Enter your New Password">
+                                        <label class="small mb-1" for="password">New Password</label>
+                                        <input class="form-control" id="password" type="password" placeholder="Enter your New Password">
                                       </div>
                                       <div class="mb-3">
-                                        <label class="small mb-1" for="inputUsername">Confirm Password</label>
-                                        <input class="form-control" id="inputUsername" type="password" placeholder="Enter your Confirm Password">
+                                        <label class="small mb-1" for="password">Confirm Password</label>
+                                        <input class="form-control" id="password" type="password" placeholder="Enter your Confirm Password">
                                       </div>
                                       </form>
-                                      <button class="btn btn-primary" type="button">Save changes</button>
+                                      <button class="btn btn-primary" type="submit">
+                                        <i class="fa fa-plus"> </i>
+                                        Update
+                                    </button>
+                                      {{-- <button class="btn btn-primary" type="button">Save changes</button> --}}
                                     </div>
                                   {{-- /Tab panes for password --}}
                                 </div>
