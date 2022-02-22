@@ -29,17 +29,15 @@ class ProfileController extends Controller
     public function index()
     {
         $user = Auth::user();
-        // return view('home');
-        // return view('adminlte');
         $data = User ::get();
+
         return view('profile.index',compact('user','data'));
     }
 
     public function view()
     {
         $user = Auth::user();
-        // return view('home');
-        // return view('adminlte');
+        // dd("asda");
         return view('profile.view',compact('user'));
     }
 }

@@ -1,4 +1,4 @@
-@extends('dashboard')
+@extends('dashboard.index')
 @section('content')
 <!-- Content Header (Page header) -->
 <section class="content-header">
