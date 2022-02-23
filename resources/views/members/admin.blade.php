@@ -48,11 +48,11 @@
               <td>{{$item->name}}</td>
               <td>{{$item->name}}</td>
               <td>
-                <a class="btn btn-primary btn-sm" href="#">
+                <a class="btn btn-primary btn-sm" href="{{ route('admin-members.view',$item->id)}}">
                   <i class="fa-regular fa-eye"> </i>
                   View
                 </a>
-                <a class="btn btn-info btn-sm" href="{{ route('admin-members.edit',$item->id ) }}">
+                <a class="btn btn-info btn-sm" href="{{ route('admin-members.edit',$item->id)}}">
                 <i class="fas fa-pencil-alt"> </i>
                 Edit
                 </a>

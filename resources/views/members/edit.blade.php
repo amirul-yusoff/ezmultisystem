@@ -2,32 +2,88 @@
 @section('content')
 <!-- Content Header (Page header) -->
 <section class="content-header">
-  <div class="container-fluid">
+  {{-- <div class="container-fluid">
     <div class="row mb-2">
       <div class="col-sm-6">
         <h1>Admin</h1>
       </div>
     </div>
-  </div>
+  </div> --}}
 </section>
+<div class="">
+  <div class="modal fade" id="uploadProfilePic" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          <h4 class="modal-title">Please Profile Picture </h4>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 <div class="container-xl px-4 mt-4">
   @include('partials.message')
-  {{ Form::open(['url' => route('admin-members.update',$members->id), 'method' => 'PUT']) }}
+  {{ Form::open(['url' => route('admin-members.upload',$members->id), 'method' => 'PUT', 'files' => true])}}
     <div class="row">
       <div class="col-xl-4">
           <!-- Profile picture card-->
           <div class="card mb-4 mb-xl-0">
-              <div class="card-header"><b>Profile Picture</b></div>
+            <div class="card-header"><b>Profile Picture</b></div>
               <div class="card-body text-center">
-                  <!-- Profile picture image-->
-                  <img class="img-account-profile rounded-circle mb-2" src="http://bootdey.com/img/Content/avatar/avatar1.png" alt="">
+                @if ($haspic)
+                <img class="img-account-profile rounded-circle mb-2" src="{{asset(".$profilePicture.")}}" alt="profile_pic" style="width:300px;height:300px;">
+
+                @else
+                <img class="img-account-profile rounded-circle mb-2" src="http://bootdey.com/img/Content/avatar/avatar1.png" alt="">
+
+                @endif
+									{{Form::file('attachment', ['accept'=>'image/*, application/pdf', 'required'])}}
                   <!-- Profile picture help block-->
                   <div class="small font-italic text-muted mb-4">JPG or PNG no larger than 5 MB</div>
                   <!-- Profile picture upload button-->
-                  <button class="btn btn-primary" type="button">Upload new image</button>
+                  <button class="btn btn-primary" type="submit">Upload new image</button>
               </div>
+						  {{-- @section('script')
+              <script type="text/javascript">
+
+                  $(document).ready(function () {
+                    $("#uploadBQ").on("show.bs.modal", function (e) {
+                      var id = $(event.target).data('id');
+                      var wonumber = $(event.target).data('wonumber');
+                      var bq = $(event.target).data('bqfile');
+                      $('input[name=ID]').val(id);
+                      $('input[name=WONumber]').val(wonumber);
+                      $('input[name=oldBQ]').val(bq);
+                    });
+                  });
+                $(document).ready(function() {
+                  oTable = $('#workorder').DataTable({
+                    processing: true,
+                    serverSide: true,
+                    pageLength: 20,
+                    order: [ 0, "desc" ],
+                    dom: 'lBfrtip',
+                    lengthMenu: [[25, 50, 100, -1], [25, 50, 100, "All"]],
+                    buttons: [{
+                      extend: 'excel',
+                      className: 'btn-default',
+                      exportOptions : {
+                        columns: [ 0,3,6,4,10,11,8,12,7,14,15,1,16]
+                      }
+                      }],
+
+                    "ajax": "{{ route('workorderdatatable.getWorkorderData') }}",
+                    "columns": [
+                      {data: 'Date', name: 'Date', searchable: true, sortable : true, visible:true},
+                    ]
+                  });
+                });
+              </script>
+              @endsection --}}
           </div>
       </div>
+      {{ Form::open(['url' => route('admin-members.update',$members->id), 'method' => 'PUT']) }}
       <div class="col-xl-8">
           <!-- Account details card-->
           <div class="card mb-4">
@@ -58,20 +114,20 @@
                                     <div role="tabpanel" class="tab-pane active" id="update">
                                         <form>
                                           <div class="mb-3">
-                                              <label class="small mb-1" for="name">Username</label>
-                                              {{ Form::text('name', $members->name,['class' => 'form-control capitalize','autocomplete'=>'off', 'required']) }}
+                                              <label class="small mb-1" for="username">Username</label>
+                                              {{ Form::text('username', $members->username,['class' => 'form-control capitalize','autocomplete'=>'off', 'required']) }}
                                           </div>
                                           <div class="row gx-3 mb-3">
                                               <div class="col-md-6">
-                                                  <label class="small mb-1" for="first_name">First name</label>
+                                                  <label class="small mb-1" for="first_name">First Name</label>
                                                   {{ Form::text('first_name', $members->first_name,['class' => 'form-control capitalize','autocomplete'=>'off', 'required']) }}
                                               </div>
                                               <div class="col-md-6">
-                                                  <label class="small mb-1" for="last_name">Last name</label>
+                                                  <label class="small mb-1" for="last_name">Last Name</label>
                                                   {{ Form::text('last_name', $members->last_name,['class' => 'form-control capitalize','autocomplete'=>'off', 'required']) }}
                                               </div>
                                           </div>
-                                          <div class="row gx-3 mb-3">
+                                          {{-- <div class="row gx-3 mb-3">
                                               <div class="col-md-6">
                                                   <label class="small mb-1" for="Classification">Classification</label>
                                                   <input class="form-control" id="Classification" type="text" placeholder="Enter your Classification">
@@ -80,14 +136,14 @@
                                                   <label class="small mb-1" for="Position">Position</label>
                                                   <input class="form-control" id="Position" type="text" placeholder="Enter your Position">
                                               </div>
-                                          </div>
+                                          </div> --}}
                                           <div class="mb-3">
-                                              <label class="small mb-1" for="inputEmailAddress">Email address</label>
+                                              <label class="small mb-1" for="inputEmailAddress">Email Address</label>
                                                   {{ Form::text('email', $members->email,['class' => 'form-control capitalize','autocomplete'=>'off', 'required']) }}
                                           </div>
                                           <div class="row gx-3 mb-3">
                                               <div class="col-md-6">
-                                                  <label class="small mb-1" for="inputPhone">Phone number</label>
+                                                  <label class="small mb-1" for="inputPhone">Phone Number</label>
                                                   {{ Form::text('phone_number', $members->phone_number,['class' => 'form-control capitalize','autocomplete'=>'off', 'required']) }}
                                               </div>
                                           </div>
@@ -199,6 +255,7 @@
                   </form>
               </div>
           </div>
+          {{ Form::close() }}
       </div>
   </div>
 </div>
