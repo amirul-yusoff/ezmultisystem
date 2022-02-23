@@ -17,6 +17,7 @@ class User extends Authenticatable
      *
      * @var array<int, string>
      */
+	protected $primaryKey = 'id';
     protected $fillable = [
         'name',
         'first_name',
@@ -26,6 +27,7 @@ class User extends Authenticatable
         'phone_number',
         'password',
         'phone_number',
+        'attachment',
     ];
 
     /**
@@ -46,4 +48,19 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function role()
+    {
+        return $this->belongsToMany('App\Models\roles');
+    }
+    
+	public function getFiles()
+    {
+        return $this->hasMany('App\Models\users_has_pictures', 'users_id', 'id');
+    }
+
+    public function getOneProfilePicture()
+	{
+		return $this->hasOne('App\Models\users_has_pictures', 'users_id', 'id')->orderby('id','DESC');
+	}
 }

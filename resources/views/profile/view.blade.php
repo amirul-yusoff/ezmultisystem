@@ -23,15 +23,16 @@
         <div class="col-xl-4 order-xl-2 mb-5 mb-xl-0">
           <div class="card card-profile shadow">
             <div class="row justify-content-center">
-              <div class="col-lg-3 order-lg-2">
-                {{-- <div class="card-profile-image">
+                <div class="card-profile-image"><br>
                   <a href="#" size>
-                    <img src="{{asset("/assets/dist/img/User.png")}}" class="rounded-circle" style="width:100px;height:150px;">
+                    @if ($user->getOneProfilePicture == NULL)
+                        <img class="rounded-circle" src="http://bootdey.com/img/Content/avatar/avatar1.png" alt="">
+                    @else
+                    <img class="rounded-circle" src="{{asset("/upload/Users/".$user->getOneProfilePicture->users_id."/".$user->getOneProfilePicture->hash.".".$user->getOneProfilePicture->extension."")}}" alt="profile_pic" style="width:150px;height:150px;">
+                    @endif
+                    {{-- <img src="{{asset("/assets/dist/img/User.png")}}" class="rounded-circle" style="width:100px;height:150px;"> --}}
                   </a>
-                </div> --}}
-              </div>
-            </div>
-            <div class="card-header text-center border-0 pt-8 pt-md-4 pb-0 pb-md-4">
+                </div>
             </div>
             <div class="card-body pt-0 pt-md-4">
               {{-- <div class="row">
