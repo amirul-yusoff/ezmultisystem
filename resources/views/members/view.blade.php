@@ -13,15 +13,15 @@
             <div class="card-header bg-white border-0">
               <div class="row align-items-center">
                 <div class="col-8">
-                  <h3 class="mb-0">{{$user->first_name}} Picture's</h3>
+                  <h3 class="mb-0">{{$members->first_name}} Picture</h3>
                 </div>
               </div>
             </div>
             <div class="card-body text-center">
-              @if ($user->getOneProfilePicture == NULL)
-                  <img class="img-circle elevation-2" src="http://bootdey.com/img/Content/avatar/avatar1.png" alt="">
+              @if ($haspic)
+              <img class="img-account-profile rounded-circle mb-2" src="{{asset(".$profilePicture.")}}" alt="profile_pic" style="width:300px;height:300px;">
               @else
-              <img class="img-circle elevation-2" src="{{asset("/upload/Users/".$user->getOneProfilePicture->users_id."/".$user->getOneProfilePicture->hash.".".$user->getOneProfilePicture->extension."")}}" alt="profile_pic" style="width:300px;height:300px;">
+              <img class="img-account-profile rounded-circle mb-2" src="http://bootdey.com/img/Content/avatar/avatar1.png" alt="">
               @endif
             </div>
           </div>
@@ -32,7 +32,7 @@
             <div class="card-header bg-white border-0">
               <div class="row align-items-center">
                 <div class="col-8">
-                  <h3 class="mb-0">{{$user->first_name}} Info's</h3>
+                  <h3 class="mb-0">{{$members->first_name}} Info</h3>
                 </div>
               </div>
             </div>
@@ -40,13 +40,13 @@
               <form>
                 <dl>
                   <dt>Full Name</dt>
-                    <dd>{{$user->name}}</dd>
+                    <dd>{{$members->name}}</dd>
                   <dt>Username</dt>
-                    <dd>{{$user->username}}</dd>
+                    <dd>{{$members->username}}</dd>
                   <dt>Email</dt>
-                    <dd>{{$user->email}}</dd>
+                    <dd>{{$members->email}}</dd>
                   <dt>Phone Number</dt>
-                    <dd>{{$user->phone_number}}</dd>
+                    <dd>{{$members->phone_number}}</dd>
                 </dl>
               </form>
             </div>

@@ -53,11 +53,13 @@ Route::get('/dashboard', [App\Http\Controllers\dashboardController::class, 'inde
 Route::get('/profile/index', [App\Http\Controllers\ProfileController::class, 'index']);
 Route::get('/profile/view', [App\Http\Controllers\ProfileController::class, 'view']);
 
-// Members
+// -----------------------------------------------------------------------Members-----------------------------------------------------------------------
 // Admin Members
 Route::get('/admin-members', [App\Http\Controllers\AdminMembersController::class, 'index']);
+Route::get('/admin-members/view/{id}', [App\Http\Controllers\AdminMembersController::class, 'view'])->name('admin-members.view');
 Route::get('/admin-members/edit/{id}', [App\Http\Controllers\AdminMembersController::class, 'edit'])->name('admin-members.edit');
 Route::PUT('/admin-members/update/{id}', [App\Http\Controllers\AdminMembersController::class, 'update'])->name('admin-members.update');
+Route::PUT('/admin-members/upload/{id}', [App\Http\Controllers\AdminMembersController::class, 'upload'])->name('admin-members.upload');
 
 // Restaurants Members
 Route::get('/restaurants-members', [App\Http\Controllers\RestaurantsMembersController::class, 'index']);
@@ -65,6 +67,16 @@ Route::get('/restaurants-members', [App\Http\Controllers\RestaurantsMembersContr
 // Riders Members
 Route::get('/riders-members', [App\Http\Controllers\RidersMembersController::class, 'index']);
 
+//-----------------------------------------------------------------Permission Management-----------------------------------------------------------------
+Route::get('/permission-management', [App\Http\Controllers\PermissionManagementController::class, 'index']);
+Route::get('/permission-management/show/{id}', [App\Http\Controllers\PermissionManagementController::class, 'show'])->name('permission-management.show');
+Route::get('/permission-management/edit/{id}', [App\Http\Controllers\PermissionManagementController::class, 'edit'])->name('permission-management.edit');
+
+//Roles
+Route::get('/roles', [App\Http\Controllers\RolesController::class, 'index']);
+
+//Permissions
+Route::get('/permissions', [App\Http\Controllers\PermissionsController::class, 'index']);
 
 Route::group(['middleware' => ['guest']], function() {
 });

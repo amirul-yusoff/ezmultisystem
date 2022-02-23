@@ -114,7 +114,12 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <!-- Sidebar user panel (optional) -->
         <div class="user-panel mt-3 pb-3 mb-3 d-flex">
           <div class="image">
-            <img src="{{asset("/assets/dist/img/User.png")}}" class="img-circle elevation-2" alt="User Image">
+            @if ($user->getOneProfilePicture == NULL)
+                <img class="img-circle elevation-2" src="http://bootdey.com/img/Content/avatar/avatar1.png" alt="">
+            @else
+            <img class="img-circle elevation-2" src="{{asset("/upload/Users/".$user->getOneProfilePicture->users_id."/".$user->getOneProfilePicture->hash.".".$user->getOneProfilePicture->extension."")}}" alt="profile_pic">
+            @endif
+            {{-- <img src="{{asset("/assets/dist/img/User.png")}}" class="img-circle elevation-2" alt="User Image"> --}}
           </div>
           <div class="info">
             <a href="/profile/view" class="d-block">{{$user->username}}</a>
