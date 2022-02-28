@@ -1,5 +1,6 @@
 @extends('dashboard.index')
 @section('content')
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 <!-- Content Header (Page header) -->
 <section class="content-header">
   {{-- <div class="container-fluid">
@@ -24,7 +25,9 @@
 </div>
 <div class="container-xl px-4 mt-4">
   @include('partials.message')
-  {{ Form::open(['url' => route('admin-members.upload',$members->id), 'method' => 'PUT', 'files' => true])}}
+  {{ Form::open(['url' => route('admin-members.update',$members->id), 'method' => 'PUT', 'files' => true])}}
+
+  {{-- {{ Form::open(['url' => route('admin-members.upload',$members->id), 'method' => 'PUT', 'files' => true])}} --}}
     <div class="row">
       <div class="col-xl-4">
           <!-- Profile picture card-->
@@ -38,52 +41,14 @@
                 <img class="img-account-profile rounded-circle mb-2" src="http://bootdey.com/img/Content/avatar/avatar1.png" alt="">
 
                 @endif
-									{{Form::file('attachment', ['accept'=>'image/*, application/pdf', 'required'])}}
+									{{Form::file('attachment', ['accept'=>'image/*, application/pdf'])}}
                   <!-- Profile picture help block-->
                   <div class="small font-italic text-muted mb-4">JPG or PNG no larger than 5 MB</div>
                   <!-- Profile picture upload button-->
                   <button class="btn btn-primary" type="submit">Upload new image</button>
               </div>
-						  {{-- @section('script')
-              <script type="text/javascript">
-
-                  $(document).ready(function () {
-                    $("#uploadBQ").on("show.bs.modal", function (e) {
-                      var id = $(event.target).data('id');
-                      var wonumber = $(event.target).data('wonumber');
-                      var bq = $(event.target).data('bqfile');
-                      $('input[name=ID]').val(id);
-                      $('input[name=WONumber]').val(wonumber);
-                      $('input[name=oldBQ]').val(bq);
-                    });
-                  });
-                $(document).ready(function() {
-                  oTable = $('#workorder').DataTable({
-                    processing: true,
-                    serverSide: true,
-                    pageLength: 20,
-                    order: [ 0, "desc" ],
-                    dom: 'lBfrtip',
-                    lengthMenu: [[25, 50, 100, -1], [25, 50, 100, "All"]],
-                    buttons: [{
-                      extend: 'excel',
-                      className: 'btn-default',
-                      exportOptions : {
-                        columns: [ 0,3,6,4,10,11,8,12,7,14,15,1,16]
-                      }
-                      }],
-
-                    "ajax": "{{ route('workorderdatatable.getWorkorderData') }}",
-                    "columns": [
-                      {data: 'Date', name: 'Date', searchable: true, sortable : true, visible:true},
-                    ]
-                  });
-                });
-              </script>
-              @endsection --}}
           </div>
       </div>
-      {{ Form::open(['url' => route('admin-members.update',$members->id), 'method' => 'PUT']) }}
       <div class="col-xl-8">
           <!-- Account details card-->
           <div class="card mb-4">
@@ -105,6 +70,9 @@
                                   </li>
                                   <li class="nav-item">
                                     <a class="nav-link" href="#password" aria-controls="password" role="tab" data-toggle="tab">Change Password</a>
+                                  </li>
+                                  <li class="nav-item">
+                                    <a class="nav-link" href="#Roles" aria-controls="Roles" role="tab" data-toggle="tab">Roles</a>
                                   </li>
                                 </ul>
                                 <br>
@@ -245,6 +213,26 @@
                                       {{-- <button class="btn btn-primary" type="button">Save changes</button> --}}
                                     </div>
                                   {{-- /Tab panes for password --}}
+                                  {{-- Tab panes for Permission --}}
+                                  <div role="tabpanel" class="tab-pane" id="Roles">
+                                    <div class="mb-3">
+                                        <label class="small mb-1" for="roles">Role</label>
+                                        {{-- <select name="schedule_report_member[]" id="schedule_report_member" class="form-control chosen-select" multiple="multiple"> --}}
+                                        <select name="roles[]" id="roles" class="form-control chosen-select" multiple="multiple">
+                                          @foreach($currentRole as $key=>$d)
+                                            <option value="{{$d->getRoleName->id}}" selected >{{$d->getRoleName->name}}</option>
+                                          @endforeach
+                                          @foreach($allroles as $value => $team)
+				                                		<option value="{{$team->id}}">{{$team->name}}</option>
+                                          @endforeach
+				                                </select>
+                                    </div>
+                                    <button class="btn btn-primary" type="submit">
+                                      <i class="fa fa-plus"> </i>
+                                      Update
+                                    </button>
+                                  </div>
+                                  {{-- /Tab panes for Permission --}}
                                 </div>
                             </div>
                         </div>
@@ -259,4 +247,13 @@
       </div>
   </div>
 </div>
+
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+<script type="text/javascript">
+  $(document).ready(function()
+  {
+    $('#roles').select2();
+  });
+</script>
 @endsection
+
