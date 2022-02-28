@@ -13,6 +13,7 @@ use App\Http\Controllers\apiController;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+Route::post("login",[apiController::class,'login']);
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
@@ -28,6 +29,8 @@ Route::GET("getUsers",[apiController::class,'getUsers']);
 Route::POST("getDataFromOutside",[apiController::class,'getDataFromOutside']);
 Route::POST("registerUser",[apiController::class,'registerUser']);
 Route::POST("loginUser",[apiController::class,'loginUser']);
+
+
 
 
 // //Update

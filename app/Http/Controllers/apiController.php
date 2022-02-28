@@ -6,6 +6,9 @@ use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Validator;
 
 class apiController extends Controller
 {
@@ -113,14 +116,61 @@ class apiController extends Controller
         $errorMessage = [];
         $data = User::all();
 
+        $validator = Validator::make($dataFromUser->all(), [
+            'phone_number' => 'required',
+            'password' => 'required',
+        ]);
+
+        if ($validator->fails())
+        {
+            return response(['errors'=>$validator->errors()->all()], 422);
+        }
+
+        $user = User::where('phone_number', $dataFromUser->phone_number)->first();
+
+        if ($user) {
+            $ifAccExist = 1;
+
+             if(Auth::attempt(['phone_number' => $dataFromUser->phone_number, 'password' => $dataFromUser->password])){ 
+                $isSuccess = 1;
+                $isSuccess = 1;
+                $ifFailed = 0;
+                $token = $user->createToken('Laravel Password Grant Client')->accessToken;
+                $response = [
+                    "message" => "manage to login",
+                    'token' => $token,
+                    'ifFailed'=>$ifFailed,
+                    'ifAccExist'=>$ifAccExist,
+                    'isSuccess'=>$isSuccess,
+                ];
+                return response($response, 200);
+            } else {
+                $response = [
+                    "message" => "Password mismatch",
+                    'ifFailed'=>$ifFailed,
+                    'ifAccExist'=>$ifAccExist,
+                    'isSuccess'=>$isSuccess,
+                ];
+                return response($response, 422);
+            }
+        } else {
+            $response = [
+                "message" =>'User does not exist',
+                'ifFailed'=>$ifFailed,
+                'ifAccExist'=>$ifAccExist,
+                'isSuccess'=>$isSuccess,
+            ];
+            return response($response, 422);
+        }
+
+
         if(Auth::attempt(['phone_number' => $dataFromUser->phone_number, 'password' => $dataFromUser->password])){ 
             $user = Auth::user(); 
-            $success['token'] =  $user->createToken('MyApp')-> accessToken; 
-            $success['name'] =  $user->name;
-            $isSuccess = 1;
-            $ifFailed = 0;
-            $ifAccExist = 1;
-            // return $this->sendResponse($success, 'User login successfully.');
+            $token = $user->createToken('Laravel Password Grant Client')->accessToken;
+            $response = [
+                'token' => $token
+            ];
+            return response($response, 200);
         } 
         else{ 
 
@@ -133,12 +183,47 @@ class apiController extends Controller
             // return $this->sendError('Unauthorised.', ['error'=>'Unauthorised']);
         } 
 
-        return response()->json([
-            'ifFailed' => $ifFailed,
-            'isSuccess' => $isSuccess,
-            'ifAccExist' => $ifAccExist,
-            'errorMessage' => $errorMessage,
+        return response()->json($input,200);
+    }
+
+    public function login(Request $request)
+    {
+        if(Auth::attempt(['email' => $request->email, 'password' => $request->password])){ 
+            $user = Auth::user(); 
+            $success['token'] =  $user->createToken('MyApp')-> accessToken; 
+            $success['name'] =  $user->name;
+   
+            return $this->sendResponse($success, 'User login successfully.');
+        } 
+        else{ 
+            return $this->sendError('Unauthorised.', ['error'=>'Unauthorised']);
+        } 
+    }
+
+    /////////https://www.toptal.com/laravel/passport-tutorial-auth-user-access
+    public function logins (Request $request) {
+        $validator = Validator::make($request->all(), [
+            'phone_number' => 'required',
+            'password' => 'required',
         ]);
+        if ($validator->fails())
+        {
+            return response(['errors'=>$validator->errors()->all()], 422);
+        }
+        $user = User::where('phone_number', $request->phone_number)->first();
+        if ($user) {
+            if (Hash::check($request->password, $user->password)) {
+                $token = $user->createToken('Laravel Password Grant Client')->accessToken;
+                $response = ['token' => $token];
+                return response($response, 200);
+            } else {
+                $response = ["message" => "Password mismatch"];
+                return response($response, 422);
+            }
+        } else {
+            $response = ["message" =>'User does not exist'];
+            return response($response, 422);
+        }
     }
     
 }
