@@ -3,13 +3,16 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\roles;
 use App\Models\permissions;
+use App\Models\role_has_permissions;
+use App\Models\member_has_roles;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
 
 use Illuminate\Http\Request;
 
-class PermissionsController extends Controller
+class MembersController extends Controller
 {
     /**
      * Create a new controller instance.
@@ -31,74 +34,84 @@ class PermissionsController extends Controller
     public function index()
     {
         $user = Auth::user();
-        $members = User :: get();
-        $permissions = permissions :: where('is_deleted',0)->get();
+        $roles = roles :: all();
+        $members = User :: all();
 
-        return view('permissions.index',compact('user','members','permissions'));
+        return view('roles.index',compact('user','roles','members'));
     }
-
+    
     public function create(Request $request)
     {
         $user = Auth::user();
-        $permissions = permissions :: all();
+        $roles = roles :: all();
         $currentDate = Carbon::now()->toDateString();
-        $url = 'permissions';
+        $url = 'roles';
+        $permissions = permissions :: all();
 
-        return view('permissions.create',compact('user','permissions','currentDate','url'));
+        return view('roles.create',compact('user','roles','currentDate','url','permissions'));
     }
 
     public function store(Request $request)
     {
         $this->validate($request, [
-            'name' => 'required|unique:permissions',
+            'name' => 'required|unique:roles',
         ]);
         $input = $request->all();
         $input['name'] = $input["name"];
         $input['guard_name'] = 'web';
         $input['created_at'] = Carbon::now();
         $input['created_by'] = Auth::user()->id;
-        $permissions = permissions::create($input);
+        $roleHasPermissions = role_has_permissions :: all();
+        $roles = roles::create($input);
 
-        return redirect('permissions')->with('success', 'Created');
+        $createRoleHasPermissions = []; 
+        $permissions = (int)$input['permission'];
+        // dd($roles->id, $input['permission'], $permissions);
+        $createRoleHasPermissions['role_id'] = $roles->id;
+        $createRoleHasPermissions['permission_id'] = $permissions;
+        $createInfo = role_has_permissions::create($createRoleHasPermissions);
+
+        return redirect('roles')->with('success', 'Role Created Successfully');
     }
 
     public function show($id)
     {
         $user = Auth::user();
         $members = User :: find($id);
-        $permissions = permissions :: find($id);
+        $roles = roles :: find($id);
 
-        return view('permissions.show',compact('user','members','permissions'));
+        return view('roles.show',compact('user','members','roles'));
     }
 
     public function edit($id)
     {
         $user = Auth::user();
         $members = User :: find($id);
-        $permissions = permissions :: find($id);
+        $roles = roles :: find($id);
 
-        return view('permissions.edit',compact('user','members','permissions'));
+        return view('roles.edit',compact('user','members','roles'));
     }
 
     public function update(Request $request,$id)
     {
         $user = Auth::user();
-        $permissions = permissions :: find($id);
+        $roles = roles :: find($id);
         $input = $request->all();
         $input['updated_at'] = Carbon::now();
 
-        $permissions->update($input);
+        $roles->update($input);
 
-        return redirect('permissions')->with('success', 'Permissions updated successfully');
+        return redirect('roles')->with('success', 'Role Updated Successfully');
         // ->with('success','Member Profile updated successfully');
     }
-    
+
     public function destroy(Request $request, $id)
     {
         $input = $request->all();
-        $permissions = permissions :: find($id);
+        $roles = roles :: find($id);
         $input['is_deleted'] = '1';
-        $permissions->update($input);
+
+        $roles->update($input);
 
         return redirect()->back()->with('success', 'Role Deleted Successfully');
     }
@@ -107,6 +120,6 @@ class PermissionsController extends Controller
     {
         $user = Auth::user();
 
-        return view('permissions.view',compact('user'));
+        return view('roles.view',compact('user'));
     }
 }

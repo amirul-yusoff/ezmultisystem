@@ -74,9 +74,25 @@ Route::get('/permission-management/edit/{id}', [App\Http\Controllers\PermissionM
 
 //Roles
 Route::get('/roles', [App\Http\Controllers\RolesController::class, 'index']);
+Route::get('/roles/create', [App\Http\Controllers\RolesController::class, 'create'])->name('roles.create');
+Route::post('/roles', [App\Http\Controllers\RolesController::class, 'store'])->name('roles.store');
+Route::get('/roles/show/{id}', [App\Http\Controllers\RolesController::class, 'show'])->name('roles.show');
+Route::get('/roles/edit/{id}', [App\Http\Controllers\RolesController::class, 'edit'])->name('roles.edit');
+Route::put('/roles/update/{id}', [App\Http\Controllers\RolesController::class, 'update'])->name('roles.update');
+Route::get('/roles/destroy/{id}', [App\Http\Controllers\RolesController::class, 'destroy'])->name('roles.destroy');
 
 //Permissions
 Route::get('/permissions', [App\Http\Controllers\PermissionsController::class, 'index']);
+Route::get('/permissions/create', [App\Http\Controllers\PermissionsController::class, 'create'])->name('permissions.create');
+Route::post('/permissions', [App\Http\Controllers\PermissionsController::class, 'store'])->name('permissions.store');
+Route::get('/permissions/show/{id}', [App\Http\Controllers\PermissionsController::class, 'show'])->name('permissions.show');
+Route::get('/permissions/edit/{id}', [App\Http\Controllers\PermissionsController::class, 'edit'])->name('permissions.edit');
+Route::put('/permissions/update/{id}', [App\Http\Controllers\PermissionsController::class, 'update'])->name('permissions.update');
+Route::get('/permissions/destroy/{id}', [App\Http\Controllers\PermissionsController::class, 'destroy'])->name('permissions.destroy');
+
+//Members
+Route::get('/members', [App\Http\Controllers\MembersController::class, 'index']);
+
 
 Route::group(['middleware' => ['guest']], function() {
 });

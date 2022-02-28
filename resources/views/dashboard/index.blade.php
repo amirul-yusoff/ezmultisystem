@@ -32,7 +32,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 </head>
 <body class="hold-transition sidebar-mini">
   <?php
-   $dashboard = App\Models\module :: get();
+   $dashboard = App\Models\module :: where('isdelete',0)->get();
   ?>
   <div class="wrapper">
 
