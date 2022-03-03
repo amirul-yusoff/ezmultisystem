@@ -11,6 +11,8 @@ use App\Models\users_has_pictures;
 use App\Models\member_has_roles;
 use App\Models\roles;
 use Carbon\Carbon;
+use DB;
+use Illuminate\Support\Facades\Gate;
 
 use Illuminate\Http\Request;
 
@@ -38,8 +40,13 @@ class AdminMembersController extends Controller
     {
         $user = Auth::user();
         $members = User :: get();
+        $listPermission = User :: getAllPermissions($user->id);
+        $actionButton = 0;
+        if (in_array("Permission_2_111", $listPermission)){
+            $actionButton = 1;
+        }
 
-        return view('members.admin',compact('user','members'));
+        return view('members.admin',compact('user','members','actionButton'));
     }
 
     public function view($id)
@@ -58,6 +65,8 @@ class AdminMembersController extends Controller
 
     public function edit($id)
     {
+        $permission = 0;
+        
         $user = Auth::user();
         $members = User ::with('getOneProfilePicture')->find($id);
         $haspic = 0;
@@ -75,6 +84,7 @@ class AdminMembersController extends Controller
 
     public function update(Request $request,$id)
     {
+        
         $user = Auth::user();
         $input = $request->all();
         $members = User :: find($id);

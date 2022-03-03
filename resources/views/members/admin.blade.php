@@ -48,6 +48,8 @@
               <td>{{$item->name}}</td>
               <td>{{$item->name}}</td>
               <td>
+                
+                @if ($actionButton)
                 <a class="btn btn-primary btn-sm" href="{{ route('admin-members.view',$item->id)}}">
                   <i class="fa-regular fa-eye"> </i>
                   View
@@ -59,7 +61,10 @@
                 <a class="btn btn-danger btn-sm" href="#">
                 <i class="fa-regular fa-trash-can"> </i>
                 Delete
-                </a>  
+                </a>   
+                @endif
+
+                 
               </td>
             </tr>
           @endforeach
