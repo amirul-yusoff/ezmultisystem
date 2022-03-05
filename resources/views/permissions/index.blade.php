@@ -11,12 +11,13 @@
     </div>
   </section>
   <section class="content">
+    @include('partials.message')
     <div class="card">
       <div class="card-header">
         <h3 class="card-title">Permissions</h3>
         <div class="card-tools">
           <button type="button" class="btn btn-tool">
-            <i class="fa-solid fa-circle-plus"></i>
+            <a href="{{route('permissions.create')}}"><i class="fa-solid fa-circle-plus"></i></a>
           </button>
           <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
             <i class="fas fa-minus"></i>
@@ -33,20 +34,20 @@
             </tr>
           </thead>
           <tbody>
-            @foreach ($members as  $key => $item)
+            @foreach ($permissions as  $key => $item)
               <tr>
                 <td>{{$key+1}}</td>
                 <td>{{$item->name}}</td>
                 <td class="text-center">
-                  <a class="btn btn-primary btn-sm" href="">
+                  <a class="btn btn-primary btn-sm" href="{{ route('permissions.show',$item->id)}}">
                     <i class="fa-regular fa-eye"> </i>
                     View
                   </a>
-                  <a class="btn btn-info btn-sm" href="">
+                  <a class="btn btn-info btn-sm" href="{{ route('permissions.edit',$item->id)}}">
                   <i class="fas fa-pencil-alt"> </i>
                   Edit
                   </a>
-                  <a class="btn btn-danger btn-sm" href="#">
+                  <a class="btn btn-danger btn-sm" href="{{ route('permissions.destroy',$item->id)}}">
                   <i class="fa-regular fa-trash-can"> </i>
                   Delete
                   </a>  

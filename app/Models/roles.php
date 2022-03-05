@@ -18,10 +18,16 @@ class roles extends Model
 		'created_at',
 		'updated_at',
 		'created_by',
+		'is_deleted',
 	];
 
 	public function users()
     {
         return $this->belongsToMany('App\Models\User');
+    }
+
+	public function getPermissions()
+    {
+        return $this->hasMany('App\Models\role_has_permissions', 'role_id', 'id');
     }
 }
