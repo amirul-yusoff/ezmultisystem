@@ -70,6 +70,7 @@ class RegisterController extends Controller
     protected function create(array $data)
     {
         $name = $data['first_name'].' '.$data['last_name'];
+        $status = 'Pending for Approval';
         return User::create([
             'name' => $name,
             'first_name' => $data['first_name'],
@@ -77,6 +78,8 @@ class RegisterController extends Controller
             'username' => $data['username'],
             'phone_number' => $data['phone_number'],
             'email' => $data['email'],
+            'user_group' => $data['user_group'],
+            'status' => $status,
             'password' => Hash::make($data['password']),
         ]);
     }
