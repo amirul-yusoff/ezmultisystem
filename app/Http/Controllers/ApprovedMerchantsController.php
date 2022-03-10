@@ -17,7 +17,7 @@ class ApprovedMerchantsController extends Controller
     public function index()
     {
         $user = Auth::user();
-        $members = User :: where('user_group','=','3')->get();
+        $members = User :: where('user_group','=','3')->where('status','=','Request Approved')->get();
 
         return view('approved-merchants.index',compact('user','members'));
     }

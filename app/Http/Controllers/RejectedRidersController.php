@@ -17,7 +17,7 @@ class RejectedRidersController extends Controller
     public function index()
     {
         $user = Auth::user();
-        $members = User :: where('user_group','=','4')->get();
+        $members = User :: where('user_group','=','4')->where('status','=','Request Rejected')->get();
 
         return view('rejected-riders.index',compact('user','members'));
     }

@@ -17,7 +17,7 @@ class PendingUsersController extends Controller
     public function index()
     {
         $user = Auth::user();
-        $members = User :: where('user_group','=','2')->get();
+        $members = User :: where('user_group','=','2')->where('status','=','Pending For Approval')->get();
 
         return view('pending-users.index',compact('user','members'));
     }

@@ -17,7 +17,7 @@ class ApprovedUsersController extends Controller
     public function index()
     {
         $user = Auth::user();
-        $members = User :: where('user_group','=','2')->get();
+        $members = User :: where('user_group','=','2')->where('status','=','Request Approved')->get();
 
         return view('approved-users.index',compact('user','members'));
     }

@@ -5,7 +5,7 @@
     <div class="container-fluid">
       <div class="row mb-2">
         <div class="col-sm-6">
-          <h1>Pending Users</h1>
+          <h1>Zone Menagement</h1>
         </div>
       </div>
     </div>
@@ -15,11 +15,11 @@
     @include('partials.message')
     <div class="card">
       <div class="card-header">
-        <h3 class="card-title">Permission</h3>
+        <h3 class="card-title">Zone</h3>
         <div class="card-tools">
-          {{-- <button type="button" class="btn btn-tool">
-            <i class="fa-solid fa-circle-plus"></i>
-          </button> --}}
+          <button type="button" class="btn btn-tool">
+            <a href="{{route('zone-menagement.create')}}"><i class="fa-solid fa-circle-plus"></i></a>
+          </button>
           <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
             <i class="fas fa-minus"></i>
           </button>
@@ -30,37 +30,39 @@
           <thead>
             <tr>
               <th>#</th>
-              <th>Name</th>
-              <th>Email</th>
-              <th>Status</th>
+              <th>Zone</th>
+              <th>State</th>
+              <th>City</th>
+              <th>Postcode</th>
               <th class="text-center">Action</th>
             </tr>
           </thead>
           <tbody>
-            @foreach ($members as  $key => $item)
+            @foreach ($zone as  $key => $item)
               <tr>
                 <td>{{$key+1}}</td>
-                <td>{{$item->name}}</td>
-                <td>{{$item->email}}</td>
-                <td>{{$item->status}}</td>
+                <td>{{$item->zone}}</td>
+                <td>{{$item->state}}</td>
+                <td>{{$item->city}}</td>
+                <td>{{$item->postcode}}</td>
                 <td class="text-center">
-                  <a class="btn btn-warning btn-sm" href="{{ route('pending-users.approved',$item->id)}}">
+                  {{-- <a class="btn btn-warning btn-sm" href="#">
                   <i class="fa-regular fa-thumbs-up"> </i>
                   Approve
                   </a>  
-                  <a class="btn btn-warning btn-sm" href="{{ route('pending-users.rejected',$item->id)}}">
+                  <a class="btn btn-warning btn-sm" href="#">
                     <i class="fa-regular fa-thumbs-down"> </i>
                   Reject
-                  </a> 
-                  <a class="btn btn-primary btn-sm" href="{{ route('pending-users.show',$item->id)}}">
+                  </a>  --}}
+                  <a class="btn btn-primary btn-sm" href="{{route('zone-menagement.show',$item->id)}}">
                     <i class="fa-regular fa-eye"> </i>
                     View
                   </a>
-                  <a class="btn btn-info btn-sm" href="{{ route('pending-users.edit',$item->id)}}">
+                  <a class="btn btn-info btn-sm" href="{{route('zone-menagement.edit',$item->id)}}">
                   <i class="fas fa-pencil-alt"> </i>
                   Edit
                   </a>
-                  <a class="btn btn-danger btn-sm" href="#">
+                  <a class="btn btn-danger btn-sm" href="{{route('zone-menagement.destroy',['id'=>$item->id])}}">
                   <i class="fa-regular fa-trash-can"> </i>
                   Delete
                   </a>  
