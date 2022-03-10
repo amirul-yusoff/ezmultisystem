@@ -93,6 +93,107 @@ Route::get('/permissions/destroy/{id}', [App\Http\Controllers\PermissionsControl
 //Members
 Route::get('/members', [App\Http\Controllers\MembersController::class, 'index']);
 
+//-----------------------------------------------------------------User-----------------------------------------------------------------
+//Approved
+Route::get('/approved-users', [App\Http\Controllers\ApprovedUsersController::class, 'index']);
+Route::get('/approved-users/show/{id}', [App\Http\Controllers\ApprovedUsersController::class, 'show'])->name('approved-users.show');
+Route::get('/approved-users/edit/{id}', [App\Http\Controllers\ApprovedUsersController::class, 'edit'])->name('approved-users.edit');
+Route::put('/approved-users/update/{id}', [App\Http\Controllers\ApprovedUsersController::class, 'update'])->name('approved-users.update');
+Route::get('/approved-users/destroy/{id}', [App\Http\Controllers\ApprovedUsersController::class, 'destroy'])->name('approved-users.destroy');
+
+//Pending
+Route::get('/pending-users', [App\Http\Controllers\PendingUsersController::class, 'index']);
+Route::get('/pending-users/show/{id}', [App\Http\Controllers\PendingUsersController::class, 'show'])->name('pending-users.show');
+Route::get('/pending-users/edit/{id}', [App\Http\Controllers\PendingUsersController::class, 'edit'])->name('pending-users.edit');
+Route::put('/pending-users/update/{id}', [App\Http\Controllers\PendingUsersController::class, 'update'])->name('pending-users.update');
+Route::get('/pending-users/destroy/{id}', [App\Http\Controllers\PendingUsersController::class, 'destroy'])->name('pending-users.destroy');
+Route::get('/pending-users/approved/{id}', [App\Http\Controllers\PendingUsersController::class, 'approved'])->name('pending-users.approved');
+Route::get('/pending-users/rejected/{id}', [App\Http\Controllers\PendingUsersController::class, 'rejected'])->name('pending-users.rejected');
+
+//Rejected
+Route::get('/rejected-users', [App\Http\Controllers\RejectedUsersController::class, 'index']);
+Route::get('/rejected-users/show/{id}', [App\Http\Controllers\RejectedUsersController::class, 'show'])->name('rejected-users.show');
+Route::get('/rejected-users/edit/{id}', [App\Http\Controllers\RejectedUsersController::class, 'edit'])->name('rejected-users.edit');
+Route::put('/rejected-users/update/{id}', [App\Http\Controllers\RejectedUsersController::class, 'update'])->name('rejected-users.update');
+Route::get('/rejected-users/destroy/{id}', [App\Http\Controllers\RejectedUsersController::class, 'destroy'])->name('rejected-users.destroy');
+Route::get('/rejected-users/reapproved/{id}', [App\Http\Controllers\RejectedUsersController::class, 'reapproved'])->name('rejected-users.reapproved');
+
+//-----------------------------------------------------------------Merchant-----------------------------------------------------------------
+//Approved
+Route::get('/approved-merchants', [App\Http\Controllers\ApprovedMerchantsController::class, 'index']);
+Route::get('/approved-merchants/show/{id}', [App\Http\Controllers\ApprovedMerchantsController::class, 'show'])->name('approved-merchants.show');
+Route::get('/approved-merchants/edit/{id}', [App\Http\Controllers\ApprovedMerchantsController::class, 'edit'])->name('approved-merchants.edit');
+Route::put('/approved-merchants/update/{id}', [App\Http\Controllers\ApprovedMerchantsController::class, 'update'])->name('approved-merchants.update');
+Route::get('/approved-merchants/destroy/{id}', [App\Http\Controllers\ApprovedMerchantsController::class, 'destroy'])->name('approved-merchants.destroy');
+
+//Pending
+Route::get('/pending-merchants', [App\Http\Controllers\PendingMerchantsController::class, 'index']);
+Route::get('/pending-merchants/show/{id}', [App\Http\Controllers\PendingMerchantsController::class, 'show'])->name('pending-merchants.show');
+Route::get('/pending-merchants/edit/{id}', [App\Http\Controllers\PendingMerchantsController::class, 'edit'])->name('pending-merchants.edit');
+Route::put('/pending-merchants/update/{id}', [App\Http\Controllers\PendingMerchantsController::class, 'update'])->name('pending-merchants.update');
+Route::get('/pending-merchants/destroy/{id}', [App\Http\Controllers\PendingMerchantsController::class, 'destroy'])->name('pending-merchants.destroy');
+Route::get('/pending-merchants/approved/{id}', [App\Http\Controllers\PendingMerchantsController::class, 'approved'])->name('pending-merchants.approved');
+Route::get('/pending-merchants/rejected/{id}', [App\Http\Controllers\PendingMerchantsController::class, 'rejected'])->name('pending-merchants.rejected');
+
+//Rejected
+Route::get('/rejected-merchants', [App\Http\Controllers\RejectedMerchantsController::class, 'index']);
+Route::get('/rejected-merchants/show/{id}', [App\Http\Controllers\RejectedMerchantsController::class, 'show'])->name('rejected-merchants.show');
+Route::get('/rejected-merchants/edit/{id}', [App\Http\Controllers\RejectedMerchantsController::class, 'edit'])->name('rejected-merchants.edit');
+Route::put('/rejected-merchants/update/{id}', [App\Http\Controllers\RejectedMerchantsController::class, 'update'])->name('rejected-merchants.update');
+Route::get('/rejected-merchants/destroy/{id}', [App\Http\Controllers\RejectedMerchantsController::class, 'destroy'])->name('rejected-merchants.destroy');
+Route::get('/rejected-merchants/reapproved/{id}', [App\Http\Controllers\RejectedMerchantsController::class, 'reapproved'])->name('rejected-merchants.reapproved');
+
+//-----------------------------------------------------------------Rider-----------------------------------------------------------------
+//Approved
+Route::get('/approved-riders', [App\Http\Controllers\ApprovedRidersController::class, 'index']);
+Route::get('/approved-riders/show/{id}', [App\Http\Controllers\ApprovedRidersController::class, 'show'])->name('approved-riders.show');
+Route::get('/approved-riders/edit/{id}', [App\Http\Controllers\ApprovedRidersController::class, 'edit'])->name('approved-riders.edit');
+Route::put('/approved-riders/update/{id}', [App\Http\Controllers\ApprovedRidersController::class, 'update'])->name('approved-riders.update');
+Route::get('/approved-riders/destroy/{id}', [App\Http\Controllers\ApprovedRidersController::class, 'destroy'])->name('approved-riders.destroy');
+
+//Pending
+Route::get('/pending-riders', [App\Http\Controllers\PendingRidersController::class, 'index']);
+Route::get('/pending-riders/show/{id}', [App\Http\Controllers\PendingRidersController::class, 'show'])->name('pending-riders.show');
+Route::get('/pending-riders/edit/{id}', [App\Http\Controllers\PendingRidersController::class, 'edit'])->name('pending-riders.edit');
+Route::put('/pending-riders/update/{id}', [App\Http\Controllers\PendingRidersController::class, 'update'])->name('pending-riders.update');
+Route::get('/pending-riders/destroy/{id}', [App\Http\Controllers\PendingRidersController::class, 'destroy'])->name('pending-riders.destroy');
+Route::get('/pending-riders/approved/{id}', [App\Http\Controllers\PendingRidersController::class, 'approved'])->name('pending-riders.approved');
+Route::get('/pending-riders/rejected/{id}', [App\Http\Controllers\PendingRidersController::class, 'rejected'])->name('pending-riders.rejected');
+
+//Rejected
+Route::get('/rejected-riders', [App\Http\Controllers\RejectedRidersController::class, 'index']);
+Route::get('/rejected-riders/show/{id}', [App\Http\Controllers\RejectedRidersController::class, 'show'])->name('rejected-riders.show');
+Route::get('/rejected-riders/edit/{id}', [App\Http\Controllers\RejectedRidersController::class, 'edit'])->name('rejected-riders.edit');
+Route::put('/rejected-riders/update/{id}', [App\Http\Controllers\RejectedRidersController::class, 'update'])->name('rejected-riders.update');
+Route::get('/rejected-riders/destroy/{id}', [App\Http\Controllers\RejectedRidersController::class, 'destroy'])->name('rejected-riders.destroy');
+Route::get('/rejected-riders/reapproved/{id}', [App\Http\Controllers\RejectedRidersController::class, 'reapproved'])->name('rejected-riders.reapproved');
+
+//-----------------------------------------------------------------Menu-----------------------------------------------------------------
+Route::get('/menu', [App\Http\Controllers\MenuController::class, 'index']);
+Route::get('/menu/create', [App\Http\Controllers\MenuController::class, 'create'])->name('menu.create');
+Route::post('/menu', [App\Http\Controllers\MenuController::class, 'store'])->name('menu.store');
+Route::get('/menu/approved', [App\Http\Controllers\MenuController::class, 'approved'])->name('menu.approved');
+Route::get('/menu/rejected', [App\Http\Controllers\MenuController::class, 'rejected'])->name('menu.rejected');
+Route::get('/menu/destroy', [App\Http\Controllers\MenuController::class, 'destroy'])->name('menu.destroy');
+Route::get('/menu/show/{id}', [App\Http\Controllers\MenuController::class, 'show'])->name('menu.show');
+Route::get('/menu/edit/{id}', [App\Http\Controllers\MenuController::class, 'edit'])->name('menu.edit');
+Route::PUT('/menu/update/{id}', [App\Http\Controllers\MenuController::class, 'update'])->name('menu.update');
+Route::PUT('/menu/upload/{id}', [App\Http\Controllers\MenuController::class, 'upload'])->name('menu.upload');
+Route::get('/approved-menu', [App\Http\Controllers\MenuController::class, 'approvedMenu']);
+Route::get('/rejected-menu', [App\Http\Controllers\MenuController::class, 'rejectedMenu']);
+Route::get('/rejected-menu/reapproved', [App\Http\Controllers\MenuController::class, 'reapproved'])->name('rejected-menu.reapproved');
+
+//-----------------------------------------------------------------Zone Menagement-----------------------------------------------------------------
+Route::get('/zone-menagement', [App\Http\Controllers\ZoneMenagementController::class, 'index']);
+Route::get('/zone-menagement/create', [App\Http\Controllers\ZoneMenagementController::class, 'create'])->name('zone-menagement.create');
+Route::get('/zone-menagement/show/{id}', [App\Http\Controllers\ZoneMenagementController::class, 'show'])->name('zone-menagement.show');
+Route::post('/zone-menagement', [App\Http\Controllers\ZoneMenagementController::class, 'store'])->name('zone-menagement.store');
+Route::get('/zone-menagement/destroy', [App\Http\Controllers\ZoneMenagementController::class, 'destroy'])->name('zone-menagement.destroy');
+Route::get('/zone-menagement/edit/{id}', [App\Http\Controllers\ZoneMenagementController::class, 'edit'])->name('zone-menagement.edit');
+Route::PUT('/zone-menagement/update/{id}', [App\Http\Controllers\ZoneMenagementController::class, 'update'])->name('zone-menagement.update');
+
+Route::get('/zone-menagement/approved', [App\Http\Controllers\ZoneMenagementController::class, 'approved'])->name('zone-menagement.approved');
+Route::get('/zone-menagement/rejected', [App\Http\Controllers\ZoneMenagementController::class, 'rejected'])->name('zone-menagement.rejected');
 
 Route::group(['middleware' => ['guest']], function() {
 });
