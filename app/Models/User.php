@@ -66,4 +66,24 @@ class User extends Authenticatable
 	{
 		return $this->hasOne('App\Models\users_has_pictures', 'users_id', 'id')->orderby('id','DESC');
 	}
+
+    public function getRoles()
+    {
+        return $this->hasMany('App\Models\member_has_roles', 'member_id', 'id');
+    }
+
+    public static function getAllPermissions($id)
+    {
+        // find member has roles
+        $allRoles = User :: with('getRoles.getRolePermission.getPermissionsName')->where('id',$id)->first();
+        $listPermission = [];
+
+        foreach($allRoles->getRoles as $roleItems){
+            foreach($roleItems->getRolePermission as $permissionItem){
+                $listPermission[]=$permissionItem->getPermissionsName->name;
+            }
+        }
+        return $listPermission;
+
+    }
 }

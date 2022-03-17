@@ -195,6 +195,14 @@ Route::PUT('/zone-menagement/update/{id}', [App\Http\Controllers\ZoneMenagementC
 Route::get('/zone-menagement/approved', [App\Http\Controllers\ZoneMenagementController::class, 'approved'])->name('zone-menagement.approved');
 Route::get('/zone-menagement/rejected', [App\Http\Controllers\ZoneMenagementController::class, 'rejected'])->name('zone-menagement.rejected');
 
+//-----------------------------------------------------------------Zone Menagement-----------------------------------------------------------------
+Route::get('/my-menu', [App\Http\Controllers\MyMenuController::class, 'index']);
+Route::get('/my-menu/create', [App\Http\Controllers\MyMenuController::class, 'create'])->name('my-menu.create');
+Route::post('/my-menu', [App\Http\Controllers\MyMenuController::class, 'store'])->name('my-menu.store');
+Route::get('/my-menu/show/{id}', [App\Http\Controllers\MyMenuController::class, 'show'])->name('my-menu.show');
+Route::get('/my-menu/edit/{id}', [App\Http\Controllers\MyMenuController::class, 'edit'])->name('my-menu.edit');
+Route::PUT('/my-menu/update/{id}', [App\Http\Controllers\MyMenuController::class, 'update'])->name('my-menu.update');
+
 Route::group(['middleware' => ['guest']], function() {
 });
 

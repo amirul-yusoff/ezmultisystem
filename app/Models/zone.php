@@ -23,4 +23,19 @@ class zone extends Model
 		'updated_by',
 		'is_deleted',
 	];
+	
+	public function getUser()
+    {
+        return $this->hasMany('App\Models\user_has_zones', 'zone_id', 'id');
+    }
+
+	public function getMerchant()
+    {
+        return $this->hasMany('App\Models\merchant_has_zones', 'zone_id', 'id');
+    }
+
+	public function getRider()
+    {
+        return $this->hasMany('App\Models\rider_has_zones', 'zone_id', 'id');
+    }
 }

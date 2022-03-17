@@ -24,6 +24,7 @@ class menu extends Model
 		'updated_by',
 		'is_deleted',
 		'availability',
+		'user_id',
 	];
 
 	public function getFiles()

@@ -67,8 +67,8 @@ class AdminMembersController extends Controller
             $profilePicture = "/upload/Users/".$members->getOneProfilePicture->users_id."/".$members->getOneProfilePicture->hash.".".$members->getOneProfilePicture->extension;
         }
         $permissions = permissions :: all();
-        $allroles = roles :: all();
-        $currentRole = member_has_roles ::with('getRoleName')->where('member_id',Auth::user()->id)->get();
+        $allroles = roles :: where('is_deleted',0)->get();
+        $currentRole = member_has_roles ::with('getRoleName')->where('member_id',$members->id)->get();
 
         return view('members.edit',compact('user','members','profilePicture','haspic','permissions','allroles','currentRole'));
     }
@@ -93,10 +93,10 @@ class AdminMembersController extends Controller
         }
         if(array_key_exists('roles',$input)){
             $createRole = [];
-            member_has_roles :: where('member_id',Auth::user()->id)->delete();
+            member_has_roles :: where('member_id',$members->id)->delete();
             
             foreach($input['roles'] as $key => $roleData){
-                $createRole['member_id'] = Auth::user()->id;
+                $createRole['member_id'] = $members->id;
                 $createRole['role_id'] = (int)$roleData;
                 member_has_roles::create($createRole);
             }
