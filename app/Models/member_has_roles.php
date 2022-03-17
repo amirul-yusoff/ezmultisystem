@@ -21,4 +21,9 @@ class member_has_roles extends Model
     {
         return $this->hasOne('App\Models\roles', 'id', 'role_id');
     }
+
+	public function getRolePermission()
+    {
+        return $this->hasMany('App\Models\role_has_permissions', 'role_id', 'role_id');
+    }
 }

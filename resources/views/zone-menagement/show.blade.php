@@ -33,7 +33,26 @@
                     <dd>{{$zone->city}}</dd>
                 <dt>Postcode</dt>
                     <dd>{{$zone->postcode}}</dd>
-              </dl>
+                <dt>Users</dt>
+                    <dd>
+                        @foreach ($zone->getUser as $item)
+                        {{$item->getUserZone->name}},
+                        @endforeach
+                    </dd>
+                <dt>Merchant</dt>
+                    <dd>
+                        @foreach ($zone->getMerchant as $item)
+                        {{$item->getMerchantZone->name}},
+                        @endforeach
+                    </dd>
+                </dl>
+                <dt>Rider</dt>
+                    <dd>
+                        @foreach ($zone->getRider as $item)
+                        {{$item->getRiderZone->name}},
+                        @endforeach
+                    </dd>
+                </dl>
             </form>
         </div>
     </div>

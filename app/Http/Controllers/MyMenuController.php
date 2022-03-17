@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
 
-class MenuController extends Controller
+class MyMenuController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -27,7 +27,7 @@ class MenuController extends Controller
     {
         $user = Auth::user();
         $members = User :: get();
-        $menu = menu :: with('getOneMenuPicture')->where('is_deleted',0)->where('status','=','Pending For Approval')->get();
+        $menu = menu :: with('getOneMenuPicture')->where('user_id','=',$user->id)->where('is_deleted',0)->where('status','=','Pending For Approval')->get();
         $haspic = 0;
         $MenuPicture = "http://bootdey.com/img/Content/avatar/avatar1.png";
         // if($menu->getOneMenuPicture != NULL){
@@ -35,7 +35,7 @@ class MenuController extends Controller
         //     $MenuPicture = "/upload/Menu/".$menu->getOneMenuPicture->menu_id."/".$menu->getOneMenuPicture->hash.".".$menu->getOneMenuPicture->extension;
         // }
 
-        return view('menu.index',compact('user','menu','members'));
+        return view('my-menu.index',compact('user','menu','members'));
     }
 
     /**
@@ -45,10 +45,10 @@ class MenuController extends Controller
      */
     public function create()
     {
-        $url = 'menu';
+        $url = 'my-menu';
         $user = Auth::user();
         //
-        return view('menu.create',compact('url','user'));
+        return view('my-menu.create',compact('url','user'));
     }
 
     /**
@@ -115,7 +115,7 @@ class MenuController extends Controller
             $MenuPicture = "/upload/Menu/".$menu->getOneMenuPicture->users_id."/".$menu->getOneMenuPicture->hash.".".$menu->getOneMenuPicture->extension;
         }
 
-        return view('menu.show',compact('user','menu','MenuPicture','haspic'));
+        return view('my-menu.show',compact('user','menu','MenuPicture','haspic'));
     }
 
     /**
@@ -136,7 +136,7 @@ class MenuController extends Controller
             $menuPicture = "/upload/Menu/".$menu->getOneMenuPicture->menu_id."/".$menu->getOneMenuPicture->hash.".".$menu->getOneMenuPicture->extension;
         }
 
-        return view('menu.edit',compact('user','menu','menuPicture','haspic'));
+        return view('my-menu.edit',compact('user','menu','menuPicture','haspic'));
     }
 
     /**
@@ -186,7 +186,7 @@ class MenuController extends Controller
 
         $menu->update($input);
 
-        return redirect('menu')->with('success', 'Menu Updated Successfully');
+        return redirect('my-menu')->with('success', 'Menu Updated Successfully');
     }
 
     /**
@@ -251,7 +251,7 @@ class MenuController extends Controller
         //     $MenuPicture = "/upload/Menu/".$menu->getOneMenuPicture->users_id."/".$menu->getOneMenuPicture->hash.".".$menu->getOneMenuPicture->extension;
         // }
 
-        return view('menu.approved',compact('user','members','menu','haspic','MenuPicture'));
+        return view('my-menu.approved',compact('user','members','menu','haspic','MenuPicture'));
     }
     
     public function rejectedMenu()
@@ -266,6 +266,6 @@ class MenuController extends Controller
         //     $MenuPicture = "/upload/Menu/".$menu->getOneMenuPicture->users_id."/".$menu->getOneMenuPicture->hash.".".$menu->getOneMenuPicture->extension;
         // }
 
-        return view('menu.rejected',compact('user','members','menu','haspic','MenuPicture'));
+        return view('my-menu.rejected',compact('user','members','menu','haspic','MenuPicture'));
     }
 }
