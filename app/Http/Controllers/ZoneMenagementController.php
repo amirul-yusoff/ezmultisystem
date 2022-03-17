@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Models\menu;
-use App\Models\menu_has_pictures;
+use App\Models\user_has_zones;
+use App\Models\merchant_has_zones;
+use App\Models\rider_has_zones;
 use App\Models\zone;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -27,10 +29,30 @@ class ZoneMenagementController extends Controller
     public function index()
     {
         $user = Auth::user();
+        $listPermission = User :: getAllPermissions($user->id);
+        $editButton = 0;
+        $viewButton = 0;
+        $deleteButton = 0;
+        $viewPage = 0;
+        if (in_array("Edit", $listPermission) || in_array("Super Admin", $listPermission)){
+        $editButton = 1;
+        }
+        if (in_array("View", $listPermission) || in_array("Super Admin", $listPermission)){
+        $viewButton = 1;
+        }
+        if (in_array("Delete", $listPermission) || in_array("Super Admin", $listPermission)){
+        $deleteButton = 1;
+        }
+        if (in_array("Zone Menagement", $listPermission) || in_array("Super Admin", $listPermission)){
+        $viewPage = 1;
+        }
+        else{
+            return abort(401);
+        }
         $members = User :: get();
-        $zone = zone :: where('is_deleted',0)->get();
+        $zone = zone :: with('getUser.getUserZone','getMerchant.getMerchantZone','getRider.getRiderZone')->where('is_deleted',0)->get();
         
-        return view('zone-menagement.index',compact('user','zone','members'));
+        return view('zone-menagement.index',compact('user','zone','members','editButton','viewButton','deleteButton','viewPage'));
     }
 
     /**
@@ -42,8 +64,11 @@ class ZoneMenagementController extends Controller
     {
         $url = 'zone-menagement';
         $user = Auth::user();
+        $member = User ::get();
+        $merchant = User ::where('user_group','=','3')->get();
+        $rider = User ::where('user_group','=','4')->get();
         //
-        return view('zone-menagement.create',compact('url','user'));
+        return view('zone-menagement.create',compact('url','user','member','merchant','rider'));
     }
 
     /**
@@ -59,9 +84,40 @@ class ZoneMenagementController extends Controller
         $user = Auth::user();
         $url = 'zone-menagement';
         $input = $request->all();
+        // dd($input['zone']);
         $input['created_by'] = $user->id;
         $input['created_at'] = $timenow;
+        $userHasZones = user_has_zones :: all();
+        $merchantHasZones = merchant_has_zones :: all();
+        $riderHasZones = rider_has_zones :: all();
         $zone = zone::create($input);
+        if(array_key_exists('user',$input)){
+            $createUser = [];
+            
+            foreach($input['user'] as $key => $UserData){
+                $createUser['user_id'] = (int)$UserData;
+                $createUser['zone_id'] = $zone->id;
+                user_has_zones::create($createUser);
+            }
+        }
+        if(array_key_exists('merchant',$input)){
+            $createMerchant = [];
+            
+            foreach($input['merchant'] as $key => $MerchantData){
+                $createMerchant['user_id'] = (int)$MerchantData;
+                $createMerchant['zone_id'] = $zone->id;
+                merchant_has_zones::create($createMerchant);
+            }
+        }
+        if(array_key_exists('rider',$input)){
+            $createRider = [];
+            
+            foreach($input['rider'] as $key => $RiderData){
+                $createRider['user_id'] = (int)$RiderData;
+                $createRider['zone_id'] = $zone->id;
+                rider_has_zones::create($createRider);
+            }
+        }
 
         return redirect('zone-menagement')->with('success', 'Zone Menagement Created successfully');
     }
@@ -75,7 +131,8 @@ class ZoneMenagementController extends Controller
     public function show($id)
     {
         $user = Auth::user();
-        $zone = zone :: find($id);
+        // $zone = zone :: find($id);
+        $zone = zone :: with('getUser.getUserZone','getMerchant.getMerchantZone','getRider.getRiderZone')->where('is_deleted',0)->find($id);
 
         return view('zone-menagement.show',compact('user','zone'));
     }
@@ -89,9 +146,15 @@ class ZoneMenagementController extends Controller
     public function edit($id)
     {
         $user = Auth::user();
+        $member = User ::get();
+        $merchant = User ::where('user_group','=','3')->get();
+        $rider = User ::where('user_group','=','4')->get();
         $zone = zone ::find($id);
-
-        return view('zone-menagement.edit',compact('user','zone'));
+        $currentUser = user_has_zones :: with('getUserZone')->where('zone_id',$zone->id)->get();
+        $currentMerchant = merchant_has_zones :: with('getMerchantZone')->where('zone_id',$zone->id)->get();
+        $currentRider = rider_has_zones :: with('getRiderZone')->where('zone_id',$zone->id)->get();
+// dd($currentUser);
+        return view('zone-menagement.edit',compact('user','zone','member','currentUser','merchant','currentMerchant','rider','currentRider'));
     }
 
     /**
@@ -109,6 +172,37 @@ class ZoneMenagementController extends Controller
         $input = $request->all();
         $input['updated_by'] = $user->id;
         $input['updated_at'] = $timenow;
+
+        if(array_key_exists('user',$input)){
+            $createUser = [];
+            user_has_zones :: where('zone_id',$zone->id)->delete();
+            
+            foreach($input['user'] as $key => $UserData){
+                $createUser['user_id'] = (int)$UserData;
+                $createUser['zone_id'] = $zone->id;
+                user_has_zones::create($createUser);
+            }
+        }
+        if(array_key_exists('merchant',$input)){
+            $createMerchant = [];
+            merchant_has_zones :: where('zone_id',$zone->id)->delete();
+            
+            foreach($input['merchant'] as $key => $MerchantData){
+                $createMerchant['user_id'] = (int)$MerchantData;
+                $createMerchant['zone_id'] = $zone->id;
+                merchant_has_zones::create($createMerchant);
+            }
+        }
+        if(array_key_exists('rider',$input)){
+            $createRider = [];
+            rider_has_zones :: where('zone_id',$zone->id)->delete();
+            
+            foreach($input['rider'] as $key => $RiderData){
+                $createRider['user_id'] = (int)$RiderData;
+                $createRider['zone_id'] = $zone->id;
+                rider_has_zones::create($createRider);
+            }
+        }
 
         $zone->update($input);
 

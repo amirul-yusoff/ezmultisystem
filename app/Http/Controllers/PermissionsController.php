@@ -31,10 +31,30 @@ class PermissionsController extends Controller
     public function index()
     {
         $user = Auth::user();
+        $listPermission = User :: getAllPermissions($user->id);
+        $editButton = 0;
+        $viewButton = 0;
+        $deleteButton = 0;
+        $viewPage = 0;
+        if (in_array("Edit", $listPermission) || in_array("Super Admin", $listPermission)){
+        $editButton = 1;
+        }
+        if (in_array("View", $listPermission) || in_array("Super Admin", $listPermission)){
+        $viewButton = 1;
+        }
+        if (in_array("Delete", $listPermission) || in_array("Super Admin", $listPermission)){
+        $deleteButton = 1;
+        }
+        if (in_array("Permissions", $listPermission) || in_array("Super Admin", $listPermission)){
+        $viewPage = 1;
+        }
+        else{
+            return abort(401);
+        }
         $members = User :: get();
         $permissions = permissions :: where('is_deleted',0)->get();
 
-        return view('permissions.index',compact('user','members','permissions'));
+        return view('permissions.index',compact('user','members','permissions','editButton','viewButton','deleteButton','viewPage'));
     }
 
     public function create(Request $request)

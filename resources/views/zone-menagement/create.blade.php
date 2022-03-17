@@ -36,6 +36,24 @@
 				{{ Form::text('city', NULL, ['class' => 'form-control','autocomplete'=>'off', 'required']) }}
                 <label for="postcode" class="col-md-4 col-form-label">Postcode</label>
 				{{ Form::text('postcode', NULL, ['class' => 'form-control','autocomplete'=>'off', 'required']) }}
+                <label for="User" class="col-md-4 col-form-label">User</label>
+                <select name="user[]" id="user" class="form-control chosen-select" multiple="multiple">
+                    @foreach($member as $value => $team)
+                        <option value="{{$team->id}}">{{$team->name}}</option>
+                    @endforeach
+                </select>
+                <label for="merchant" class="col-md-4 col-form-label">Merchant</label>
+                <select name="merchant[]" id="merchant" class="form-control chosen-select" multiple="multiple">
+                    @foreach($merchant as $value => $team)
+                        <option value="{{$team->id}}">{{$team->name}}</option>
+                    @endforeach
+                </select>
+                <label for="rider" class="col-md-4 col-form-label">Rider</label>
+                <select name="rider[]" id="rider" class="form-control chosen-select" multiple="multiple">
+                    @foreach($rider as $value => $team)
+                        <option value="{{$team->id}}">{{$team->name}}</option>
+                    @endforeach
+                </select>
             </div>
         </div>
         <button class="btn btn-primary" type="submit">
@@ -48,9 +66,9 @@
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 <script type="text/javascript">
 $(document).ready(function() {
-        $('#permissionsName').select2();
-        $('#permission').select2();
-        $('#roles').select2();
+        $('#user').select2();
+        $('#merchant').select2();
+        $('#rider').select2();
     });
 </script>
 @endsection

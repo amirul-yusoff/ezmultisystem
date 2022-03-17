@@ -16,7 +16,7 @@
 
                             <div class="col-md-6">
                                 {{-- <div class="sm-8"> --}}
-                                {{ Form::radio('user_group',1,'checked') }} Admn <br>
+                                {{ Form::radio('user_group',1,'checked') }} Admin <br>
                                 {{ Form::radio('user_group',2,null) }} User <br>
                                 {{ Form::radio('user_group',3,null) }} Merchant <br>
                                 {{ Form::radio('user_group',4,null) }} Rider <br>
