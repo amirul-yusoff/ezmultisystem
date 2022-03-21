@@ -19,6 +19,9 @@
           <button type="button" class="btn btn-tool">
             <a href="{{route('my-menu.create')}}"><i class="fa-solid fa-circle-plus"></i></a>
           </button>
+          <button type="button" class="btn btn-tool">
+            <a href="{{route('my-menu.cart')}}"><i class="fa-solid fa-circle-plus"> My Cart</i></a>
+          </button>
           <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
             <i class="fas fa-minus"></i>
           </button>
@@ -47,6 +50,8 @@
                                 <div class="badge mx-2 badge-primary">
                                   Available
                                 </div>
+                                <p class="btn-holder"><a href="{{ route('add.to.cart', $item->id) }}" class="btn btn-warning btn-block text-center" role="button">Add to cart</a> </p>
+
                                 @else
                                 <div class="badge mx-2 badge-danger">
                                   Not Available

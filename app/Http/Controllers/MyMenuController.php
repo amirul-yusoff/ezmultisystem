@@ -268,4 +268,59 @@ class MyMenuController extends Controller
 
         return view('my-menu.rejected',compact('user','members','menu','haspic','MenuPicture'));
     }
+
+    public function cart()
+    {
+        $user = Auth::user();
+
+        return view('my-menu.cart',compact('user'));
+    }
+
+    public function addToCart($id)
+    {
+        $product = menu :: with('getOneMenuPicture')->where('id',$id)->first();
+          
+        $cart = session()->get('cart', []);
+        // dd($product);
+        if(isset($cart[$id])) {
+            $cart[$id]['quantity']++;
+        } else {
+            if($product->getOneMenuPicture == NULL){
+                $image = NULL;
+            }else{
+                $image = "/upload/Menu/".$product->getOneMenuPicture->menu_id."/".$product->getOneMenuPicture->hash.".".$product->getOneMenuPicture->extension;
+            }
+            $cart[$id] = [
+                "name" => $product->name,
+                "quantity" => 1,
+                "price" => $product->price,
+                "image" => $image,
+            ];
+        }
+          
+        session()->put('cart', $cart);
+        return redirect()->back()->with('success', 'Product added to cart successfully!');
+    }
+
+    public function updateCart(Request $request)
+    {
+        if($request->id && $request->quantity){
+            $cart = session()->get('cart');
+            $cart[$request->id]["quantity"] = $request->quantity;
+            session()->put('cart', $cart);
+            session()->flash('success', 'Cart updated successfully');
+        }
+    }
+
+    public function removeCart(Request $request)
+    {
+        if($request->id) {
+            $cart = session()->get('cart');
+            if(isset($cart[$request->id])) {
+                unset($cart[$request->id]);
+                session()->put('cart', $cart);
+            }
+            session()->flash('success', 'Product removed successfully');
+        }
+    }
 }

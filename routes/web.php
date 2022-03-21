@@ -203,6 +203,12 @@ Route::get('/my-menu/show/{id}', [App\Http\Controllers\MyMenuController::class, 
 Route::get('/my-menu/edit/{id}', [App\Http\Controllers\MyMenuController::class, 'edit'])->name('my-menu.edit');
 Route::PUT('/my-menu/update/{id}', [App\Http\Controllers\MyMenuController::class, 'update'])->name('my-menu.update');
 
+Route::get('add-to-cart/{id}', [App\Http\Controllers\MyMenuController::class, 'addToCart'])->name('add.to.cart');
+Route::get('cart', [App\Http\Controllers\MyMenuController::class, 'cart'])->name('my-menu.cart');
+Route::patch('update-cart', [App\Http\Controllers\MyMenuController::class, 'updateCart'])->name('updateCart.cart');
+Route::delete('remove-from-cart', [App\Http\Controllers\MyMenuController::class, 'removeCart'])->name('remove.from.cart');
+
+
 Route::group(['middleware' => ['guest']], function() {
 });
 
