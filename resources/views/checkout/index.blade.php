@@ -32,9 +32,6 @@
                   <td data-th="Price">RM{{ $details['price'] }}</td>
                   <td data-th="Quantity">{{ $details['quantity'] }}</td>
                   <td data-th="Subtotal" class="text-center">RM{{ $details['price'] * $details['quantity'] }}</td>
-                  <td class="actions" data-th="">
-                      <button class="btn btn-danger btn-sm remove-from-cart"><i class="fa-regular fa-trash-can"></i> Remove</button>
-                  </td>
               </tr>
           @endforeach
       @endif
