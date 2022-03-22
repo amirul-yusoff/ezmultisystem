@@ -36,4 +36,9 @@ class menu extends Model
 	{
 		return $this->hasOne('App\Models\menu_has_pictures', 'menu_id', 'id')->orderby('id','DESC');
 	}
+
+	public function getOwner()
+	{
+		return $this->hasOne('App\Models\User', 'id', 'user_id');
+	}
 }

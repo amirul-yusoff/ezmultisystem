@@ -40,6 +40,10 @@ Route::get('/second_page', [App\Http\Controllers\HomeController::class, 'second_
 //contact-us
 Route::get('/contact-us', [App\Http\Controllers\contactUsController::class, 'index'])->name('contact-us');
 
+//checkout
+Route::get('/checkout', [App\Http\Controllers\HomeController::class, 'checkout'])->name('checkout.index');
+Route::PUT('/checkout-payment', [App\Http\Controllers\HomeController::class, 'payment'])->name('checkout.payment');
+
 //Home
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
@@ -52,6 +56,24 @@ Route::get('/dashboard', [App\Http\Controllers\dashboardController::class, 'inde
 // Profile
 Route::get('/profile/index', [App\Http\Controllers\ProfileController::class, 'index']);
 Route::get('/profile/view', [App\Http\Controllers\ProfileController::class, 'view']);
+
+Route::get('/my-order', [App\Http\Controllers\MyOrderController::class, 'index']);
+
+
+
+Route::get('/order-received', [App\Http\Controllers\OrderReceivedController::class, 'index']);
+Route::get('/order-received/update/{id}', [App\Http\Controllers\OrderReceivedController::class, 'prepareOrder'])->name('order-received.prepareOrder');
+Route::get('/order-received/update-pickup-ready/{id}', [App\Http\Controllers\OrderReceivedController::class, 'pickupReady'])->name('order-received.pickupReady');
+
+
+
+Route::get('/my-job', [App\Http\Controllers\MyJobController::class, 'index']);
+Route::get('/my-job/update-accept-job/{id}', [App\Http\Controllers\MyJobController::class, 'acceptJobs'])->name('my-jobs.acceptJobs');
+Route::get('/my-job/update-rider-pickup/{id}', [App\Http\Controllers\MyJobController::class, 'riderPickup'])->name('my-jobs.riderPickup');
+Route::get('/my-job/update-item-delivered/{id}', [App\Http\Controllers\MyJobController::class, 'itemDelivered'])->name('my-jobs.itemDelivered');
+
+
+
 
 // -----------------------------------------------------------------------Members-----------------------------------------------------------------------
 // Admin Members
@@ -202,6 +224,12 @@ Route::post('/my-menu', [App\Http\Controllers\MyMenuController::class, 'store'])
 Route::get('/my-menu/show/{id}', [App\Http\Controllers\MyMenuController::class, 'show'])->name('my-menu.show');
 Route::get('/my-menu/edit/{id}', [App\Http\Controllers\MyMenuController::class, 'edit'])->name('my-menu.edit');
 Route::PUT('/my-menu/update/{id}', [App\Http\Controllers\MyMenuController::class, 'update'])->name('my-menu.update');
+
+Route::get('add-to-cart/{id}', [App\Http\Controllers\MyMenuController::class, 'addToCart'])->name('add.to.cart');
+Route::get('cart', [App\Http\Controllers\MyMenuController::class, 'cart'])->name('my-menu.cart');
+Route::patch('update-cart', [App\Http\Controllers\MyMenuController::class, 'updateCart'])->name('updateCart.cart');
+Route::delete('remove-from-cart', [App\Http\Controllers\MyMenuController::class, 'removeCart'])->name('remove.from.cart');
+
 
 Route::group(['middleware' => ['guest']], function() {
 });
