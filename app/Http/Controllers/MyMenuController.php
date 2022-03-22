@@ -278,7 +278,7 @@ class MyMenuController extends Controller
 
     public function addToCart($id)
     {
-        $product = menu :: with('getOneMenuPicture')->where('id',$id)->first();
+        $product = menu :: with('getOneMenuPicture','getOwner')->where('id',$id)->first();
           
         $cart = session()->get('cart', []);
         // dd($product);
@@ -292,6 +292,7 @@ class MyMenuController extends Controller
             }
             $cart[$id] = [
                 "menu_id" => $product->id,
+                "merchant_id" => $product->getOwner->id,
                 "name" => $product->name,
                 "quantity" => 1,
                 "price" => $product->price,

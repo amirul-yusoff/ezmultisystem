@@ -79,26 +79,38 @@ class HomeController extends Controller
         $user = Auth::user();
         $input = $request->all();
         $checkoutID = Carbon::now()->todatetimeString().'-'.$user->id;
+        $this->validate($request, [
+            'type_payment' => 'required',
+        ]);
 
         $checkouttable = [];
         if(session('cart') != NULL){
+            // dd(session('cart'));
             foreach(session('cart') as $key=>$checkoutDetails){
+                // dd($checkoutDetails['merchant_id']);
                 $checkouttable['checkout_id'] = $checkoutID;
                 $checkouttable['user_id'] =  $user->id;
+                $checkouttable['merchant_id'] =  $checkoutDetails['merchant_id'];
                 $checkouttable['menu_id'] = $checkoutDetails['menu_id'];
                 $checkouttable['price'] = $checkoutDetails['price'];
                 $checkouttable['quantity'] = $checkoutDetails['quantity'];
                 $checkouttable['type_payment'] = $input['type_payment'];
-                $checkouttable['status'] = 'paid';
+                $checkouttable['is_paid'] = 1;
+                $checkouttable['status'] = 'Order sent to Merchant';
                 $checkouttableCreate = checkout::create($checkouttable);
+                //Order sent to Merchant
+                //Preparing order
+                //Rider pickup
+                //Order Delivered
             }
         }
         
         $user = Auth::user();
 
         session()->forget('cart');
+        return redirect('my-order')->with('success', 'Menu Updated Successfully');
 
-        return view('checkout.after_payment',compact('user'));
+        return view('order.index',compact('user'));
     }
 
     public function addToCart($id)

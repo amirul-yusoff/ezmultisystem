@@ -24,8 +24,16 @@ class checkout extends Authenticatable
         'checkout_id',
         'status',
         'price',
-        'quantity'
+        'quantity',
+        'is_paid',
+        'merchant_id',
+        'rider_id'
     ];
+
+    public function menu()
+    {
+        return $this->hasOne('App\Models\menu', 'id', 'menu_id');
+    }
 
     
 }
