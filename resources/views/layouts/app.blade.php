@@ -88,6 +88,9 @@
                                 <a class="dropdown-item" href="{{ route('dashboard') }}">
                                     My Dashboard
                                 </a>
+                                <a class="dropdown-item" href="{{route('my-menu.cart')}}">
+                                    My Cart
+                                </a>
                                 <a class="dropdown-item" href="{{ route('logout') }}"
                                    onclick="event.preventDefault();
                                                  document.getElementById('logout-form').submit();">

@@ -40,6 +40,9 @@ Route::get('/second_page', [App\Http\Controllers\HomeController::class, 'second_
 //contact-us
 Route::get('/contact-us', [App\Http\Controllers\contactUsController::class, 'index'])->name('contact-us');
 
+//checkout
+Route::get('/checkout', [App\Http\Controllers\HomeController::class, 'checkout'])->name('checkout.insex');
+
 //Home
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
