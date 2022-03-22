@@ -19,6 +19,9 @@
           <button type="button" class="btn btn-tool">
             <a href="{{route('menu.create')}}"><i class="fa-solid fa-circle-plus"></i></a>
           </button>
+          <button type="button" class="btn btn-tool">
+            <a href="{{route('my-menu.cart')}}"><i class="fa-solid fa-cart-shopping"></i></a>
+          </button>
           <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
             <i class="fas fa-minus"></i>
           </button>
@@ -56,14 +59,21 @@
                                 <p>{{$item->description}}</p>
                                 <p>{{$item->category}}</p>
                                 <p>RM {{$item->price}}</p>
-                                <a class="btn btn-warning btn-sm" href="{{ route('menu.approved',['id'=>$item->id])}}">
+                                {{-- <a class="btn btn-warning btn-sm" href="{{ route('menu.approved',['id'=>$item->id])}}">
                                 <i class="fa-regular fa-thumbs-up"> </i>
                                 Approve
                                 </a>  
                                 <a class="btn btn-warning btn-sm" href="{{ route('menu.rejected',['id'=>$item->id])}}">
                                 <i class="fa-regular fa-thumbs-down"> </i>
                                 Reject
-                                </a>  
+                                </a>   --}}  
+                                @if ($item->availability == '0')
+                                <a class="btn btn-warning btn-sm" href="{{ route('add.to.cart', $item->id) }}">
+                                  <i class="fa-solid fa-cart-plus"> </i>
+                                  Add To Cart
+                                </a> 
+                                @else
+                                @endif
                                 <a class="btn btn-primary btn-sm" href="{{ route('menu.show',$item->id)}}">
                                   <i class="fa-regular fa-eye"> </i>
                                   View

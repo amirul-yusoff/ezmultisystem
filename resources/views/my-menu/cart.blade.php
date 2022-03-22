@@ -13,9 +13,13 @@
   </thead>
   <tbody>
       @php $total = 0 @endphp
+      {{-- @php dd(session('cart')); @endphp --}}
       @if(session('cart'))
           @foreach(session('cart') as $id => $details)
-              @php $total += $details['price'] * $details['quantity'] @endphp
+              @php 
+            //   dd($details);
+              $total += $details['price'] * $details['quantity'] 
+              @endphp
               <tr data-id="{{ $id }}">
                   <td data-th="Product">
                       <div class="row">
@@ -43,7 +47,7 @@
       </tr>
       <tr>
           <td colspan="5" class="text-right">
-              <a href="{{ url('/my-menu') }}" class="btn btn-warning"><i class="fa fa-angle-left"></i> Continue Shopping</a>
+              <a href="{{ url('/menu') }}" class="btn btn-warning"><i class="fa fa-angle-left"></i> Continue Shopping</a>
               <button class="btn btn-success">Checkout</button>
           </td>
       </tr>
