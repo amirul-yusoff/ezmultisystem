@@ -30,9 +30,17 @@ class MyJobController extends Controller
     public function index()
     {
         $user = Auth::user();
+        $userID = $user->id;
         $data = User ::get();
-        $myOrder = checkout::with('menu.getOwner')->where('status','!=','Order sent to Merchant')->where('status','!=','Preparing order')->where('status','!=','Order Delivered')->get();
-        $myOrderHistory = checkout::with('menu.getOwner')->where('user_id',$user->id)->where('status','=','Order Delivered')->get();
+        $myOrder = checkout::with('menu.getOwner')
+        ->where(function($query) use($user) {
+            return $query
+            ->Where('rider_id', '=', NULL)
+            ->orWhere('rider_id', '=', $user->id);
+        })
+        ->where('status','!=','Order sent to Merchant')->where('status','!=','Preparing order')->where('status','!=','Order Delivered')
+        ->get();
+        $myOrderHistory = checkout::with('menu.getOwner')->where('rider_id',$user->id)->where('status','=','Order Delivered')->get();
 
         //Order sent to Merchant
         //Preparing order
@@ -53,7 +61,7 @@ class MyJobController extends Controller
             'rider_id'=> $user->id,
         ]);
         $myOrder = checkout::with('menu.getOwner')->where('id',$id)->where('status','!=','Order Delivered')->get();
-        $myOrderHistory = checkout::with('menu.getOwner')->where('user_id',$user->id)->where('status','=','Order Delivered')->get();
+        $myOrderHistory = checkout::with('menu.getOwner')->where('rider_id',$user->id)->where('status','=','Order Delivered')->get();
         return redirect()->back()->with('success', 'Preparing order');
         //Order sent to Merchant
         //Preparing order
@@ -75,7 +83,7 @@ class MyJobController extends Controller
             'status' => 'Rider pickup',
         ]);
         $myOrder = checkout::with('menu.getOwner')->where('id',$id)->get();
-        $myOrderHistory = checkout::with('menu.getOwner')->where('user_id',$user->id)->where('status','=','Order Delivered')->get();
+        $myOrderHistory = checkout::with('menu.getOwner')->where('rider_id',$user->id)->where('status','=','Order Delivered')->get();
         return redirect()->back()->with('success', 'Preparing order');
         //Order sent to Merchant
         //Preparing order

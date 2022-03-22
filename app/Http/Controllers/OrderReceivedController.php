@@ -31,13 +31,13 @@ class OrderReceivedController extends Controller
     {
         $user = Auth::user();
         $data = User ::get();
-        $myOrder = checkout::with('menu.getOwner')->where('user_id',$user->id)
+        $myOrder = checkout::with('menu.getOwner')->where('merchant_id',$user->id)
         ->where(function($query) {
             return $query
             ->Where('status', '=', 'Order sent to Merchant')
             ->orWhere('status', '=', 'Preparing order');
         })->get();
-        $myOrderHistory = checkout::with('menu.getOwner')->where('user_id',$user->id)->where('status','!=','Order sent to Merchant')->where('status','!=','Preparing order')->get();
+        $myOrderHistory = checkout::with('menu.getOwner')->where('merchant_id',$user->id)->where('status','!=','Order sent to Merchant')->where('status','!=','Preparing order')->get();
 
         //Order sent to Merchant
         //Preparing order
@@ -57,7 +57,7 @@ class OrderReceivedController extends Controller
             'status' => 'Preparing order',
         ]);
         $myOrder = checkout::with('menu.getOwner')->where('id',$id)->get();
-        $myOrderHistory = checkout::with('menu.getOwner')->where('user_id',$user->id)->where('status','=','Order Delivered')->get();
+        $myOrderHistory = checkout::with('menu.getOwner')->where('merchant_id',$user->id)->where('status','=','Order Delivered')->get();
         return redirect()->back()->with('success', 'Preparing order');
         //Order sent to Merchant
         //Preparing order
@@ -78,7 +78,7 @@ class OrderReceivedController extends Controller
             'status' => 'Waiting For pickup',
         ]);
         $myOrder = checkout::with('menu.getOwner')->where('id',$id)->get();
-        $myOrderHistory = checkout::with('menu.getOwner')->where('user_id',$user->id)->where('status','=','Order Delivered')->get();
+        $myOrderHistory = checkout::with('menu.getOwner')->where('merchant_id',$user->id)->where('status','=','Order Delivered')->get();
         return redirect()->back()->with('success', 'Preparing order');
         //Order sent to Merchant
         //Preparing order
