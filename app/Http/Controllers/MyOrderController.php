@@ -39,7 +39,7 @@ class MyOrderController extends Controller
         //Waiting For pickup
         //Rider pickup
         //Order Delivered
-        return view('order-received.index',compact('user','data','myOrder','myOrderHistory'));
+        return view('order.index',compact('user','data','myOrder','myOrderHistory'));
 
     }
 

@@ -47,7 +47,7 @@ class HomeController extends Controller
     {
         $user = Auth::user();
         $members = User :: get();
-        $menu = menu :: with('getOneMenuPicture')->where('is_deleted',0)->where('status','=','Pending For Approval')->get();
+        $menu = menu :: with('getOneMenuPicture','getOwner')->where('is_deleted',0)->where('status','=','Pending For Approval')->get();
         $haspic = 0;
         $MenuPicture = "http://bootdey.com/img/Content/avatar/avatar1.png";
         // if($menu->getOneMenuPicture != NULL){

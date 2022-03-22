@@ -69,9 +69,11 @@
                           Not Available
                         </div>
                         @endif</h5>
-                      <p>{{$item->description}}</p>
-                      <p>{{$item->category}}</p>
-                      <p>RM {{$item->price}}</p>
+                      <p>Name :{{$item->name}}</p>
+                      <p>Restorant :{{$item->getOwner->name}}</p>
+                      <p>Description :{{$item->description}}</p>
+                      <p>Category : {{$item->category}}</p>
+                      <p>Price : RM {{$item->price}}</p>
                       @if ($item->availability == '0')
                       <a class="btn btn-warning btn-sm" href="{{ route('add.to.cart', $item->id) }}">
                         <i class="fa-solid fa-cart-plus"> </i>
