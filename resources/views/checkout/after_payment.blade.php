@@ -12,7 +12,6 @@
       </tr>
   </thead>
   <tbody>
-    {{ Form::open(['url' => route('checkout.payment'), 'method' => 'PUT'])}}
       @php $total = 0 @endphp
       {{-- @php dd(session('cart')); @endphp --}}
       @if(session('cart'))
@@ -33,25 +32,14 @@
                   <td data-th="Price">RM{{ $details['price'] }}</td>
                   <td data-th="Quantity">{{ $details['quantity'] }}</td>
                   <td data-th="Subtotal" class="text-center">RM{{ $details['price'] * $details['quantity'] }}</td>
-
               </tr>
           @endforeach
       @endif
   </tbody>
   <tfoot>
-        {{-- <input type="hidden" id="details" name="details" value={{$details}}> --}}
         <tr>
             <td colspan="5" class="text-left"><h3><strong>Please Confirm Your Details below <br>Name :  {{ $user->name }}
-            <br>Address : {{ $user->name }}</strong></h3><br>
-            <select class="form-select" aria-label="Default select example" id="type_payment" name="type_payment">
-                <option selected>Please select the type of payment</option>
-                <option value="Online Banking">Online Banking</option>
-                <option value="Touch and Go">Touch and Go</option>
-                <option value="COD">COD</option>
-              </select><br><br>
-                {{-- <label for="promo_code">Promo Code:</label>
-                <input type="text" id="promo_code" name="promo_code"> --}}
-        </td>
+            <br>Address : {{ $user->name }}</strong></h3></td>
         </tr>
         <tr>
             <td colspan="5" class="text-right"><h3><strong>Total RM {{ $total }}</strong></h3></td>
@@ -59,15 +47,7 @@
         <tr>
             <td colspan="5" class="text-right">
                 <a href="{{ url('/menu') }}" class="btn btn-warning"><i class="fa fa-angle-left"></i> Continue Shopping</a>
-                @if(session('cart'))
-                <button class="btn btn-primary" type="submit">
-                    <i class="fa fa-angle-right"></i>
-                    Pay
-                </button>
-                @endif
-               
-                {{ Form::close() }}
-                {{-- <a href="{{ url('/checkout') }}" class="btn btn-success"><i class="fa fa-angle-right"></i> Pay</a> --}}
+                <a href="{{ url('/home') }}" class="btn btn-success"><i class="fa fa-angle-right"></i> Pay</a>
             </td>
         </tr>
   </tfoot>

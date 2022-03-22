@@ -33,12 +33,21 @@
                   <td data-th="Quantity">
                     <input type="number" value="{{ $details['quantity'] }}" class="form-control quantity update-cart" />
                   </td>
+                  
+                  
                   <td data-th="Subtotal" class="text-center">RM{{ $details['price'] * $details['quantity'] }}</td>
                   <td class="actions" data-th="">
                       <button class="btn btn-danger btn-sm remove-from-cart"><i class="fa-regular fa-trash-can"></i> Remove</button>
                   </td>
               </tr>
           @endforeach
+          <tr>
+            <td>
+              <label for="promo_code">Promo Code:</label>
+              <input type="text" id="promo_code" name="promo_code">
+            </td>
+          </tr>
+         
       @endif
   </tbody>
   <tfoot>
@@ -47,8 +56,10 @@
       </tr>
       <tr>
           <td colspan="5" class="text-right">
-              <a href="{{ url('/menu') }}" class="btn btn-warning"><i class="fa fa-angle-left"></i> Continue Shopping</a>
+              <a href="{{ url('/home') }}" class="btn btn-warning"><i class="fa fa-angle-left"></i> Continue Shopping</a>
+              @if(session('cart'))
               <a href="{{ url('/checkout') }}" class="btn btn-success"><i class="fa fa-angle-right"></i> Checkout</a>
+              @endif
           </td>
       </tr>
   </tfoot>

@@ -5,10 +5,11 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use App\Models\menu;
+use App\Models\checkout;
 use App\Models\menu_has_pictures;
 use App\Models\module;
 use Carbon\Carbon;
-
+use DateTime;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -66,9 +67,38 @@ class HomeController extends Controller
 
     public function checkout()
     {
-        $user = Auth::user();
+    $user = Auth::user();
+
+        //echeck the discount
 
         return view('checkout.index',compact('user'));
+    }
+
+    public function payment(Request $request)
+    {
+        $user = Auth::user();
+        $input = $request->all();
+        $checkoutID = Carbon::now()->todatetimeString().'-'.$user->id;
+
+        $checkouttable = [];
+        if(session('cart') != NULL){
+            foreach(session('cart') as $key=>$checkoutDetails){
+                $checkouttable['checkout_id'] = $checkoutID;
+                $checkouttable['user_id'] =  $user->id;
+                $checkouttable['menu_id'] = $checkoutDetails['menu_id'];
+                $checkouttable['price'] = $checkoutDetails['price'];
+                $checkouttable['quantity'] = $checkoutDetails['quantity'];
+                $checkouttable['type_payment'] = $input['type_payment'];
+                $checkouttable['status'] = 'paid';
+                $checkouttableCreate = checkout::create($checkouttable);
+            }
+        }
+        
+        $user = Auth::user();
+
+        session()->forget('cart');
+
+        return view('checkout.after_payment',compact('user'));
     }
 
     public function addToCart($id)
@@ -86,6 +116,7 @@ class HomeController extends Controller
                 $image = "/upload/Menu/".$product->getOneMenuPicture->menu_id."/".$product->getOneMenuPicture->hash.".".$product->getOneMenuPicture->extension;
             }
             $cart[$id] = [
+                "menu_id" => $product->id,
                 "name" => $product->name,
                 "quantity" => 1,
                 "price" => $product->price,

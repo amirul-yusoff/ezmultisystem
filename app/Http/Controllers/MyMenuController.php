@@ -291,6 +291,7 @@ class MyMenuController extends Controller
                 $image = "/upload/Menu/".$product->getOneMenuPicture->menu_id."/".$product->getOneMenuPicture->hash.".".$product->getOneMenuPicture->extension;
             }
             $cart[$id] = [
+                "menu_id" => $product->id,
                 "name" => $product->name,
                 "quantity" => 1,
                 "price" => $product->price,

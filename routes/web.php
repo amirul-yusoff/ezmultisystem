@@ -41,7 +41,8 @@ Route::get('/second_page', [App\Http\Controllers\HomeController::class, 'second_
 Route::get('/contact-us', [App\Http\Controllers\contactUsController::class, 'index'])->name('contact-us');
 
 //checkout
-Route::get('/checkout', [App\Http\Controllers\HomeController::class, 'checkout'])->name('checkout.insex');
+Route::get('/checkout', [App\Http\Controllers\HomeController::class, 'checkout'])->name('checkout.index');
+Route::PUT('/checkout-payment', [App\Http\Controllers\HomeController::class, 'payment'])->name('checkout.payment');
 
 //Home
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
