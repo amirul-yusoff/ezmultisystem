@@ -25,27 +25,38 @@
       <table class="table table-striped projects">
         <thead>
           <tr>
-            <th style="width: 1%">
-              #
-            </th>
-            <th style="width: 20%">
-            Project Name
-            </th>
-            <th style="width: 30%">
-            Team Members
-            </th>
-            <th>
-            Project Progress
-            </th>
-            <th style="width: 8%" class="text-center">
-            Status
-            </th>
-            <th style="width: 20%" class="text-center">
-              Action
-            </th>
+            <th style="width: 1%">#</th>
+            <th style="width: 20%">Name</th>
+            <th style="width: 30%">Departmental Classification</th>
+            <th>Position</th>
+            <th style="width: 20%" class="text-center">Action</th>
           </tr>
         </thead>
         <tbody>
+          @foreach ($members as  $key => $item)
+            <tr>
+              <td>{{$key+1}}</td>
+              <td>{{$item->name}}</td>
+              <td>{{$item->name}}</td>
+              <td>{{$item->name}}</td>
+              <td>
+                <a class="btn btn-primary btn-sm" href="{{ route('admin-members.view',$item->id)}}">
+                  <i class="fa-regular fa-eye"> </i>
+                  View
+                </a>
+                <a class="btn btn-info btn-sm" href="{{ route('admin-members.edit',$item->id)}}">
+                <i class="fas fa-pencil-alt"> </i>
+                Edit
+                </a>
+                <a class="btn btn-danger btn-sm" href="#">
+                <i class="fa-regular fa-trash-can"> </i>
+                Delete
+                </a>  
+              </td>
+            </tr>
+          @endforeach
+        </tbody>
+        {{-- <tbody>
           <tr>
             <td>
             1
@@ -93,7 +104,7 @@
               </a>
             </td>
           </tr>
-        </tbody>
+        </tbody> --}}
       </table>
     </div>
   </div>
