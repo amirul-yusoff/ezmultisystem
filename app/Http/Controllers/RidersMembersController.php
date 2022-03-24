@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Models\User;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 
 use Illuminate\Http\Request;
@@ -29,7 +29,8 @@ class RidersMembersController extends Controller
     public function index()
     {
         $user = Auth::user();
+        $members = User :: where('user_group','=','4')->get();
         
-        return view('members.riders',compact('user'));
+        return view('members.riders',compact('user','members'));
     }
 }
