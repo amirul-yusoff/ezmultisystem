@@ -31,6 +31,7 @@
                 <th>Qty</th>
                 <th>Price</th>
                 <th>Status</th>
+                <th>Addres Delivery</th>
                 <th>Action</th>
               </tr>
             </thead>
@@ -42,6 +43,14 @@
                     <td>{{$menu->quantity}}</td>
                     <td>{{$menu->price}}</td>
                     <td>{{$menu->status}}</td>
+                    @if ($menu->geDefaultAddress == NULL)
+                        <td>No Address Found</td>
+                    @else
+                      <td>{{$menu->geDefaultAddress->address_1}}<br>
+                        {{$menu->geDefaultAddress->address_2}}<br>
+                        {{$menu->geDefaultAddress->postcode}}</td>
+                    @endif
+                    
                     <td>
                       @if ($menu->status == 'Order sent to Merchant')
                       <a class="btn btn-primary btn-sm" href="{{ route('order-received.prepareOrder',$menu->id)}}">

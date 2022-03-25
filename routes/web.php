@@ -73,6 +73,12 @@ Route::get('/my-job/update-rider-pickup/{id}', [App\Http\Controllers\MyJobContro
 Route::get('/my-job/update-item-delivered/{id}', [App\Http\Controllers\MyJobController::class, 'itemDelivered'])->name('my-jobs.itemDelivered');
 
 
+//myaddresss
+Route::get('/my-address', [App\Http\Controllers\MyAddressController::class, 'index'])->name('my-address.index');
+Route::get('/my-address/create', [App\Http\Controllers\MyAddressController::class, 'create'])->name('my-address.create');
+Route::get('/my-address/edit/{id}', [App\Http\Controllers\MyAddressController::class, 'update'])->name('my-address.update');
+Route::post('/my-address', [App\Http\Controllers\MyAddressController::class, 'store'])->name('my-address.store');
+Route::GET('/my-address/update-default', [App\Http\Controllers\MyAddressController::class, 'updateDefault'])->name('my-address.updateDefault');
 
 
 // -----------------------------------------------------------------------Members-----------------------------------------------------------------------

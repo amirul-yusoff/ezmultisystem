@@ -72,6 +72,11 @@ class User extends Authenticatable
         return $this->hasMany('App\Models\member_has_roles', 'member_id', 'id');
     }
 
+    public function geDefaultAddress()
+	{
+		return $this->hasOne('App\Models\has_address', 'user_id', 'user_id');
+	}
+
     public static function getAllPermissions($id)
     {
         // find member has roles

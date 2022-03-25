@@ -31,7 +31,7 @@ class MyOrderController extends Controller
     {
         $user = Auth::user();
         $data = User ::get();
-        $myOrder = checkout::with('menu.getOwner')->where('user_id',$user->id)->where('status','!=','Order Delivered')->get();
+        $myOrder = checkout::with('menu.getOwner')->where('merchant_id',$user->id)->where('status','!=','Order Delivered')->get();
         $myOrderHistory = checkout::with('menu.getOwner')->where('user_id',$user->id)->where('status','=','Order Delivered')->get();
 
         //Order sent to Merchant
