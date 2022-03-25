@@ -6,6 +6,7 @@ use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use App\Models\menu;
 use App\Models\checkout;
+use App\Models\checkout_to_prepare;
 use App\Models\menu_has_pictures;
 use App\Models\has_address;
 use App\Models\module;
@@ -104,6 +105,10 @@ class HomeController extends Controller
                 $checkouttable['address_id'] = $userDefaultAddress->id;
                 
                 $checkouttableCreate = checkout::create($checkouttable);
+
+                $chekoutToPrepared['checkout_id'] = $checkoutID;
+                $chekoutToPrepared['user_id'] = $user->id;
+                $chekoutToPreparedCreate = checkout_to_prepare::create($chekoutToPrepared);
                 //Order sent to Merchant
                 //Preparing order
                 //Rider pickup

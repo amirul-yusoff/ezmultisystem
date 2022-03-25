@@ -5,6 +5,10 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\checkout;
 use App\Models\has_address;
+use App\Models\pickup_to_acceptjob;
+use App\Models\acceptjob_to_pickup;
+use App\Models\pickup_to_delivery;
+use App\Models\delivery_to_complete;
 use Illuminate\Support\Facades\Auth;
 
 use Illuminate\Http\Request;
@@ -68,6 +72,9 @@ class MyJobController extends Controller
         ]);
         $myOrder = checkout::with('menu.getOwner','geDefaultAddress')->where('id',$id)->where('status','!=','Order Delivered')->get();
         $myOrderHistory = checkout::with('menu.getOwner')->where('rider_id',$user->id)->where('status','=','Order Delivered')->get();
+        $pickupToAcceptJob['checkout_id'] = $id;
+        $pickupToAcceptJob['user_id'] = $user->id;
+        $pickupToAcceptJobCreate = acceptjob_to_pickup::create($pickupToAcceptJob);
         return redirect()->back()->with('success', 'Preparing order');
         //Order sent to Merchant
         //Preparing order
@@ -91,6 +98,9 @@ class MyJobController extends Controller
         ]);
         $myOrder = checkout::with('menu.getOwner','geDefaultAddress')->where('id',$id)->get();
         $myOrderHistory = checkout::with('menu.getOwner')->where('rider_id',$user->id)->where('status','=','Order Delivered')->get();
+        $acceptToPickup['checkout_id'] = $id;
+        $acceptToPickup['user_id'] = $user->id;
+        $acceptToPickupCreate = pickup_to_delivery::create($acceptToPickup);
         return redirect()->back()->with('success', 'Preparing order');
         //Order sent to Merchant
         //Preparing order
@@ -113,6 +123,9 @@ class MyJobController extends Controller
         ]);
         $myOrder = checkout::with('menu.getOwner')->where('id',$id)->get();
         $myOrderHistory = checkout::with('menu.getOwner')->where('user_id',$user->id)->where('status','=','Order Delivered')->get();
+        $deliveryToComplete['checkout_id'] = $id;
+        $deliveryToComplete['user_id'] = $user->id;
+        $deliveryToCompleteCreate = delivery_to_complete::create($deliveryToComplete);
         return redirect()->back()->with('success', 'Preparing order');
         //Order sent to Merchant
         //Preparing order

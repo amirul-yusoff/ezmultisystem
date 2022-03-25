@@ -26,6 +26,7 @@
         <table id="adminMembers"  class="table table-striped projects"data-page-length="25" max-width =  "10px">
             <thead>
               <tr>
+                <th>ID</th>
                 <th>Menu</th>
                 <th>Restorant</th>
                 <th>Qty</th>
@@ -36,6 +37,7 @@
             <tbody>
                 @foreach ($myOrder as $menu)
                 <tr>
+                    <td>{{$menu->id}}</td>
                     <td>{{$menu->menu->name}}</td>
                     <td>{{$menu->menu->getOwner->name}}</td>
                     <td>{{$menu->quantity}}</td>
@@ -62,6 +64,7 @@
           <table id="adminMembers"  class="table table-striped projects"data-page-length="25" max-width =  "10px">
               <thead>
                 <tr>
+                  <th>ID</th>
                   <th>Menu</th>
                   <th>Qty</th>
                   <th>Price</th>
@@ -70,6 +73,7 @@
               <tbody>
                   @foreach ($myOrderHistory as $menu)
                   <tr>
+                      <td>{{$menu->id}}</td>
                       <td>{{$menu->menu->name}}</td>
                       <td>{{$menu->quantity}}</td>
                       <td>{{$menu->price}}</td>
