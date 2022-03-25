@@ -128,7 +128,7 @@ class MenuController extends Controller
     {
         $user = Auth::user();
         $members = User ::with('getOneProfilePicture')->find($id);
-        $menu = menu ::with('getOneMenuPicture')->find($id);
+        $menu = menu ::with('getOneMenuPicture','geDefaultAddress')->find($id);
         $haspic = 0;
         $menuPicture = "http://bootdey.com/img/Content/avatar/avatar1.png";
         if($menu->getOneMenuPicture != NULL){

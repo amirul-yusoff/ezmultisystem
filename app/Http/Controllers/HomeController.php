@@ -48,7 +48,8 @@ class HomeController extends Controller
     {
         $user = Auth::user();
         $members = User :: get();
-        $menu = menu :: with('getOneMenuPicture','getOwner')->where('is_deleted',0)->where('status','=','Pending For Approval')->get();
+        $menu = menu :: with('getOneMenuPicture','getOwner','geDefaultAddress')->where('is_deleted',0)->where('status','=','Pending For Approval')->get();
+        $myCurrentAddress = has_address::where('user_id',$user->id)->where('is_default',1)->first();
         $haspic = 0;
         $MenuPicture = "http://bootdey.com/img/Content/avatar/avatar1.png";
         // if($menu->getOneMenuPicture != NULL){
@@ -56,7 +57,7 @@ class HomeController extends Controller
         //     $MenuPicture = "/upload/Menu/".$menu->getOneMenuPicture->menu_id."/".$menu->getOneMenuPicture->hash.".".$menu->getOneMenuPicture->extension;
         // }
 
-        return view('home.index',compact('user','menu','members'));
+        return view('home.index',compact('user','menu','members','myCurrentAddress'));
     }
 
     public function cart()

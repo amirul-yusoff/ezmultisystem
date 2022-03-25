@@ -74,6 +74,10 @@
                                               <label class="small mb-1" for="description">Menu Description</label>
                                               {{ Form::text('description', $menu->description,['class' => 'form-control capitalize','autocomplete'=>'off', 'required']) }}
                                           </div>
+                                          <div class="mb-3">
+                                            <label class="small mb-1" for="description">Address</label>
+                                            {{ Form::text('Address', $menu->geDefaultAddress->address_1.$menu->geDefaultAddress->address_2.$menu->geDefaultAddress->postcode,['class' => 'form-control capitalize','autocomplete'=>'off', 'readonly']) }}
+                                        </div>
                                           <div class="row gx-3 mb-3">
                                               <div class="col-md-6">
                                                   <label class="small mb-1" for="category">Category</label>
