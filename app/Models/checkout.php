@@ -27,7 +27,8 @@ class checkout extends Authenticatable
         'quantity',
         'is_paid',
         'merchant_id',
-        'rider_id'
+        'rider_id',
+        'address_id'
     ];
 
     public function menu()

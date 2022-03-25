@@ -15,6 +15,13 @@ class MyAddressController extends Controller
 
       $data = has_address::where('user_id',$user->id)->where('is_deleted',0)->get();
 
+      $addressFrom = 'No. 23 & 25, Jalan Temenggung 13/9, Bandar Mahkota Cheras, 43200 Kajang, Selangor';
+      $addressTo   = 'Lingkaran Syed Putra, Mid Valley City, 59200 Kuala Lumpur, Wilayah Persekutuan Kuala Lumpur';
+
+      // Get distance in km
+      // $distance = $this->getDistance($addressFrom, $addressTo, "K");
+      // dd($distance);
+
       return view('my-address.index',compact('user','data'));
     }
 
@@ -75,6 +82,52 @@ class MyAddressController extends Controller
       return $update;
 
     }
+
+    function getDistance($addressFrom, $addressTo, $unit = ''){
+      // Google API key
+      $apiKey = 'AIzaSyBnyn_vmBToXHsnDw5-7bhBzTVO1cDw6tw';
+      
+      // Change address format
+      $formattedAddrFrom    = str_replace(' ', '+', $addressFrom);
+      $formattedAddrTo     = str_replace(' ', '+', $addressTo);
+      
+      // Geocoding API request with start address
+      $geocodeFrom = file_get_contents('https://maps.googleapis.com/maps/api/geocode/json?address='.$formattedAddrFrom.'&sensor=false&key='.$apiKey);
+      $outputFrom = json_decode($geocodeFrom);
+      if(!empty($outputFrom->error_message)){
+          return $outputFrom->error_message;
+      }
+      
+      // Geocoding API request with end address
+      $geocodeTo = file_get_contents('https://maps.googleapis.com/maps/api/geocode/json?address='.$formattedAddrTo.'&sensor=false&key='.$apiKey);
+      $outputTo = json_decode($geocodeTo);
+      if(!empty($outputTo->error_message)){
+          return $outputTo->error_message;
+      }
+      dd($outputFrom);
+      // Get latitude and longitude from the geodata
+      $latitudeFrom    = $geocodeFrom->results[0]->geometry->location->lat;
+      $longitudeFrom    = $geocodeFrom->results[0]->geometry->location->lng;
+      $latitudeTo        = $geocodeTo->results[0]->geometry->location->lat;
+      $longitudeTo    = $geocodeTo->results[0]->geometry->location->lng;
+      
+      // Calculate distance between latitude and longitude
+      $theta    = $longitudeFrom - $longitudeTo;
+      $dist    = sin(deg2rad($latitudeFrom)) * sin(deg2rad($latitudeTo)) +  cos(deg2rad($latitudeFrom)) * cos(deg2rad($latitudeTo)) * cos(deg2rad($theta));
+      $dist    = acos($dist);
+      $dist    = rad2deg($dist);
+      $miles    = $dist * 60 * 1.1515;
+      
+      // Convert unit and return distance
+      $unit = strtoupper($unit);
+      if($unit == "K"){
+          return round($miles * 1.609344, 2).' km';
+      }elseif($unit == "M"){
+          return round($miles * 1609.344, 2).' meters';
+      }else{
+          return round($miles, 2).' miles';
+      }
+  }
 
 
 }
