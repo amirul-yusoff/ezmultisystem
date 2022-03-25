@@ -82,17 +82,23 @@
                 <td>{{$item->postcode}}</td>
                 <td>
                   @foreach ($item->getUser as $itemUsers)
+                  @if ($itemUsers->getUserZone != NULL)
 									<a class="btn btn-xs btn-warning" href="">{{$itemUsers->getUserZone->name}}</i></a>
+                  @endif
                   @endforeach
                 </td>
                 <td>
                   @foreach ($item->getMerchant as $itemUsers)
+                  @if ($itemUsers->getMerchantZone != NULL)
 									<a class="btn btn-xs btn-warning" href="">{{$itemUsers->getMerchantZone->name}}</i></a>
+                  @endif
                   @endforeach
                 </td>
                 <td>
                   @foreach ($item->getRider as $itemUsers)
+                  @if ($itemUsers->getRiderZone != NULL)
 									<a class="btn btn-xs btn-warning" href="">{{$itemUsers->getRiderZone->name}}</i></a>
+                  @endif
                   @endforeach
                 </td>
                 <td class="text-center">
