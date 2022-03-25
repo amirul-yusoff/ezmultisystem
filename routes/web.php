@@ -89,6 +89,9 @@ Route::get('/restaurants-members', [App\Http\Controllers\RestaurantsMembersContr
 // Riders Members
 Route::get('/riders-members', [App\Http\Controllers\RidersMembersController::class, 'index']);
 
+// Users Members
+Route::get('/users-members', [App\Http\Controllers\UsersMembersController::class, 'index']);
+
 //-----------------------------------------------------------------Permission Management-----------------------------------------------------------------
 Route::get('/permission-management', [App\Http\Controllers\PermissionManagementController::class, 'index']);
 Route::get('/permission-management/show/{id}', [App\Http\Controllers\PermissionManagementController::class, 'show'])->name('permission-management.show');

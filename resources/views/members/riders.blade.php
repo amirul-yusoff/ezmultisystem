@@ -28,7 +28,7 @@
             <th style="width: 1%">#</th>
             <th style="width: 20%">Name</th>
             <th style="width: 30%">Departmental Classification</th>
-            <th>Position</th>
+            <th>Status</th>
             <th style="width: 20%" class="text-center">Action</th>
           </tr>
         </thead>
@@ -38,7 +38,7 @@
               <td>{{$key+1}}</td>
               <td>{{$item->name}}</td>
               <td>{{$item->name}}</td>
-              <td>{{$item->name}}</td>
+              <td>{{$item->status}}</td>
               <td>
                 <a class="btn btn-primary btn-sm" href="{{ route('admin-members.view',$item->id)}}">
                   <i class="fa-regular fa-eye"> </i>

@@ -37,7 +37,7 @@ class AdminMembersController extends Controller
     public function index()
     {
         $user = Auth::user();
-        $members = User :: get();
+        $members = User :: where('user_group','=','1')->get();
 
         return view('members.admin',compact('user','members'));
     }
