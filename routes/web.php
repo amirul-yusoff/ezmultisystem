@@ -44,6 +44,11 @@ Route::get('/contact-us', [App\Http\Controllers\contactUsController::class, 'ind
 Route::get('/checkout', [App\Http\Controllers\HomeController::class, 'checkout'])->name('checkout.index');
 Route::PUT('/checkout-payment', [App\Http\Controllers\HomeController::class, 'payment'])->name('checkout.payment');
 
+//coupon
+Route::get('/coupons', [App\Http\Controllers\CouponController::class, 'index'])->name('coupon.index');
+Route::get('/coupons/create', [App\Http\Controllers\CouponController::class, 'create'])->name('coupon.create');
+Route::post('/coupons', [App\Http\Controllers\CouponController::class, 'store'])->name('coupon.store');
+
 //Home
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
