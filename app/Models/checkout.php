@@ -27,13 +27,18 @@ class checkout extends Authenticatable
         'quantity',
         'is_paid',
         'merchant_id',
-        'rider_id'
+        'rider_id',
+        'address_id'
     ];
 
     public function menu()
     {
         return $this->hasOne('App\Models\menu', 'id', 'menu_id');
     }
+    public function geDefaultAddress()
+	{
+		return $this->hasOne('App\Models\has_address', 'id', 'address_id');
+	}
 
     
 }

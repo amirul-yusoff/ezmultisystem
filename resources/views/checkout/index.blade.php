@@ -41,11 +41,12 @@
   <tfoot>
         {{-- <input type="hidden" id="details" name="details" value={{$details}}> --}}
         <tr>
-            <td colspan="5" class="text-left"><h3><strong>Please Confirm Your Details below <br>Name :  {{ $user->name }}
-            <br>Address : {{ $user->name }}</strong></h3><br>
-            <select class="form-select" aria-label="Default select example" id="type_payment" name="type_payment">
-                <option selected>Please select the type of payment</option>
-                <option value="Online Banking">Online Banking</option>
+            <td colspan="5" class="text-left"><h3><strong>Please Confirm Your Details below <br>
+                Name :  {{ $user->name }}<br>
+                Phone Number :  {{ $user->phone_number }}
+            <br>Address : {{ $userDefaultAddress->address_1 }}<br>{{ $userDefaultAddress->address_1 }}<br>{{ $userDefaultAddress->postcode }}<br>{{ $userDefaultAddress->city }}<br>{{ $userDefaultAddress->state }}</strong></h3><br>
+            Type Of Payment : <select class="form-select" aria-label="Default select example" id="type_payment" name="type_payment">
+                <option value="Online Banking" selected>Online Banking</option>
                 <option value="Touch and Go">Touch and Go</option>
                 <option value="COD">COD</option>
               </select><br><br>

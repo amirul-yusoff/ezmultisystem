@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\menu;
 use App\Models\checkout;
 use App\Models\menu_has_pictures;
+use App\Models\has_address;
 use App\Models\module;
 use Carbon\Carbon;
 use DateTime;
@@ -67,11 +68,12 @@ class HomeController extends Controller
 
     public function checkout()
     {
-    $user = Auth::user();
+        $user = Auth::user();
+        $userDefaultAddress = has_address::where('user_id',$user->id)->where('is_default',1)->first();
 
         //echeck the discount
 
-        return view('checkout.index',compact('user'));
+        return view('checkout.index',compact('user','userDefaultAddress'));
     }
 
     public function payment(Request $request)
@@ -82,6 +84,7 @@ class HomeController extends Controller
         $this->validate($request, [
             'type_payment' => 'required',
         ]);
+        $userDefaultAddress = has_address::where('user_id',$user->id)->where('is_default',1)->first();
 
         $checkouttable = [];
         if(session('cart') != NULL){
@@ -97,6 +100,8 @@ class HomeController extends Controller
                 $checkouttable['type_payment'] = $input['type_payment'];
                 $checkouttable['is_paid'] = 1;
                 $checkouttable['status'] = 'Order sent to Merchant';
+                $checkouttable['address_id'] = $userDefaultAddress->id;
+                
                 $checkouttableCreate = checkout::create($checkouttable);
                 //Order sent to Merchant
                 //Preparing order
