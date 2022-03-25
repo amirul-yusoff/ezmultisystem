@@ -41,4 +41,9 @@ class menu extends Model
 	{
 		return $this->hasOne('App\Models\User', 'id', 'user_id');
 	}
+
+	public function geDefaultAddress()
+	{
+		return $this->hasOne('App\Models\has_address', 'user_id', 'user_id');
+	}
 }

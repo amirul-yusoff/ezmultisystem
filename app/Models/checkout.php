@@ -35,6 +35,10 @@ class checkout extends Authenticatable
     {
         return $this->hasOne('App\Models\menu', 'id', 'menu_id');
     }
+    public function geDefaultAddress()
+	{
+		return $this->hasOne('App\Models\has_address', 'id', 'address_id');
+	}
 
     
 }

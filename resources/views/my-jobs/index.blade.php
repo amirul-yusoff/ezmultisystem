@@ -31,6 +31,8 @@
                 <th>Qty</th>
                 <th>Price</th>
                 <th>Status</th>
+                <th>Address</th>
+                <th>Distance</th>
                 <th>Action</th>
               </tr>
             </thead>
@@ -42,6 +44,35 @@
                     <td>{{$menu->quantity}}</td>
                     <td>{{$menu->price}}</td>
                     <td>{{$menu->status}}</td>
+                    @if ($menu->geDefaultAddress ==NULL)
+                    <td>No info Found</td>  
+                    @else
+                    <td>{{$menu->geDefaultAddress->address_1}}<br>
+                      {{$menu->geDefaultAddress->address_2}}<br>
+                      {{$menu->geDefaultAddress->postcode}}</td>
+                    @endif
+                    <td>
+                      @php
+                          $latitudeFrom    = $menu->geDefaultAddress->latitude;
+                          $longitudeFrom    = $menu->geDefaultAddress->longitude;
+                          $latitudeTo        = $myCurrentAddress->latitude;
+                          $longitudeTo    = $myCurrentAddress->longitude;
+                          // dd($latitudeFrom,$longitudeFrom,$latitudeTo,$longitudeTo);
+                          // dd($myCurrentAddress);
+                          
+                          // Calculate distance between latitude and longitude
+                          $theta    = $longitudeFrom - $longitudeTo;
+                          $dist    = sin(deg2rad($latitudeFrom)) * sin(deg2rad($latitudeTo)) +  cos(deg2rad($latitudeFrom)) * cos(deg2rad($latitudeTo)) * cos(deg2rad($theta));
+                          $dist    = acos($dist);
+                          $dist    = rad2deg($dist);
+                          $miles    = $dist * 60 * 1.1515;
+                          
+                          // Convert unit and return distance
+                          // $unit = strtoupper($unit);
+                          $distance =  round($miles * 1.609344, 2).' km';
+                      @endphp
+                      {{$distance}}
+                    </td>  
                     <td>
                       @if ($menu->status == 'Waiting For pickup')
                       <a class="btn btn-primary btn-sm" href="{{ route('my-jobs.acceptJobs',$menu->id)}}">

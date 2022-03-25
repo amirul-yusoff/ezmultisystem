@@ -15,9 +15,11 @@ class MyAddressController extends Controller
       $user = Auth::user();
 
       $data = has_address::where('user_id',$user->id)->where('is_deleted',0)->get();
+      $addressFrom = has_address::where('id',1)->first();
+      $addressTo = has_address::where('id',2)->first();
 
-      $addressFrom = 'No. 23 & 25, Jalan Temenggung 13/9, Bandar Mahkota Cheras, 43200 Kajang, Selangor';
-      $addressTo   = 'Lingkaran Syed Putra, Mid Valley City, 59200 Kuala Lumpur, Wilayah Persekutuan Kuala Lumpur';
+      // $addressFrom = 'No. 23 & 25, Jalan Temenggung 13/9, Bandar Mahkota Cheras, 43200 Kajang, Selangor';
+      // $addressTo   = 'Lingkaran Syed Putra, Mid Valley City, 59200 Kuala Lumpur, Wilayah Persekutuan Kuala Lumpur';
 
       // Get distance in km
       // $distance = $this->getDistance($addressFrom, $addressTo, "K");
@@ -78,28 +80,33 @@ class MyAddressController extends Controller
       $apiKey =  $apiKey->key;
       
       // Change address format
-      $formattedAddrFrom    = str_replace(' ', '+', $addressFrom);
-      $formattedAddrTo     = str_replace(' ', '+', $addressTo);
+      // $formattedAddrFrom    = str_replace(' ', '+', $addressFrom);
+      // $formattedAddrFrom    = str_replace(',', '+', $formattedAddrFrom);
+      // $formattedAddrFrom    = str_replace('++', '+', $formattedAddrFrom);
+      // $formattedAddrTo     = str_replace(' ', '+', $addressTo);
+      // dd($formattedAddrFrom);
+      // // Geocoding API request with start address
+      // $geocodeFrom = file_get_contents('https://maps.googleapis.com/maps/api/geocode/json?address='.$formattedAddrFrom.'&key='.$apiKey);
+      // $outputFrom = json_decode($geocodeFrom);
+      // if(!empty($outputFrom->error_message)){
+      //     return $outputFrom->error_message;
+      // }
+      // dd($geocodeFrom);
       
-      // Geocoding API request with start address
-      $geocodeFrom = file_get_contents('https://maps.googleapis.com/maps/api/geocode/json?address='.$formattedAddrFrom.'&sensor=false&key='.$apiKey);
-      $outputFrom = json_decode($geocodeFrom);
-      if(!empty($outputFrom->error_message)){
-          return $outputFrom->error_message;
-      }
-      
-      // Geocoding API request with end address
-      $geocodeTo = file_get_contents('https://maps.googleapis.com/maps/api/geocode/json?address='.$formattedAddrTo.'&sensor=false&key='.$apiKey);
-      $outputTo = json_decode($geocodeTo);
-      if(!empty($outputTo->error_message)){
-          return $outputTo->error_message;
-      }
-      dd($outputFrom);
+      // // Geocoding API request with end address
+      // $geocodeTo = file_get_contents('https://maps.googleapis.com/maps/api/geocode/json?address='.$formattedAddrTo.'&sensor=false&key='.$apiKey);
+      // $outputTo = json_decode($geocodeTo);
+      // if(!empty($outputTo->error_message)){
+      //     return $outputTo->error_message;
+      // }
+      // dd($geocodeFrom);
       // Get latitude and longitude from the geodata
-      $latitudeFrom    = $geocodeFrom->results[0]->geometry->location->lat;
-      $longitudeFrom    = $geocodeFrom->results[0]->geometry->location->lng;
-      $latitudeTo        = $geocodeTo->results[0]->geometry->location->lat;
-      $longitudeTo    = $geocodeTo->results[0]->geometry->location->lng;
+      
+      $latitudeFrom    = $addressFrom->latitude;
+      $longitudeFrom    = $addressFrom->longitude;
+      $latitudeTo        = $addressTo->latitude;
+      $longitudeTo    = $addressTo->longitude;
+      // dd($latitudeFrom,$longitudeFrom,$latitudeTo,$longitudeTo);
       
       // Calculate distance between latitude and longitude
       $theta    = $longitudeFrom - $longitudeTo;

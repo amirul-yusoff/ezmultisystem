@@ -67,7 +67,7 @@
     $(".is_default").on("change", function () {
       var val = $(this).val();
 			var id = $(this).siblings('input[name=id]').val();
-			var user_id = $(this).siblings('input[name=id]').val();
+			var user_id = $(this).siblings('input[name=user_id]').val();
 			var url = "<?php echo url('my-address/update-default'); ?>";
       // alert(user_id);
       // alert(url);
