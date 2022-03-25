@@ -5,7 +5,7 @@
   <div class="container-fluid">
     <div class="row mb-2">
       <div class="col-sm-6">
-        <h1>Restaurants</h1>
+        <h1>Users</h1>
       </div>
     </div>
   </div>
@@ -14,15 +14,18 @@
 <section class="content">
   <div class="card">
     <div class="card-header">
-      <h3 class="card-title">Restaurants</h3>
+      <h3 class="card-title">Users</h3>
       <div class="card-tools">
         <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
           <i class="fas fa-minus"></i>
         </button>
+        {{-- <button type="button" class="btn btn-tool" data-card-widget="remove" title="Remove">
+          <i class="fas fa-times"></i>
+        </button> --}}
       </div>
     </div>
     <div class="card-body p-0">
-      <table class="table table-striped projects">
+      <table id="adminMembers"  class="table table-striped projects"data-page-length="25" max-width =  "10px">
         <thead>
           <tr>
             <th style="width: 1%">#</th>
@@ -87,7 +90,8 @@
               </small>
             </td>
             <td class="project-state">
-              <span class="badge badge-success">Success</span>
+              <span class="badge badge-success">Active</span>
+              <span class="badge badge-danger">Unactive</span>
             </td>
             <td class="project-actions text-right">
               <a class="btn btn-primary btn-sm" href="#">
