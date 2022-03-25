@@ -66,12 +66,16 @@
                           $dist    = acos($dist);
                           $dist    = rad2deg($dist);
                           $miles    = $dist * 60 * 1.1515;
-                          
+                          $goToMaps = 'http://maps.google.com?q='.$latitudeTo.','.$longitudeTo;
+                      $goToWaze = 'https://www.waze.com/ul?ll='.$latitudeTo.'%2C'.$longitudeTo.'&navigate=yes&zoom=17';
+                      
                           // Convert unit and return distance
                           // $unit = strtoupper($unit);
                           $distance =  round($miles * 1.609344, 2).' km';
                       @endphp
-                      {{$distance}}
+                      {{$distance}}<br>
+                      <p> <a href="{{$goToMaps}}">Go to Map</a></p>
+                      <p> <a href="{{$goToWaze}}">Go to Waze</a></p>
                     </td>  
                     <td>
                       @if ($menu->status == 'Waiting For pickup')

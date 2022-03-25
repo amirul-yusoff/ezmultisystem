@@ -74,6 +74,36 @@
                       <p>Description :{{$item->description}}</p>
                       <p>Category : {{$item->category}}</p>
                       <p>Price : RM {{$item->price}}</p>
+                     
+                      @if ($item->geDefaultAddress != NULL)
+                      @php
+                      $latitudeFrom    = $item->geDefaultAddress->latitude;
+                      $longitudeFrom    = $item->geDefaultAddress->longitude;
+                      $latitudeTo        = $myCurrentAddress->latitude;
+                      $longitudeTo    = $myCurrentAddress->longitude;
+                      // dd($latitudeFrom,$longitudeFrom,$latitudeTo,$longitudeTo);
+                      // dd($myCurrentAddress);
+                      
+                      // Calculate distance between latitude and longitude
+                      $theta    = $longitudeFrom - $longitudeTo;
+                      $dist    = sin(deg2rad($latitudeFrom)) * sin(deg2rad($latitudeTo)) +  cos(deg2rad($latitudeFrom)) * cos(deg2rad($latitudeTo)) * cos(deg2rad($theta));
+                      $dist    = acos($dist);
+                      $dist    = rad2deg($dist);
+                      $miles    = $dist * 60 * 1.1515;
+                      $goToMaps = 'http://maps.google.com?q='.$latitudeTo.','.$longitudeTo;
+                      $goToWaze = 'https://www.waze.com/ul?ll='.$latitudeTo.'%2C'.$longitudeTo.'&navigate=yes&zoom=17';
+                      
+                      // Convert unit and return distance
+                      // $unit = strtoupper($unit);
+                      $distance =  round($miles * 1.609344, 2).' km';
+                  @endphp
+                      <p>Distance :  {{$distance}}</p>
+                      <p> <a href="{{$goToMaps}}">Go to Map</a></p>
+                      <p> <a href="{{$goToWaze}}">Go to Waze</a></p>
+                     
+                      @else
+                      <p>Distance :  not found</p>   
+                      @endif
                       @if ($item->availability == '0')
                       <a class="btn btn-warning btn-sm" href="{{ route('add.to.cart', $item->id) }}">
                         <i class="fa-solid fa-cart-plus"> </i>
