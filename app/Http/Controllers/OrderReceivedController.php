@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Models\checkout;
+use App\Models\prepare_to_pickup;
+use App\Models\pickup_to_acceptjob;
+
 use Illuminate\Support\Facades\Auth;
 
 use Illuminate\Http\Request;
@@ -38,6 +41,7 @@ class OrderReceivedController extends Controller
             ->orWhere('status', '=', 'Preparing order');
         })->get();
         $myOrderHistory = checkout::with('menu.getOwner','geDefaultAddress')->where('merchant_id',$user->id)->where('status','!=','Order sent to Merchant')->where('status','!=','Preparing order')->get();
+
         //Order sent to Merchant
         //Preparing order
         //Waiting For pickup
@@ -57,6 +61,11 @@ class OrderReceivedController extends Controller
         ]);
         $myOrder = checkout::with('menu.getOwner','geDefaultAddress')->where('id',$id)->get();
         $myOrderHistory = checkout::with('menu.getOwner')->where('merchant_id',$user->id)->where('status','=','Order Delivered')->get();
+
+        $prepareToPickup['checkout_id'] = $id;
+        $prepareToPickup['user_id'] = $user->id;
+        $prepareToPickupCreate = prepare_to_pickup::create($prepareToPickup);
+
         return redirect()->back()->with('success', 'Preparing order');
         //Order sent to Merchant
         //Preparing order
@@ -78,7 +87,12 @@ class OrderReceivedController extends Controller
         ]);
         $myOrder = checkout::with('menu.getOwner')->where('id',$id)->get();
         $myOrderHistory = checkout::with('menu.getOwner','geDefaultAddress')->where('merchant_id',$user->id)->where('status','=','Order Delivered')->get();
+
+        $pickupToAcceptjob['checkout_id'] = $id;
+        $pickupToAcceptjob['user_id'] = $user->id;
+        $pickupToAcceptjobCreate = pickup_to_acceptjob::create($pickupToAcceptjob);
         return redirect()->back()->with('success', 'Preparing order');
+
         //Order sent to Merchant
         //Preparing order
         //Waiting For pickup

@@ -26,6 +26,7 @@
         <table id="adminMembers"  class="table table-striped projects"data-page-length="25" max-width =  "10px">
             <thead>
               <tr>
+                <th>ID</th>
                 <th>Menu</th>
                 <th>Restorant</th>
                 <th>Qty</th>
@@ -39,6 +40,7 @@
             <tbody>
                 @foreach ($myOrder as $menu)
                 <tr>
+                    <td>{{$menu->id}}</td>
                     <td>{{$menu->menu->name}}</td>
                     <td>{{$menu->menu->getOwner->name}}</td>
                     <td>{{$menu->quantity}}</td>
@@ -52,30 +54,37 @@
                       {{$menu->geDefaultAddress->postcode}}</td>
                     @endif
                     <td>
-                      @php
-                          $latitudeFrom    = $menu->geDefaultAddress->latitude;
-                          $longitudeFrom    = $menu->geDefaultAddress->longitude;
-                          $latitudeTo        = $myCurrentAddress->latitude;
-                          $longitudeTo    = $myCurrentAddress->longitude;
-                          // dd($latitudeFrom,$longitudeFrom,$latitudeTo,$longitudeTo);
-                          // dd($myCurrentAddress);
-                          
-                          // Calculate distance between latitude and longitude
-                          $theta    = $longitudeFrom - $longitudeTo;
-                          $dist    = sin(deg2rad($latitudeFrom)) * sin(deg2rad($latitudeTo)) +  cos(deg2rad($latitudeFrom)) * cos(deg2rad($latitudeTo)) * cos(deg2rad($theta));
-                          $dist    = acos($dist);
-                          $dist    = rad2deg($dist);
-                          $miles    = $dist * 60 * 1.1515;
-                          $goToMaps = 'http://maps.google.com?q='.$latitudeTo.','.$longitudeTo;
+                     @if ($menu->geDefaultAddress != NULL)
+                         
+                     @if ($menu->geDefaultAddress->latitude != NULL && $menu->geDefaultAddress->longitude != NULL)
+                     @php
+                     $latitudeFrom    = $menu->geDefaultAddress->latitude;
+                     $longitudeFrom    = $menu->geDefaultAddress->longitude;
+                     $latitudeTo        = $myCurrentAddress->latitude;
+                     $longitudeTo    = $myCurrentAddress->longitude;
+                     // dd($latitudeFrom,$longitudeFrom,$latitudeTo,$longitudeTo);
+                     // dd($myCurrentAddress);
+                     
+                     // Calculate distance between latitude and longitude
+                     $theta    = $longitudeFrom - $longitudeTo;
+                     $dist    = sin(deg2rad($latitudeFrom)) * sin(deg2rad($latitudeTo)) +  cos(deg2rad($latitudeFrom)) * cos(deg2rad($latitudeTo)) * cos(deg2rad($theta));
+                     $dist    = acos($dist);
+                     $dist    = rad2deg($dist);
+                     $miles    = $dist * 60 * 1.1515;
+                     $goToMaps = 'http://maps.google.com?q='.$latitudeTo.','.$longitudeTo;
                       $goToWaze = 'https://www.waze.com/ul?ll='.$latitudeTo.'%2C'.$longitudeTo.'&navigate=yes&zoom=17';
-                      
-                          // Convert unit and return distance
-                          // $unit = strtoupper($unit);
-                          $distance =  round($miles * 1.609344, 2).' km';
-                      @endphp
-                      {{$distance}}<br>
-                      <p> <a href="{{$goToMaps}}">Go to Map</a></p>
-                      <p> <a href="{{$goToWaze}}">Go to Waze</a></p>
+                 
+                     // Convert unit and return distance
+                     // $unit = strtoupper($unit);
+                     $distance =  round($miles * 1.609344, 2).' km';
+                     
+                  @endphp
+                 @endif
+                 {{$distance}}<br>
+                 <p> <a href="{{$goToMaps}}">Go to Map</a></p>
+                 <p> <a href="{{$goToWaze}}">Go to Waze</a></p>
+                         
+                     @endif
                     </td>  
                     <td>
                       @if ($menu->status == 'Waiting For pickup')
@@ -119,6 +128,7 @@
           <table id="adminMembers"  class="table table-striped projects"data-page-length="25" max-width =  "10px">
               <thead>
                 <tr>
+                  <th>ID</th>
                   <th>Menu</th>
                   <th>Restorant</th>
                   <th>Qty</th>
@@ -129,6 +139,7 @@
               <tbody>
                   @foreach ($myOrderHistory as $menu)
                   <tr>
+                    <td>{{$menu->id}}</td>
                     <td>{{$menu->menu->name}}</td>
                     <td>{{$menu->menu->getOwner->name}}</td>
                     <td>{{$menu->quantity}}</td>

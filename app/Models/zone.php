@@ -22,6 +22,8 @@ class zone extends Model
 		'updated_at',
 		'updated_by',
 		'is_deleted',
+		'logitude',
+		'latitude'
 	];
 	
 	public function getUser()

@@ -30,12 +30,16 @@
             <div class="form-group">
                 <label for="zone" class="col-md-4 col-form-label">Zone</label>
 				{{ Form::text('zone', NULL, ['class' => 'form-control','autocomplete'=>'off', 'required']) }}
-                <label for="state" class="col-md-4 col-form-label">State</label>
-				{{ Form::text('state', NULL, ['class' => 'form-control','autocomplete'=>'off', 'required']) }}
                 <label for="city" class="col-md-4 col-form-label">City</label>
 				{{ Form::text('city', NULL, ['class' => 'form-control','autocomplete'=>'off', 'required']) }}
+                <label for="state" class="col-md-4 col-form-label">State</label>
+				{{ Form::text('state', NULL, ['class' => 'form-control','autocomplete'=>'off', 'required']) }}
                 <label for="postcode" class="col-md-4 col-form-label">Postcode</label>
 				{{ Form::text('postcode', NULL, ['class' => 'form-control','autocomplete'=>'off', 'required']) }}
+                <label for="latitude" class="col-md-4 col-form-label">Latitude</label>
+				{{ Form::text('latitude', NULL, ['class' => 'form-control','autocomplete'=>'off', 'required']) }}
+                <label for="logitude" class="col-md-4 col-form-label">Logitude</label>
+				{{ Form::text('logitude', NULL, ['class' => 'form-control','autocomplete'=>'off', 'required']) }}
                 <label for="User" class="col-md-4 col-form-label">User</label>
                 <select name="user[]" id="user" class="form-control chosen-select" multiple="multiple">
                     @foreach($member as $value => $team)
