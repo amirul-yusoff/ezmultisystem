@@ -5,7 +5,7 @@
     <div class="container-fluid">
       <div class="row mb-2">
         <div class="col-sm-6">
-          <h1>Approved Riders</h1>
+          <h1>All Riders</h1>
         </div>
       </div>
     </div>
@@ -44,13 +44,17 @@
                 <td>{{$item->email}}</td>
                 <td>{{$item->status}}</td>
                 <td class="text-center">
-                  <a class="btn btn-primary btn-sm" href="{{ route('approved-riders.show',$item->id)}}">
+                  <a class="btn btn-primary btn-sm" href="{{ route('all-riders.show',$item->id)}}">
                     <i class="fa-regular fa-eye"> </i>
                     View
                   </a>
-                  <a class="btn btn-info btn-sm" href="{{ route('approved-riders.edit',$item->id)}}">
+                  <a class="btn btn-info btn-sm" href="{{ route('all-riders.edit',$item->id)}}">
                   <i class="fas fa-pencil-alt"> </i>
                   Edit
+                  </a>
+                  <a class="btn btn-warning btn-sm" href="{{ route('all-riders.document',$item->id)}}">
+                  <i class="fa-regular fa-file-pdf"> </i>
+                  Document
                   </a>
                   <a class="btn btn-danger btn-sm" href="#">
                   <i class="fa-regular fa-trash-can"> </i>

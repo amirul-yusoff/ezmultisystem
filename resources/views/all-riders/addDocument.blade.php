@@ -4,7 +4,7 @@
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1>Edit Permission</h1>
+                <h1>Add Document</h1>
             </div>
         </div>
     </div>
@@ -12,12 +12,13 @@
 
 <div class="container">
     @include('partials.message')
-    {{ Form::open(['url' => route('approved-riders.update',$members->id), 'method' => 'PUT'])}}
+    {{ Form::open(array('route' => ['all-riders.storeDocument', $itemId], 'files' => true))}}
+    {{ method_field('GET') }}
     <div class="card bg-secondary shadow">
         <div class="card-header bg-white border-0">
             <div class="row align-items-center">
                 <div class="col-8">
-                    <h3>{{$members->username}}</h3>
+                    <h3>Document</h3>
                 </div>
             </div>
             <div class="card-tools">
@@ -28,16 +29,13 @@
         </div>
         <div class="card-body">
             <div class="form-group">
-                <label for="name" class="col-md-4 col-form-label">Name</label>
-				{{ Form::text('name', $members->name, ['class' => 'form-control','autocomplete'=>'off']) }}
+                <label for="description" class="col-md-4 col-form-label">File Name</label>
+				{{ Form::text('description', NULL, ['class' => 'form-control','autocomplete'=>'off']) }}
             </div>
             <div class="form-group">
-                <label for="username" class="col-md-4 col-form-label">Username</label>
-				{{ Form::text('username', $members->username, ['class' => 'form-control','autocomplete'=>'off']) }}
-            </div>
-            <div class="form-group">
-                <label for="status" class="col-md-4 col-form-label">Status</label>
-				{{ Form::text('status', $members->status, ['class' => 'form-control','autocomplete'=>'off']) }}
+                <label for="username" class="col-md-4 col-form-label">File</label><br>
+                {{Form::file('document', ['accept'=>'image/*, application/pdf'])}}
+                <div class="small font-italic text-muted mb-4 text-white">JPG or PNG no larger than 5 MB</div>
             </div>
         </div>
         <button class="btn btn-primary" type="submit">

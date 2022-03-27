@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
 
-class ApprovedRidersController extends Controller
+class AllUsersController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,9 +17,9 @@ class ApprovedRidersController extends Controller
     public function index()
     {
         $user = Auth::user();
-        $members = User :: where('user_group','=','4')->where('status','=','Request Approved')->get();
+        $members = User :: where('user_group','=','2')->where('status','=','Pending For Approval')->get();
 
-        return view('approved-riders.index',compact('user','members'));
+        return view('all-users.index',compact('user','members'));
     }
 
     /**
@@ -54,7 +54,7 @@ class ApprovedRidersController extends Controller
         $user = Auth::user();
         $members = User :: find($id);
 
-        return view('approved-riders.show',compact('user','members'));
+        return view('all-users.show',compact('user','members'));
     }
 
     /**
@@ -68,7 +68,7 @@ class ApprovedRidersController extends Controller
         $user = Auth::user();
         $members = User :: find($id);
         
-        return view('approved-riders.edit',compact('user','members'));
+        return view('all-users.edit',compact('user','members'));
     }
 
     /**
@@ -86,7 +86,7 @@ class ApprovedRidersController extends Controller
 
         $members->update($input);
 
-        return redirect('approved-riders')->with('success', 'Approved Rider Updated Successfully');
+        return redirect('all-users')->with('success', 'Pending User Updated Successfully');
     }
 
     /**
@@ -102,6 +102,26 @@ class ApprovedRidersController extends Controller
         $input['is_deleted'] = '1';
         $members->update($input);
 
-        return redirect()->back()->with('success', 'Approved Rider Deleted Successfully');
+        return redirect()->back()->with('success', 'Pending User Deleted Successfully');
+    }
+
+    public function approved(Request $request, $id)
+    {
+        $input = $request->all();
+        $members = User :: find($id);
+        $input['status'] = 'Request Approved';
+        $members->update($input);
+
+        return redirect()->back()->with('success', 'Pending User has been Approved');
+    }
+
+    public function rejected(Request $request, $id)
+    {
+        $input = $request->all();
+        $members = User :: find($id);
+        $input['status'] = 'Block';
+        $members->update($input);
+
+        return redirect()->back()->with('success', 'Pending User has been Blocked');
     }
 }
