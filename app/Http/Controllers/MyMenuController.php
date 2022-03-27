@@ -26,7 +26,7 @@ class MyMenuController extends Controller
     public function index()
     {
         $user = Auth::user();
-        $members = User :: get();
+        $members = User :: where('user_group','=','1')->orwhere('user_group','=','3')->get();
         $menu = menu :: with('getOneMenuPicture')->where('user_id','=',$user->id)->where('is_deleted',0)->where('status','=','Pending For Approval')->get();
         $haspic = 0;
         $MenuPicture = "http://bootdey.com/img/Content/avatar/avatar1.png";
@@ -104,6 +104,17 @@ class MyMenuController extends Controller
      * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
+    public function viewMenu($id)
+    {
+        $user = Auth::user();
+        $members = User :: get();
+        $menu = menu :: with('getOneMenuPicture')->where('user_id','=',$id)->where('is_deleted',0)->where('status','=','Pending For Approval')->get();
+        $haspic = 0;
+        $MenuPicture = "http://bootdey.com/img/Content/avatar/avatar1.png";
+
+        return view('my-menu.menu',compact('user','menu','members'));
+    }
+
     public function show($id)
     {
         $user = Auth::user();
