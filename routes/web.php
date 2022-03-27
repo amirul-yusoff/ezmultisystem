@@ -46,7 +46,7 @@ Route::PUT('/checkout-payment', [App\Http\Controllers\HomeController::class, 'pa
 
 //coupon
 Route::get('/coupons', [App\Http\Controllers\CouponController::class, 'index'])->name('coupon.index');
-Route::get('/coupons/create', [App\Http\Controllers\CouponController::class, 'create'])->name('coupon.create');
+Route::get('/coupons/create', [App\Http\Controllers\CouponController::class, 'create'])->name('coupons.create');
 Route::post('/coupons', [App\Http\Controllers\CouponController::class, 'store'])->name('coupon.store');
 
 //Home
