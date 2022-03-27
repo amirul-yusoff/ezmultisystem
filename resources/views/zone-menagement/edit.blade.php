@@ -41,6 +41,14 @@
 				{{ Form::text('postcode', $zone->postcode, ['class' => 'form-control','autocomplete'=>'off']) }}
             </div>
             <div class="form-group">
+                <label for="latitude" class="col-md-4 col-form-label">latitude</label>
+				{{ Form::text('latitude', $zone->latitude, ['class' => 'form-control','autocomplete'=>'off']) }}
+            </div>
+            <div class="form-group">
+                <label for="logitude" class="col-md-4 col-form-label">logitude</label>
+				{{ Form::text('logitude', $zone->logitude, ['class' => 'form-control','autocomplete'=>'off']) }}
+            </div>
+            <div class="form-group">
                 <label for="permission" class="col-md-4 col-form-label">User</label>
                 <select name="user[]" id="user" class="form-control chosen-select" multiple="multiple">
                     @foreach($currentUser as $key=>$d)
