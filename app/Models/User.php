@@ -77,6 +77,11 @@ class User extends Authenticatable
 		return $this->hasOne('App\Models\has_address', 'user_id', 'user_id');
 	}
 
+    public function getDocument()
+    {
+        return $this->hasMany('App\Models\user_has_document', 'user_id', 'id')->where('is_deleted',0);
+    }
+
     public static function getAllPermissions($id)
     {
         // find member has roles

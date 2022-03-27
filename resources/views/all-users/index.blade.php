@@ -5,22 +5,20 @@
     <div class="container-fluid">
       <div class="row mb-2">
         <div class="col-sm-6">
-          <h1>My Menu</h1>
+          <h1>All Users</h1>
         </div>
       </div>
     </div>
   </section>
+  
   <section class="content">
     @include('partials.message')
     <div class="card">
       <div class="card-header">
-        <h3 class="card-title">All Restaurants</h3>
+        <h3 class="card-title">Users</h3>
         <div class="card-tools">
-          <button type="button" class="btn btn-tool">
-            <a href="{{route('my-menu.create')}}"><i class="fa-solid fa-circle-plus"></i></a>
-          </button>
           {{-- <button type="button" class="btn btn-tool">
-            <a href="{{route('my-menu.cart')}}"><i class="fa-solid fa-circle-plus"> My Cart</i></a>
+            <i class="fa-solid fa-circle-plus"></i>
           </button> --}}
           <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
             <i class="fas fa-minus"></i>
@@ -46,10 +44,26 @@
                 <td>{{$item->email}}</td>
                 <td>{{$item->status}}</td>
                 <td class="text-center">
-                  <a class="btn btn-primary btn-sm" href="{{ route('my-menu.viewMenu',$item->id)}}">
+                  <a class="btn btn-warning btn-sm" href="{{ route('all-users.approved',$item->id)}}">
+                  <i class="fa-regular fa-thumbs-up"> </i>
+                  Approve
+                  </a>  
+                  <a class="btn btn-warning btn-sm" href="{{ route('all-users.rejected',$item->id)}}">
+                    <i class="fa-solid fa-ban"> </i>
+                  Block
+                  </a> 
+                  <a class="btn btn-primary btn-sm" href="{{ route('all-users.show',$item->id)}}">
                     <i class="fa-regular fa-eye"> </i>
-                    View Menu
+                    View
                   </a>
+                  <a class="btn btn-info btn-sm" href="{{ route('all-users.edit',$item->id)}}">
+                  <i class="fas fa-pencil-alt"> </i>
+                  Edit
+                  </a>
+                  <a class="btn btn-danger btn-sm" href="#">
+                  <i class="fa-regular fa-trash-can"> </i>
+                  Delete
+                  </a>  
                 </td>
               </tr>
             @endforeach
