@@ -66,6 +66,7 @@
               <th>State</th>
               <th>City</th>
               <th>Postcode</th>
+              <th>Latitude Logitude</th>
               <th>User</th>
               <th>Merchant</th>
               <th>Rider</th>
@@ -80,6 +81,7 @@
                 <td>{{$item->state}}</td>
                 <td>{{$item->city}}</td>
                 <td>{{$item->postcode}}</td>
+                <td>{{$item->latitude}}<br>{{$item->logitude}}</td>
                 <td>
                   @foreach ($item->getUser as $itemUsers)
                   @if ($itemUsers->getUserZone != NULL)
