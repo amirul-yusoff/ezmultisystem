@@ -11,7 +11,6 @@ use App\Models\menu_has_pictures;
 use App\Models\has_address;
 use App\Models\module;
 use Carbon\Carbon;
-use PDF;
 use DateTime;
 use Illuminate\Http\Request;
 
@@ -117,14 +116,6 @@ class HomeController extends Controller
             }
         }
         
-        $pdf = PDF::loadView('Invoice.printCD',compact('findInvoice','findAddress','sum','address','tel','fax','att','attcontact'))
-            ->setOption('page-size', 'a4')
-            ->setOption('dpi', 300)
-            // ->setOption('margin-bottom', '30mm')
-            ->setOption('margin-top', '35mm')
-            ->setOption('margin-left', '10mm')
-            ->setOption('margin-right', '10mm');
-
         $user = Auth::user();
 
         session()->forget('cart');

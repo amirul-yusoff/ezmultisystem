@@ -43,37 +43,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <li class="nav-item">
           <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
         </li>
-        <div>
-          <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
-          <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
-          <input data-id="{{$user->id}}" class="toggle-class" type="checkbox" data-onstyle="success" data-offstyle="danger" data-toggle="toggle" data-on="Online" data-off="Offline" {{ $user->is_active ? 'checked' : '' }}>
-          
-          <script>
-            $(function() { 
-                    $('.toggle-class').change(function() { 
-                    var is_active = $(this).prop('checked') == true ? 1 : 0;  
-                    var user_id = $(this).data('id');  
-                    $.ajax({ 
-                    
-                        type: "GET", 
-                        dataType: "json", 
-                        url: '/dashboard/status/update', 
-                        data: {'is_active': is_active, 'user_id': user_id}, 
-                        success: function(data){ 
-                        console.log(data.success) 
-                        setTimeout(function() {
-                            toastr.options = {
-                                showMethod: 'slideDown',
-                                timeOut: 1500
-                            };
-                            toastr.success('Member List Reload');
-                        }, 300);
-                     } 
-                  }); 
-               }) 
-            }); 
-          </script>
-        </div>
         <li class="nav-item d-none d-sm-inline-block">
           <a href= "{{ route('home') }}" class="nav-link">Home</a>
          
@@ -139,6 +108,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <img src="{{asset("/assets/dist/img/AdminLTELogo.png")}}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
         <span class="brand-text font-weight-light">iDeliver</span>
       </a>
+  
       <!-- Sidebar -->
       <div class="sidebar">
         <!-- Sidebar user panel (optional) -->

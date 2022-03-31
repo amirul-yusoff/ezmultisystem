@@ -30,7 +30,6 @@
         </div>
 
       </div>
-    <div class="card-body p-0">
 
         <table id="Coupons"  class="table table-striped projects"data-page-length="25" max-width =  "10px">
             <thead>
