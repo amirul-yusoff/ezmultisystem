@@ -54,7 +54,6 @@
                         {{$menu->geDefaultAddress->address_2}}<br>
                         {{$menu->geDefaultAddress->postcode}}</td>
                     @endif
-                    
                     <td>
                       @if ($menu->status == 'Order sent to Merchant')
                       <a class="btn btn-danger btn-sm" href="{{ route('order-received.rejectOrder',$menu->id)}}">

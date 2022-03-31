@@ -102,7 +102,6 @@
                      $longitudeTo    = $myCurrentAddress->longitude;
                      // dd($latitudeFrom,$longitudeFrom,$latitudeTo,$longitudeTo);
                      // dd($myCurrentAddress);
-                     
                      // Calculate distance between latitude and longitude
                      $theta    = $longitudeFrom - $longitudeTo;
                      $dist    = sin(deg2rad($latitudeFrom)) * sin(deg2rad($latitudeTo)) +  cos(deg2rad($latitudeFrom)) * cos(deg2rad($latitudeTo)) * cos(deg2rad($theta));
