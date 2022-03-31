@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Models\User;
+use App\Models\User;
+use App\Models\Product;
 use Illuminate\Support\Facades\Auth;
 use App\Models\module;
 
@@ -30,7 +31,32 @@ class dashboardController extends Controller
     public function index()
     {
         $user = Auth::user();
-        return view('dashboard.index',compact('user'));
+        $member = User::get();
+
+        return view('dashboard.index',compact('user','member'));
+    }
+
+    public function listproduct()
+    {
+        $user = Auth::user();
+        $member = User::get();
+        return view('product.list',compact('products','member'));
+    }
+
+    public function updateStatus(Request $request)
+    {
+        $isactive = $request->is_active;
+        $id = $request->user_id;
+        $updateUser = User :: find($id)->update([
+            'is_active' => $isactive,
+        ]);
+
+        return response()->json(['success'=>'Status change successfully.']); 
+        dd('sad');
+        $user = Auth::user();
+        $user->is_active = $request->is_active; 
+        $user->save(); 
+        return response()->json(['success'=>'Status change successfully.']); 
     }
 
 }
