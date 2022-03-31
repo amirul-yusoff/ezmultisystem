@@ -18,20 +18,15 @@
         <h3 class="card-title">Coupons</h3>
         <div class="card-tools">
           <button type="button" class="btn btn-tool">
-
             <a href="{{route('coupons.create')}}"><i class="fa-solid fa-circle-plus"></i></a>
-
             {{-- <a href="{{route('zone-menagement.create')}}"><i class="fa-solid fa-circle-plus"></i></a> --}}
-
           </button>
           <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
             <i class="fas fa-minus"></i>
           </button>
         </div>
-
       </div>
       <div class="card-body p-0">
-
         <table id="Coupons"  class="table table-striped projects"data-page-length="25" max-width =  "10px">
             <thead>
               <tr>

@@ -54,8 +54,6 @@ Route::post('/coupons', [App\Http\Controllers\CouponController::class, 'store'])
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-
-
 // dashboardController
 Route::get('/dashboard', [App\Http\Controllers\dashboardController::class, 'index'])->name('dashboard');
 // Route::get('/list-product', [dashboardController::class, 'listproduct']);

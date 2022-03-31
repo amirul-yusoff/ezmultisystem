@@ -31,7 +31,8 @@ class User extends Authenticatable
         'attachment',
         'user_group',
         'status',
-        'is_active'
+        'is_active',
+        
     ];
 
     /**

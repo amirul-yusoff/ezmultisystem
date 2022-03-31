@@ -19,6 +19,5 @@ class rejected_jobs extends Model
 		'updated_at',
 		'reason',
 	];
-
 }
   
