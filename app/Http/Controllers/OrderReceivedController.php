@@ -109,4 +109,13 @@ class OrderReceivedController extends Controller
         // dd("asda");
         return view('order.view',compact('user'));
     }
+
+    public function reject(Request $request)
+    {
+        $input = $request->all();
+        dd( $input);
+        $user = Auth::user();
+        // dd("asda");
+        return view('order.view',compact('user'));
+    }
 }

@@ -54,6 +54,7 @@ class MyJobController extends Controller
         //Order sent to Merchant
         //Preparing order
         //Waiting For pickup
+        //Rider going to pickup location 
         //Rider pickup
         //Order Delivered
 
