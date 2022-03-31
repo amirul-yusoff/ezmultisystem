@@ -103,6 +103,7 @@ class MyJobController extends Controller
         $acceptToPickup['checkout_id'] = $id;
         $acceptToPickup['user_id'] = $user->id;
         $acceptToPickupCreate = pickup_to_delivery::create($acceptToPickup);
+        
         return redirect()->back()->with('success', 'Preparing order');
 
         return view('my-jobs.index',compact('user','data','myOrder','myOrderHistory','myCurrentAddress'));

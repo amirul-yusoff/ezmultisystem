@@ -61,6 +61,4 @@ class InvoiceController extends Controller
 
         return redirect('coupons')->with('success', 'Coupon Created Successfully');
     }
-
-    
 }
