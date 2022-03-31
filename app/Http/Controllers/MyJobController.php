@@ -88,6 +88,38 @@ class MyJobController extends Controller
         return view('my-jobs.index',compact('user','data','myOrder','myOrderHistory','myCurrentAddress'));
 
     }
+    // public function rejectJobs($id)
+    // {
+    //     $user = Auth::user();
+    //     $data = User ::get();
+    //     $myCurrentAddress = has_address::where('user_id',$user->id)->where('is_default',1)->first();
+    //     $myOrder = checkout::with('menu.getOwner')->where('id',$id)
+    //     ->update([
+    //         'status' => 'Waiting For pickup',
+    //         'rider_id'=> $user->id,
+    //     ]);
+        
+    //     $myOrder = checkout::with('menu.getOwner','geDefaultAddress')->where('id',$id)->where('status','!=','Order Delivered')->get();
+    //     $myOrderHistory = checkout::with('menu.getOwner')->where('rider_id',$user->id)->where('status','=','Order Delivered')->get();
+    //     $rejectedJobs['checkout_id'] = $id;
+    //     $rejectedJobs['user_id'] = $user->id;
+    //     $rejectedJobsCreate = rejected_jobs::create($rejectedJobs);
+
+    //     return redirect()->back()->with('warning', 'Job that have been rejected');
+
+    //     return view('my-jobs.index',compact('user','data','myOrder','myOrderHistory','myCurrentAddress'));
+
+    // }
+
+    // public function reasonRejectJob(Request $request)
+    // {
+    //     $this->validate($request, [
+    //         'reason' => 'required',
+    //     ]);
+    //     $input = $request->all();
+
+    //     return redirect()->action('MyJobController@rejectJobs')->with('success', 'BQ updated'); 
+    // }
     
     public function riderPickup($id)
     {
