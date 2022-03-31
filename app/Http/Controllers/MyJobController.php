@@ -104,12 +104,6 @@ class MyJobController extends Controller
         $acceptToPickup['user_id'] = $user->id;
         $acceptToPickupCreate = pickup_to_delivery::create($acceptToPickup);
         return redirect()->back()->with('success', 'Preparing order');
-        //Order sent to Merchant
-        //Preparing order
-        //Waiting For pickup
-        //Rider going to pickup location
-        //Rider pickup
-        //Order Delivered
 
         return view('my-jobs.index',compact('user','data','myOrder','myOrderHistory','myCurrentAddress'));
 
