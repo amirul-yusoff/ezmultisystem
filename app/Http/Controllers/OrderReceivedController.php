@@ -77,6 +77,27 @@ class OrderReceivedController extends Controller
 
     }
 
+    public function rejectOrder($id)
+    {
+        $user = Auth::user();
+        $data = User ::get();
+        $myOrder = checkout::with('menu.getOwner')->where('id',$id)
+        ->update([
+            'status' => 'Order Declined',
+        ]);
+        $myOrder = checkout::with('menu.getOwner','geDefaultAddress')->where('id',$id)->get();
+        $myOrderHistory = checkout::with('menu.getOwner')->where('merchant_id',$user->id)->where('status','=','Order Delivered')->get();
+
+        $prepareToPickup['checkout_id'] = $id;
+        $prepareToPickup['user_id'] = $user->id;
+        $prepareToPickupCreate = prepare_to_pickup::create($prepareToPickup);
+
+        return redirect()->back()->with('warning', 'Order Has Been Rejected');
+
+        return view('order-received.index',compact('user','data','myOrder','myOrderHistory'));
+
+    }
+
     public function pickupReady($id)
     {
         $user = Auth::user();
