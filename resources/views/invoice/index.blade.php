@@ -5,7 +5,7 @@
     <div class="container-fluid">
       <div class="row mb-2">
         <div class="col-sm-6">
-          <h1>Coupons</h1>
+          <h1>Invoice</h1>
         </div>
       </div>
     </div>
@@ -30,7 +30,7 @@
         </div>
 
       </div>
-    <div class="card-body p-0">
+      <div class="card-body p-0">
 
         <table id="Coupons"  class="table table-striped projects"data-page-length="25" max-width =  "10px">
             <thead>

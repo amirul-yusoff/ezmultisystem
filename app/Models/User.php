@@ -30,7 +30,8 @@ class User extends Authenticatable
         'phone_number',
         'attachment',
         'user_group',
-        'status'
+        'status',
+        'is_active'
     ];
 
     /**

@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\dashboardController;
 
 /*
 |--------------------------------------------------------------------------
@@ -57,6 +58,8 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 // dashboardController
 Route::get('/dashboard', [App\Http\Controllers\dashboardController::class, 'index'])->name('dashboard');
+// Route::get('/list-product', [dashboardController::class, 'listproduct']);
+Route::get('/dashboard/status/update', [dashboardController::class, 'updateStatus'])->name('dashboard.updateStatus');
 
 // Profile
 Route::get('/profile/index', [App\Http\Controllers\ProfileController::class, 'index']);
@@ -68,12 +71,14 @@ Route::get('/my-order', [App\Http\Controllers\MyOrderController::class, 'index']
 
 Route::get('/order-received', [App\Http\Controllers\OrderReceivedController::class, 'index']);
 Route::get('/order-received/update/{id}', [App\Http\Controllers\OrderReceivedController::class, 'prepareOrder'])->name('order-received.prepareOrder');
+Route::get('/order-received/rejectOrder/{id}', [App\Http\Controllers\OrderReceivedController::class, 'rejectOrder'])->name('order-received.rejectOrder');
 Route::get('/order-received/update-pickup-ready/{id}', [App\Http\Controllers\OrderReceivedController::class, 'pickupReady'])->name('order-received.pickupReady');
 
 
 
 Route::get('/my-job', [App\Http\Controllers\MyJobController::class, 'index']);
 Route::get('/my-job/update-accept-job/{id}', [App\Http\Controllers\MyJobController::class, 'acceptJobs'])->name('my-jobs.acceptJobs');
+Route::get('/my-job/update-reject-job/{id}', [App\Http\Controllers\MyJobController::class, 'rejectJobs'])->name('my-jobs.rejectJobs');
 Route::get('/my-job/update-rider-pickup/{id}', [App\Http\Controllers\MyJobController::class, 'riderPickup'])->name('my-jobs.riderPickup');
 Route::get('/my-job/update-item-delivered/{id}', [App\Http\Controllers\MyJobController::class, 'itemDelivered'])->name('my-jobs.itemDelivered');
 
@@ -267,6 +272,8 @@ Route::get('cart', [App\Http\Controllers\MyMenuController::class, 'cart'])->name
 Route::patch('update-cart', [App\Http\Controllers\MyMenuController::class, 'updateCart'])->name('updateCart.cart');
 Route::delete('remove-from-cart', [App\Http\Controllers\MyMenuController::class, 'removeCart'])->name('remove.from.cart');
 
+//-----------------------------------------------------------------Invoice-----------------------------------------------------------------
+Route::get('/invoice', [App\Http\Controllers\InvoiceController::class, 'index']);
 
 Route::group(['middleware' => ['guest']], function() {
 });
