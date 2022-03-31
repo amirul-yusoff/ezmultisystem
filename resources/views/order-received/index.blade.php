@@ -23,6 +23,8 @@
             <i class="fas fa-minus"></i>
           </button>
         </div>
+      </div>
+      <div class="card-body p-0">
         <table id="adminMembers"  class="table table-striped projects"data-page-length="25" max-width =  "10px">
             <thead>
               <tr>
@@ -55,6 +57,10 @@
                     
                     <td>
                       @if ($menu->status == 'Order sent to Merchant')
+                      <a class="btn btn-danger btn-sm" href="{{ route('order-received.rejectOrder',$menu->id)}}">
+                        <i class="fa-regular fa-circle-xmark"> </i>
+                        Reject Order
+                      </a>  
                       <a class="btn btn-primary btn-sm" href="{{ route('order-received.prepareOrder',$menu->id)}}">
                         <i class="fa-regular fa-eye"> </i>
                         Preparing the Food
@@ -86,6 +92,8 @@
               <i class="fas fa-minus"></i>
             </button>
           </div>
+        </div>
+        <div class="card-body p-0">
           <table id="adminMembers"  class="table table-striped projects"data-page-length="25" max-width =  "10px">
               <thead>
                 <tr>
