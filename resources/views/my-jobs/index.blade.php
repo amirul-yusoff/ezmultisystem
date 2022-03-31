@@ -12,6 +12,42 @@
 
   <section class="content">
     @include('partials.message')
+    
+    <div class="">
+        <div class="modal fade" id="uploadBQ" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">Reason for Job Rejection</h4>
+              </div>
+              
+              {{-- {{ Form::model($data, ['url'=> $data->url_uploadBQ(), 'method'=> $data->method_UPDATE(), 'class'=>'form-horizontal', 'files' => true] ) }} --}}
+              {{ Form::text('ID', NULL, ['class' => 'form-control hidden'  ]) }}	
+              {{ Form::text('reason', NULL, ['class' => 'form-control hidden'  ]) }}	
+                
+                <div class="modal-body">
+                  <div class="form-group row">
+                    <label for="reason" class="col-sm-4 control-label"> Reason :</label>
+                    <div class="col-sm-8">
+                      {{ Form::text('reason', NULL, ['class' => 'form-control']) }}
+                      <br>
+                    </div>
+                  </div>
+                </div>
+                <div class="modal-footer">
+                  <div class="col-sm-offset-3 col-sm-3">
+                    <button type="submit" class="btn btn-primary">
+                      <i class="fa fa-btn fa-cloud-upload"></i> Send
+                    </button>
+                  {{Form::hidden('recreate', 0)}}
+                </div> 
+              {{ Form::close() }}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
     <div class="card">
       <div class="card-header">
         <h3 class="card-title">My Jobs</h3>
@@ -89,12 +125,20 @@
                     </td>  
                     <td>
                       @if ($menu->status == 'Waiting For pickup')
+                      <a class="btn btn-danger btn-sm" href="{{ route('my-jobs.rejectJobs',$menu->id)}}">
+                        <i class="fa-regular fa-circle-xmark"> </i>
+                        Reject Job
+                      </a>
                       <a class="btn btn-primary btn-sm" href="{{ route('my-jobs.acceptJobs',$menu->id)}}">
                         <i class="fa-regular fa-eye"> </i>
                         Accept the Job
                       </a>  
                       @endif
                       @if ($menu->status == 'Rider going to pickup location')
+                      <a class="btn btn-danger btn-sm" href="{{ route('my-jobs.rejectJobs',$menu->id)}}">
+                        <i class="fa-regular fa-circle-xmark"> </i>
+                        Reject Job
+                      </a>
                       <a class="btn btn-primary btn-sm" href="{{ route('my-jobs.riderPickup',$menu->id)}}">
                         <i class="fa-regular fa-eye"> </i>
                         Rider Pickup Item
