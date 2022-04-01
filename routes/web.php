@@ -82,6 +82,12 @@ Route::get('/my-job/update-rider-pickup/{id}', [App\Http\Controllers\MyJobContro
 Route::get('/my-job/update-item-delivered/{id}', [App\Http\Controllers\MyJobController::class, 'itemDelivered'])->name('my-jobs.itemDelivered');
 Route::get('/my-job/reject', [App\Http\Controllers\MyJobController::class, 'reject'])->name('my-jobs.reject');
 
+Route::get('/invoice', [App\Http\Controllers\MyInvoiceController::class, 'index']);
+
+
+Route::get('/report', [App\Http\Controllers\MyReportController::class, 'index']);
+
+
 
 //myaddresss
 Route::get('/my-address', [App\Http\Controllers\MyAddressController::class, 'index'])->name('my-address.index');
