@@ -40,4 +40,9 @@ class zone extends Model
     {
         return $this->hasMany('App\Models\rider_has_zones', 'zone_id', 'id');
     }
+
+	public function getZoneBermuda()
+    {
+        return $this->hasMany('App\Models\zone_has_latitude_logitude', 'zone_id', 'id');
+    }
 }

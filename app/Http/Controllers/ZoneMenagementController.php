@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\menu;
 use App\Models\user_has_zones;
+use App\Models\zone_has_latitude_logitude;
 use App\Models\merchant_has_zones;
 use App\Models\rider_has_zones;
 use App\Models\zone;
@@ -132,9 +133,41 @@ class ZoneMenagementController extends Controller
     {
         $user = Auth::user();
         // $zone = zone :: find($id);
-        $zone = zone :: with('getUser.getUserZone','getMerchant.getMerchantZone','getRider.getRiderZone')->where('is_deleted',0)->find($id);
+        $zone = zone :: with('getUser.getUserZone','getMerchant.getMerchantZone','getRider.getRiderZone','getZoneBermuda')->where('is_deleted',0)->find($id);
+        $bermuda = [];
+        foreach ($zone->getZoneBermuda as $key => $value) {
+            $bermuda[$key] = '{ lat:'.floatval($value->latitude).', lng:'.floatval($value->logitude).'}';
+            // $bermuda[$key]['latitude'] = $value->latitude;
+            // $bermuda[$key]['logitude'] = $value->logitude;
+        }
+        $firstCordinate = $zone->getZoneBermuda->first();
+        $bermuda[$key+1] = '{ lat:'.floatval($firstCordinate->latitude).', lng:'.floatval($firstCordinate->logitude).'}';
+        // $bermuda[$key+1]['latitude'] = $firstCordinate->latitude;
+        // $bermuda[$key+1]['logitude'] = $firstCordinate->logitude;
+        // dd($bermuda);
+        // dd()[{"lat":3.1174127,"lng":101.6758658},{"lat":3.0423649,"lng":101.7531577},{"lat":3.0520698,"lng":101.7875419},{"lat":3.1174127,"lng":101.6758658}]
+        return view('zone-menagement.show',compact('user','zone','bermuda'));
+    }
 
-        return view('zone-menagement.show',compact('user','zone'));
+    public function gettriangleCoords(Request $request)
+    {
+        $id = $request->id;
+        $zone = zone :: with('getUser.getUserZone','getMerchant.getMerchantZone','getRider.getRiderZone','getZoneBermuda')->where('is_deleted',0)->find($id);
+
+        foreach ($zone->getZoneBermuda as $key => $value) {
+            // $bermuda[$key] = '"lat":'.floatval($value->latitude).',"lng"'.floatval($value->logitude);
+            $bermuda[$key]['lat'] = floatval($value->latitude);
+            $bermuda[$key]['lng'] = floatval($value->logitude);
+        }
+        $firstCordinate = $zone->getZoneBermuda->first();
+        $bermuda[$key+1]['lat'] = floatval($firstCordinate->latitude);
+        $bermuda[$key+1]['lng'] = floatval($firstCordinate->logitude);
+        // $bermuda[$key+1] = '"lat":'.floatval($firstCordinate->latitude).',"lng"'.floatval($firstCordinate->logitude);
+        return $bermuda; 
+        // $bermuda[$key+1]['logitude'] = $firstCordinate->logitude;
+        // dd($bermuda);
+        // dd()[{"lat":3.1174127,"lng":101.6758658},{"lat":3.0423649,"lng":101.7531577},{"lat":3.0520698,"lng":101.7875419},{"lat":3.1174127,"lng":101.6758658}]
+        return view('zone-menagement.show',compact('user','zone','bermuda'));
     }
 
     /**
@@ -156,6 +189,18 @@ class ZoneMenagementController extends Controller
 // dd($currentUser);
         return view('zone-menagement.edit',compact('user','zone','member','currentUser','merchant','currentMerchant','rider','currentRider'));
     }
+
+    public function addMarker(Request $request)
+    {
+        $input = $request->all();
+        $user = Auth::user();
+        $input['user_id'] =  $user->id;
+        $input['zone_id'] =  $input['id'] ;
+        zone_has_latitude_logitude::create($input);
+
+        return redirect()->back()->with('success', 'Marker Added');
+    }
+    
 
     /**
      * Update the specified resource in storage.

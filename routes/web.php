@@ -259,7 +259,9 @@ Route::get('/zone-menagement/show/{id}', [App\Http\Controllers\ZoneMenagementCon
 Route::post('/zone-menagement', [App\Http\Controllers\ZoneMenagementController::class, 'store'])->name('zone-menagement.store');
 Route::get('/zone-menagement/destroy', [App\Http\Controllers\ZoneMenagementController::class, 'destroy'])->name('zone-menagement.destroy');
 Route::get('/zone-menagement/edit/{id}', [App\Http\Controllers\ZoneMenagementController::class, 'edit'])->name('zone-menagement.edit');
+Route::get('/zone-menagement/edit/{id}/add-marker', [App\Http\Controllers\ZoneMenagementController::class, 'addMarker'])->name('zone-menagement.addMarker');
 Route::PUT('/zone-menagement/update/{id}', [App\Http\Controllers\ZoneMenagementController::class, 'update'])->name('zone-menagement.update');
+Route::GET('/zone-menagement/find-marker-bermuda', [App\Http\Controllers\ZoneMenagementController::class, 'gettriangleCoords'])->name('zone-menagement.gettriangleCoords');
 
 Route::get('/zone-menagement/approved', [App\Http\Controllers\ZoneMenagementController::class, 'approved'])->name('zone-menagement.approved');
 Route::get('/zone-menagement/rejected', [App\Http\Controllers\ZoneMenagementController::class, 'rejected'])->name('zone-menagement.rejected');
