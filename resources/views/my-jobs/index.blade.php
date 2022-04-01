@@ -23,7 +23,9 @@
             <i class="fas fa-minus"></i>
           </button>
         </div>
-        <table id="adminMembers"  class="table table-striped projects"data-page-length="25" max-width =  "10px">
+      </div>
+        <div class="card-body p-0">
+          <table id="adminMembers"  class="table table-striped projects"data-page-length="25" max-width =  "10px">
             <thead>
               <tr>
                 <th>ID</th>
@@ -64,7 +66,6 @@
                      $longitudeTo    = $myCurrentAddress->longitude;
                      // dd($latitudeFrom,$longitudeFrom,$latitudeTo,$longitudeTo);
                      // dd($myCurrentAddress);
-                     
                      // Calculate distance between latitude and longitude
                      $theta    = $longitudeFrom - $longitudeTo;
                      $dist    = sin(deg2rad($latitudeFrom)) * sin(deg2rad($latitudeTo)) +  cos(deg2rad($latitudeFrom)) * cos(deg2rad($latitudeTo)) * cos(deg2rad($theta));
@@ -118,8 +119,8 @@
                 @endforeach
             </tbody>
           </table>
+        </div>
       </div>
-    </div>
 
     <div class="">
 			<div class="modal fade" id="add-new-member" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -169,7 +170,9 @@
               <i class="fas fa-minus"></i>
             </button>
           </div>
-          <table id="adminMembers"  class="table table-striped projects"data-page-length="25" max-width =  "10px">
+        </div>
+        <div class="card-body p-0">
+        <table id="adminMembers"  class="table table-striped projects"data-page-length="25" max-width =  "10px">
               <thead>
                 <tr>
                   <th>ID</th>

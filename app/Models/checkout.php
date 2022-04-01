@@ -40,5 +40,4 @@ class checkout extends Authenticatable
 		return $this->hasOne('App\Models\has_address', 'id', 'address_id');
 	}
 
-    
 }
