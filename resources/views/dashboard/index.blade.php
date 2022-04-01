@@ -67,7 +67,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                               toastr.success('Member List Reload');
                           }, 300);
                       } 
-                    }); 
+                      }); 
                 }) 
               }); 
             </script>
