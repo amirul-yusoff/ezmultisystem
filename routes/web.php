@@ -69,7 +69,7 @@ Route::get('/my-order', [App\Http\Controllers\MyOrderController::class, 'index']
 Route::get('/order-received', [App\Http\Controllers\OrderReceivedController::class, 'index']);
 Route::get('/order-received/update/{id}', [App\Http\Controllers\OrderReceivedController::class, 'prepareOrder'])->name('order-received.prepareOrder');
 Route::get('/order-received/update-pickup-ready/{id}', [App\Http\Controllers\OrderReceivedController::class, 'pickupReady'])->name('order-received.pickupReady');
-Route::get('/order-received/reject/{id}', [App\Http\Controllers\OrderReceivedController::class, 'reject'])->name('order-received.reject');
+Route::get('/order-received/reject', [App\Http\Controllers\OrderReceivedController::class, 'reject'])->name('order-received.reject');
 
 
 
@@ -77,6 +77,7 @@ Route::get('/my-job', [App\Http\Controllers\MyJobController::class, 'index']);
 Route::get('/my-job/update-accept-job/{id}', [App\Http\Controllers\MyJobController::class, 'acceptJobs'])->name('my-jobs.acceptJobs');
 Route::get('/my-job/update-rider-pickup/{id}', [App\Http\Controllers\MyJobController::class, 'riderPickup'])->name('my-jobs.riderPickup');
 Route::get('/my-job/update-item-delivered/{id}', [App\Http\Controllers\MyJobController::class, 'itemDelivered'])->name('my-jobs.itemDelivered');
+Route::get('/my-job/reject', [App\Http\Controllers\MyJobController::class, 'reject'])->name('my-jobs.reject');
 
 
 //myaddresss

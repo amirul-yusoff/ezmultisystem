@@ -23,6 +23,8 @@
             <i class="fas fa-minus"></i>
           </button>
         </div>
+      </div>
+      <div class="card-body p-0">
         <table id="adminMembers"  class="table table-striped projects"data-page-length="25" max-width =  "10px">
             <thead>
               <tr>
@@ -56,20 +58,24 @@
                     <td>
                       @if ($menu->status == 'Order sent to Merchant')
                       <a class="btn btn-primary btn-sm" href="{{ route('order-received.prepareOrder',$menu->id)}}">
-                        <i class="fa-regular fa-eye"> </i>
+                        <i class="fa-regular fa-circle-check"></i>
                         Preparing the Food
                       </a>  
+                      <button type="button" class="btn btn-danger btn-sm pull-right" data-toggle="modal" data-target="#add-new-member" data-id="{{$menu->id}}">
+                        <i class="fa-solid fa-ban"></i>
+                        Reject Order
+                      </button>
                       @endif
                       @if ($menu->status == 'Preparing order')
                       <a class="btn btn-primary btn-sm" href="{{ route('order-received.pickupReady',$menu->id)}}">
-                        <i class="fa-regular fa-eye"> </i>
+                        <i class="fa-regular fa-circle-check"></i>
                         Ready For Pickup
                       </a>  
-                      @endif
-                      <button type="button" class="btn btn-xs btn-primary pull-right" data-toggle="modal" data-target="#add-new-member" data-id="{{$menu->id}}">
-                        <i class="fa fa-plus"></i>
-                        reject Job
+                      <button type="button" class="btn btn-danger btn-sm pull-right" data-toggle="modal" data-target="#add-new-member" data-id="{{$menu->id}}">
+                        <i class="fa-solid fa-ban"></i>
+                        Reject Order
                       </button>
+                      @endif
                     </td>
                   </tr> 
                 @endforeach
@@ -83,16 +89,15 @@
 					<div class="modal-content">
 						<div class="modal-header">
 							<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-							<h4 class="modal-title">Add Members</h4>
 						</div>
-						{{ Form::open(array('url' => route('order-received.reject',$menu->id)))  }} 
+						{{ Form::open(array('url' => route('order-received.reject')))  }} 
             {{ method_field('GET') }}
 							
 							<div class="modal-body"> 
                 <div class="form-group row">
 									<label for="project_team" class="col-sm-4 control-label"> Order ID :</label>
 									<div class="col-sm-8">
-										{{ Form::text('id', $menu->id, ['placeholder' => 'Reason', 'class' => 'form-control','readonly'])}}
+										{{ Form::text('id', null, ['placeholder' => 'Reason', 'class' => 'form-control','readonly'])}}
 										<br>
 									</div>
 								</div>
@@ -106,9 +111,8 @@
 							</div> 
 	
 							<div class="modal-footer">
-								<div class="col-sm-offset-3 col-sm-3">
+								<div class="btn btn-primary btn-sm">
 									<button type="submit" class="btn btn-primary"><i class="fa fa-btn fa-cloud-upload"></i> Reject Order</button>
-								
 								{{Form::hidden('recreate', 0)}}
 							</div> 
 						{{ Form::close() }}
@@ -127,6 +131,8 @@
               <i class="fas fa-minus"></i>
             </button>
           </div>
+        </div>
+        <div class="card-body p-0">
           <table id="adminMembers"  class="table table-striped projects"data-page-length="25" max-width =  "10px">
               <thead>
                 <tr>
@@ -158,7 +164,6 @@
   $(document).ready(function () {
 		$("#add-new-member").on("show.bs.modal", function (e) {
 			var id = $(event.target).data('id');
-      alert(id);
 			$('input[name=id]').val(id);
 		});
 

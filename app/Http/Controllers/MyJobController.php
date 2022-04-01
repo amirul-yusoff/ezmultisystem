@@ -9,7 +9,9 @@ use App\Models\pickup_to_acceptjob;
 use App\Models\acceptjob_to_pickup;
 use App\Models\pickup_to_delivery;
 use App\Models\delivery_to_complete;
+use App\Models\rejected_jobs;
 use Illuminate\Support\Facades\Auth;
+use Carbon\Carbon;
 
 use Illuminate\Http\Request;
 
@@ -196,5 +198,27 @@ class MyJobController extends Controller
         }else{
             return round($miles, 2).' miles';
         }
+    }
+    
+    public function reject(Request $request)
+    {
+        $input = $request->all();
+        $timenow = Carbon::now();
+        // dd( $input);
+        $id = $input['id'];
+        $reason = $input['reason'];
+        $user = Auth::user();
+        $myOrder = checkout::with('menu.getOwner')->where('id',$id)
+        ->update([
+            'status' => 'Waiting For pickup',
+        ]);
+        $rejectedJobs['checkout_id'] = $id;
+        $rejectedJobs['user_id'] = $user->id;
+        $rejectedJobs['reason'] = $reason;
+        $rejectedJobs['created_at'] = $timenow;
+        $rejectedJobs['updated_at'] = $timenow;
+        $rejectedJobsCreate = rejected_jobs::create($rejectedJobs);
+
+        return redirect()->back()->with('success', 'Job Reject');
     }
 }
