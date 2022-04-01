@@ -25,6 +25,10 @@
                 <button type="button" class="btn btn-tool">
                     <a href="{{url('zone-menagement')}}"><i class="fa-solid fa-arrow-left-long"></i></a>
                 </button>
+                <button type="button" class="btn btn-danger btn-sm pull-right" data-toggle="modal" data-target="#add-new-marker" data-id="{{$zone->id}}">
+                    <i class="fa-solid fa-ban"></i>
+                    Add marker
+                  </button>
             </div>
         </div>
         <div class="card-body">
@@ -48,6 +52,15 @@
                 <label for="logitude" class="col-md-4 col-form-label">logitude</label>
 				{{ Form::text('logitude', $zone->logitude, ['class' => 'form-control','autocomplete'=>'off']) }}
             </div>
+            @if ($zone->getZoneBermuda != NULL)
+                @foreach ($zone->getZoneBermuda as $key => $itemBermuda)
+                <div class="form-group">
+                    <label for="latitude" class="col-md-4 col-form-label">Marker {{$key+1}}</label>
+                    {{ Form::text('value', $itemBermuda->latitude, ['class' => 'form-control','autocomplete'=>'off']) }}
+                    {{ Form::text('value', $itemBermuda->logitude, ['class' => 'form-control','autocomplete'=>'off']) }}
+                </div>  
+                @endforeach
+            @endif
             <div class="form-group">
                 <label for="permission" class="col-md-4 col-form-label">User</label>
                 <select name="user[]" id="user" class="form-control chosen-select" multiple="multiple">
@@ -89,12 +102,60 @@
     </div>
     {{ Form::close() }}
 </div>
+<div class="">
+    <div class="modal fade" id="add-new-marker" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                </div>
+                {{ Form::open(array('url' => route('zone-menagement.addMarker',$zone->id)))  }} 
+                {{ method_field('GET') }}
+                    
+                    <div class="modal-body"> 
+                    <div class="form-group row">
+                            <label for="project_team" class="col-sm-4 control-label"> Zone ID :</label>
+                            <div class="col-sm-8">
+                                {{ Form::text('id', null, ['placeholder' => 'Reason', 'class' => 'form-control','readonly'])}}
+                                <br>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="project_team" class="col-sm-4 control-label"> Latitude :</label>
+                            <div class="col-sm-8">
+                                {{ Form::text('latitude', null, ['placeholder' => 'Latitude', 'class' => 'form-control'])}}
+                                <br>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="project_team" class="col-sm-4 control-label"> Logitude :</label>
+                            <div class="col-sm-8">
+                                {{ Form::text('logitude', null, ['placeholder' => 'Logitude', 'class' => 'form-control'])}}
+                                <br>
+                            </div>
+                        </div>
+                    </div> 
+
+                    <div class="modal-footer">
+                        <div class="btn btn-primary btn-sm">
+                            <button type="submit" class="btn btn-primary"><i class="fa fa-btn fa-cloud-upload"></i> Add Marker</button>
+                        {{Form::hidden('recreate', 0)}}
+                    </div> 
+                {{ Form::close() }}
+            </div>
+        </div>
+    </div>
+</div>
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 <script type="text/javascript">
 $(document).ready(function() {
         $('#user').select2();
         $('#merchant').select2();
         $('#rider').select2();
+        $("#add-new-marker").on("show.bs.modal", function (e) {
+			var id = $(event.target).data('id');
+			$('input[name=id]').val(id);
+		});
     });
 </script>
 @endsection

@@ -33,6 +33,16 @@
                     <dd>{{$zone->city}}</dd>
                 <dt>Postcode</dt>
                     <dd>{{$zone->postcode}}</dd>
+
+                    @if ($zone->getZoneBermuda != NULL)
+                    @foreach ($zone->getZoneBermuda as $key => $itemBermuda)
+                    <div class="form-group">
+                        <label for="latitude" class="col-md-4 col-form-label">Marker {{$key+1}}</label>
+                        {{ Form::text('value', $itemBermuda->latitude, ['class' => 'form-control','autocomplete'=>'off']) }}
+                        {{ Form::text('value', $itemBermuda->logitude, ['class' => 'form-control','autocomplete'=>'off']) }}
+                    </div>  
+                    @endforeach
+                @endif
                 <dt>Users</dt>
                     <dd>
                         @foreach ($zone->getUser as $item)
@@ -57,28 +67,63 @@
         </div>
     </div>
 </div>
+<script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
 <div id="googleMap" style="width:100%;height:400px;"></div>
 
+    <!-- Async script executes immediately and must be after any DOM elements used in callback. -->
+    <script
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCl39KmrnE2AaRWMXJIrKUcESBHHeG7y1c&callback=myMap&v=weekly"
+      async
+    ></script>
 <script>
 function myMap() {
-  const myLatLng = { lat: 3.0927, lng: 101.7395 };
-  const map = new google.maps.Map(document.getElementById("googleMap"), {
-    zoom: 15,
-    center: myLatLng,
-  });
+    var id = '{{$zone->id}}'; 
+    // $.ajax({ 
+    //     type: "GET", 
+    //     dataType: "json", 
+    //     url: '/zone-menagement/find-marker-bermuda', 
+    //     data: {'id': id}, 
+    //     success: function(data){ 
+    //     alert(data);
+    //     const mydata = data
+        
+        
+    // }}); 
 
-  new google.maps.Marker({
-    position: myLatLng,
-    map,
-    title: "Hello World!",
-  });
+    var triangleCoordsLS12 = []
+    var lat = parseFloat('{{$zone->latitude}}');
+    var lng = parseFloat('{{$zone->logitude}}');
+    const myLatLng = { lat: lat, lng: lng };
+    var lat = 'lat';
+    var lng = 'lng';
+   
+    
+
+    // Define the LatLng coordinates for the polygon's path.
+    const triangleCoordsold = [
+        { lat: 3.1174127, lng: 101.6758658 },
+        { lat: 3.0423649, lng: 101.7531577 },
+        { lat: 3.0520698, lng: 101.7875419 },
+        { lat: 3.1174127, lng: 101.6758658 },
+    ];
+    const passedArray = [<?php echo implode(",",$bermuda) ?>];
+
+    // Construct the polygon.
+    const bermudaTriangle = new google.maps.Polygon({
+        paths: passedArray,
+        strokeColor: "#FF0000",
+        strokeOpacity: 0.8,
+        strokeWeight: 2,
+        fillColor: "#FF0000",
+        fillOpacity: 0.35,
+    });
+    const map = new google.maps.Map(document.getElementById("googleMap"), {
+        zoom: 13,
+        center: myLatLng,
+        // center: { lat: 24.886, lng: -70.268 },
+    });
+    bermudaTriangle.setMap(map);
 }
 </script>
 
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCl39KmrnE2AaRWMXJIrKUcESBHHeG7y1c&callback=myMap"></script>
-    
-  
-  <script type="text/javascript">
-		
-  </script>
 @endsection

@@ -153,25 +153,11 @@ body {
       </div>
     </div>
   </section>
-  <div id="googleMap" style="width:100%;height:400px;"></div>
 
 <script>
-function myMap() {
-  const myLatLng = { lat: 3.0927, lng: 101.7395 };
-  const map = new google.maps.Map(document.getElementById("googleMap"), {
-    zoom: 15,
-    center: myLatLng,
-  });
 
-  new google.maps.Marker({
-    position: myLatLng,
-    map,
-    title: "Hello World!",
-  });
-}
 </script>
 
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCl39KmrnE2AaRWMXJIrKUcESBHHeG7y1c&callback=myMap"></script>
     
   
   <script type="text/javascript">
