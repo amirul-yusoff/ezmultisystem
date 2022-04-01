@@ -23,7 +23,9 @@
             <i class="fas fa-minus"></i>
           </button>
         </div>
-        <table id="adminMembers"  class="table table-striped projects"data-page-length="25" max-width =  "10px">
+      </div>
+        <div class="card-body p-0">
+          <table id="adminMembers"  class="table table-striped projects"data-page-length="25" max-width =  "10px">
             <thead>
               <tr>
                 <th>ID</th>
@@ -64,7 +66,6 @@
                      $longitudeTo    = $myCurrentAddress->longitude;
                      // dd($latitudeFrom,$longitudeFrom,$latitudeTo,$longitudeTo);
                      // dd($myCurrentAddress);
-                     
                      // Calculate distance between latitude and longitude
                      $theta    = $longitudeFrom - $longitudeTo;
                      $dist    = sin(deg2rad($latitudeFrom)) * sin(deg2rad($latitudeTo)) +  cos(deg2rad($latitudeFrom)) * cos(deg2rad($latitudeTo)) * cos(deg2rad($theta));
@@ -89,31 +90,75 @@
                     <td>
                       @if ($menu->status == 'Waiting For pickup')
                       <a class="btn btn-primary btn-sm" href="{{ route('my-jobs.acceptJobs',$menu->id)}}">
-                        <i class="fa-regular fa-eye"> </i>
+                        <i class="fa-regular fa-circle-check"></i>
                         Accept the Job
                       </a>  
+                      <button type="button" class="btn btn-danger btn-sm pull-right" data-toggle="modal" data-target="#add-new-member" data-id="{{$menu->id}}">
+                        <i class="fa-solid fa-ban"></i>
+                        Reject Order
+                      </button>
                       @endif
                       @if ($menu->status == 'Rider going to pickup location')
                       <a class="btn btn-primary btn-sm" href="{{ route('my-jobs.riderPickup',$menu->id)}}">
-                        <i class="fa-regular fa-eye"> </i>
+                        <i class="fa-regular fa-circle-check"></i>
                         Rider Pickup Item
                       </a>  
+                      <button type="button" class="btn btn-danger btn-sm pull-right" data-toggle="modal" data-target="#add-new-member" data-id="{{$menu->id}}">
+                        <i class="fa-solid fa-ban"></i>
+                        Reject Order
+                      </button>
                       @endif
                       @if ($menu->status == 'Rider pickup')
                       <a class="btn btn-primary btn-sm" href="{{ route('my-jobs.itemDelivered',$menu->id)}}">
-                        <i class="fa-regular fa-eye"> </i>
+                        <i class="fa-regular fa-circle-check"></i>
                         Item Delivered
                       </a>  
                       @endif
-                      
                     </td>
                   </tr> 
                 @endforeach
             </tbody>
           </table>
+        </div>
       </div>
-    </div>
 
+    <div class="">
+			<div class="modal fade" id="add-new-member" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+						</div>
+						{{ Form::open(array('url' => route('my-jobs.reject')))  }} 
+            {{ method_field('GET') }}
+							
+							<div class="modal-body"> 
+                <div class="form-group row">
+									<label for="project_team" class="col-sm-4 control-label"> Order ID :</label>
+									<div class="col-sm-8">
+										{{ Form::text('id', NULL, ['placeholder' => 'Reason', 'class' => 'form-control','readonly'])}}
+										<br>
+									</div>
+								</div>
+								<div class="form-group row">
+									<label for="project_team" class="col-sm-4 control-label"> Reason :</label>
+									<div class="col-sm-8">
+										{{ Form::text('reason', null, ['placeholder' => 'Reason', 'class' => 'form-control'])}}
+										<br>
+									</div>
+								</div>
+							</div> 
+	
+							<div class="modal-footer">
+								<div class="btn btn-primary btn-sm">
+									<button type="submit" class="btn btn-primary"><i class="fa fa-btn fa-cloud-upload"></i> Reject Job</button>
+								{{Form::hidden('recreate', 0)}}
+							</div> 
+						{{ Form::close() }}
+					</div>
+				</div>
+			</div>
+		</div>
     <div class="card">
         <div class="card-header">
           <h3 class="card-title">My History</h3>
@@ -125,7 +170,9 @@
               <i class="fas fa-minus"></i>
             </button>
           </div>
-          <table id="adminMembers"  class="table table-striped projects"data-page-length="25" max-width =  "10px">
+        </div>
+        <div class="card-body p-0">
+        <table id="adminMembers"  class="table table-striped projects"data-page-length="25" max-width =  "10px">
               <thead>
                 <tr>
                   <th>ID</th>
@@ -152,9 +199,15 @@
         </div>
       </div>
   </section>
-<script type="text/javascript">
-
-
-</script>
+  <script type="text/javascript">
+    $(document).ready(function () {
+      $("#add-new-member").on("show.bs.modal", function (e) {
+        var id = $(event.target).data('id');
+        $('input[name=id]').val(id);
+      });
+  
+    });
+  
+  </script>
 @endsection
 

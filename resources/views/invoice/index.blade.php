@@ -1,18 +1,19 @@
 @extends('dashboard.index')
 @section('content')
 <section class="content-header">
+
+
     <div class="container-fluid">
       <div class="row mb-2">
         <div class="col-sm-6">
-          <h1>My Invoice</h1>
+          <h1>Invoice</h1>
         </div>
       </div>
     </div>
   </section>
 
   <section class="content">
-    @include('partials.message')
-   
+    @include('partials.message')   
 
     <div class="card">
         <div class="card-header">
@@ -49,6 +50,7 @@
             </table>
         </div>
       </div>
+
   </section>
 <script type="text/javascript">
 
