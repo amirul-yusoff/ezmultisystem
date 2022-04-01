@@ -6,6 +6,7 @@ use App\Models\User;
 use App\Models\checkout;
 use App\Models\prepare_to_pickup;
 use App\Models\pickup_to_acceptjob;
+use App\Models\rejected_jobs;
 
 use Illuminate\Support\Facades\Auth;
 
@@ -129,5 +130,26 @@ class OrderReceivedController extends Controller
         $user = Auth::user();
         // dd("asda");
         return view('order.view',compact('user'));
+    }
+
+    public function reject(Request $request)
+    {
+        $input = $request->all();
+        // dd( $input);
+        $id = $input['id'];
+        $reason = $input['reason'];
+        $user = Auth::user();
+        $myOrder = checkout::with('menu.getOwner')->where('id',$id)
+        ->update([
+            'status' => 'Order Declined',
+        ]);
+        $rejectedJobs['checkout_id'] = $id;
+        $rejectedJobs['user_id'] = $user->id;
+        $rejectedJobs['reason'] = $reason;
+        $rejectedJobsCreate = rejected_jobs::create($rejectedJobs);
+
+        // return view('OrderReceivedController@index',compact('user','myOrder'));
+        return redirect()->back()->with('success', 'Order Reject');
+        // return redirect()->action('OrderReceivedController@index',compact('user','myOrder'))->with('success', 'Order has been Canceled'); 
     }
 }

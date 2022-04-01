@@ -10,14 +10,14 @@ class rejected_jobs extends Model
 
 	protected $primaryKey = 'id';
 
-	public $timestamps = true;
-
+	public $timestamps = false;
+	
 	protected $fillable = [
 		'checkout_id',
 		'user_id',
+		'reason',
 		'created_at',
 		'updated_at',
-		'reason',
 	];
+	
 }
-  

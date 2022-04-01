@@ -61,17 +61,24 @@
                         Reject Order
                       </a>  
                       <a class="btn btn-primary btn-sm" href="{{ route('order-received.prepareOrder',$menu->id)}}">
-                        <i class="fa-regular fa-eye"> </i>
+                        <i class="fa-regular fa-circle-check"></i>
                         Preparing the Food
                       </a>  
+                      <button type="button" class="btn btn-danger btn-sm pull-right" data-toggle="modal" data-target="#add-new-member" data-id="{{$menu->id}}">
+                        <i class="fa-solid fa-ban"></i>
+                        Reject Order
+                      </button>
                       @endif
                       @if ($menu->status == 'Preparing order')
                       <a class="btn btn-primary btn-sm" href="{{ route('order-received.pickupReady',$menu->id)}}">
-                        <i class="fa-regular fa-eye"> </i>
+                        <i class="fa-regular fa-circle-check"></i>
                         Ready For Pickup
                       </a>  
+                      <button type="button" class="btn btn-danger btn-sm pull-right" data-toggle="modal" data-target="#add-new-member" data-id="{{$menu->id}}">
+                        <i class="fa-solid fa-ban"></i>
+                        Reject Order
+                      </button>
                       @endif
-                      
                     </td>
                   </tr> 
                 @endforeach
@@ -79,7 +86,43 @@
           </table>
       </div>
     </div>
-
+    <div class="">
+			<div class="modal fade" id="add-new-member" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+						</div>
+						{{ Form::open(array('url' => route('order-received.reject')))  }} 
+            {{ method_field('GET') }}
+							
+							<div class="modal-body"> 
+                <div class="form-group row">
+									<label for="project_team" class="col-sm-4 control-label"> Order ID :</label>
+									<div class="col-sm-8">
+										{{ Form::text('id', null, ['placeholder' => 'Reason', 'class' => 'form-control','readonly'])}}
+										<br>
+									</div>
+								</div>
+								<div class="form-group row">
+									<label for="project_team" class="col-sm-4 control-label"> Reason :</label>
+									<div class="col-sm-8">
+										{{ Form::text('reason', null, ['placeholder' => 'Reason', 'class' => 'form-control'])}}
+										<br>
+									</div>
+								</div>
+							</div> 
+	
+							<div class="modal-footer">
+								<div class="btn btn-primary btn-sm">
+									<button type="submit" class="btn btn-primary"><i class="fa fa-btn fa-cloud-upload"></i> Reject Order</button>
+								{{Form::hidden('recreate', 0)}}
+							</div> 
+						{{ Form::close() }}
+					</div>
+				</div>
+			</div>
+		</div>
     <div class="card">
         <div class="card-header">
           <h3 class="card-title">My History</h3>
@@ -121,7 +164,13 @@
       </div>
   </section>
 <script type="text/javascript">
+  $(document).ready(function () {
+		$("#add-new-member").on("show.bs.modal", function (e) {
+			var id = $(event.target).data('id');
+			$('input[name=id]').val(id);
+		});
 
+	});
 
 </script>
 @endsection
