@@ -36,6 +36,30 @@
 
               </tr>
           @endforeach
+            <tr>
+                <td data-th="Product">
+                    <div class="row">
+                        <div class="col-sm-9">
+                            <h4 class="nomargin">Tax</h4>
+                        </div>
+                    </div>
+                </td>
+                <td data-th="Price">6 %</td>
+                <td data-th="Quantity">1</td>
+                <td data-th="Subtotal" class="text-center">RM{{ 0.06 * $total }}</td>
+            </tr>
+            <tr>
+                <td data-th="Product">
+                    <div class="row">
+                        <div class="col-sm-9">
+                            <h4 class="nomargin">Services Charge</h4>
+                        </div>
+                    </div>
+                </td>
+                <td data-th="Price">6 %</td>
+                <td data-th="Quantity">1</td>
+                <td data-th="Subtotal" class="text-center">RM{{ 0.06 * $total }}</td>
+            </tr>
       @endif
   </tbody>
   <tfoot>

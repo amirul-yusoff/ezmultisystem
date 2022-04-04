@@ -76,6 +76,9 @@ class HomeController extends Controller
 
         //echeck the discount
 
+        //caheck rate
+        
+
         return view('checkout.index',compact('user','userDefaultAddress'));
     }
 

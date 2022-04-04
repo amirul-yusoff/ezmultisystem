@@ -19,6 +19,10 @@ class rider_has_category extends Model
 		'updated_at',
 		'updated_by',
 	];
-	
+
+	public function getcategoryName()
+	{
+		return $this->hasOne('App\Models\rider_category', 'id', 'category_id');
+	}
 	
 }
