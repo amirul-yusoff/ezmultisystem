@@ -283,6 +283,10 @@ Route::delete('remove-from-cart', [App\Http\Controllers\MyMenuController::class,
 //-----------------------------------------------------------------Invoice-----------------------------------------------------------------
 Route::get('/invoice', [App\Http\Controllers\InvoiceController::class, 'index']);
 
+Route::get('/rider-category', [App\Http\Controllers\RiderCategoryController::class, 'index']);
+Route::get('/rider-category/create', [App\Http\Controllers\RiderCategoryController::class, 'create'])->name('rider-category.create');
+Route::get('/rider-category/edit', [App\Http\Controllers\RiderCategoryController::class, 'edit'])->name('rider-category.edit');
+
 Route::group(['middleware' => ['guest']], function() {
 });
 

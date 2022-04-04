@@ -25,8 +25,9 @@ class AllRidersController extends Controller
     {
         $user = Auth::user();
         $members = User :: where('user_group','=','4')->where('status','=','Request Approved')->get();
+        $riderCategoryList = rider_category :: all();
 
-        return view('all-riders.index',compact('user','members'));
+        return view('all-riders.index',compact('user','members','riderCategoryList'));
     }
 
     /**
