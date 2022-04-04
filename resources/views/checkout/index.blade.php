@@ -36,6 +36,9 @@
 
               </tr>
           @endforeach
+            @php 
+            $totalTax = $details['price'] * 0.06 
+            @endphp
             <tr>
                 <td data-th="Product">
                     <div class="row">
@@ -46,8 +49,11 @@
                 </td>
                 <td data-th="Price">6 %</td>
                 <td data-th="Quantity">1</td>
-                <td data-th="Subtotal" class="text-center">RM{{ 0.06 * $total }}</td>
+                <td data-th="Subtotal" class="text-center">RM{{$totalTax}}</td>
             </tr>
+            @php 
+            $totalServices = $details['price'] * 0.06 
+            @endphp
             <tr>
                 <td data-th="Product">
                     <div class="row">
@@ -58,7 +64,15 @@
                 </td>
                 <td data-th="Price">6 %</td>
                 <td data-th="Quantity">1</td>
-                <td data-th="Subtotal" class="text-center">RM{{ 0.06 * $total }}</td>
+                <td data-th="Subtotal" class="text-center">RM{{$totalServices}}</td>
+            </tr>
+            <tr>
+                <td data-th="Product">
+                  Total  
+                </td>
+                <td data-th="Price"></td>
+                <td data-th="Quantity"></td>
+                <td data-th="Subtotal" class="text-center">RM{{ $totalTax+$total+$totalServices }}</td>
             </tr>
       @endif
   </tbody>
@@ -79,7 +93,8 @@
         </td>
         </tr>
         <tr>
-            <td colspan="5" class="text-right"><h3><strong>Total RM {{ $total }}</strong></h3></td>
+            <td colspan="5" class="text-right"><h3><strong>Total RM {{ $totalTax+$total+$totalServices }}</strong></h3></td>
+            <td colspan="5" class="text-right"><h3><strong> <input type="hidden" id="TotalAll" name="TotalAll" value="{{$totalTax+$total+$totalServices}}"></td>
         </tr>
         <tr>
             <td colspan="5" class="text-right">

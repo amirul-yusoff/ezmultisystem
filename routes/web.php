@@ -287,6 +287,11 @@ Route::get('/rider-category', [App\Http\Controllers\RiderCategoryController::cla
 Route::get('/rider-category/create', [App\Http\Controllers\RiderCategoryController::class, 'create'])->name('rider-category.create');
 Route::get('/rider-category/edit', [App\Http\Controllers\RiderCategoryController::class, 'edit'])->name('rider-category.edit');
 
+Route::get('/user-category', [App\Http\Controllers\UserCategoryController::class, 'index']);
+Route::get('/user-category/create', [App\Http\Controllers\UserCategoryController::class, 'create'])->name('user-category.create');
+Route::get('/user-category/edit', [App\Http\Controllers\UserCategoryController::class, 'edit'])->name('user-category.edit');
+
+
 Route::group(['middleware' => ['guest']], function() {
 });
 

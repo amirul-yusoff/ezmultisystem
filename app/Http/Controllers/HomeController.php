@@ -77,7 +77,7 @@ class HomeController extends Controller
         //echeck the discount
 
         //caheck rate
-        
+
 
         return view('checkout.index',compact('user','userDefaultAddress'));
     }
@@ -86,6 +86,8 @@ class HomeController extends Controller
     {
         $user = Auth::user();
         $input = $request->all();
+        dd($input,session('cart'));
+
         $checkoutID = Carbon::now()->todatetimeString().'-'.$user->id;
         $this->validate($request, [
             'type_payment' => 'required',
