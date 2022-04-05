@@ -1,6 +1,6 @@
 @extends('dashboard.index')
 @section('content')
-
+@include('partials.message')
 <table id="cart" class="table table-hover table-condensed">
   <thead>
       <tr>
@@ -66,14 +66,24 @@
                 <td data-th="Quantity">1</td>
                 <td data-th="Subtotal" class="text-center">RM{{$totalServices}}</td>
             </tr>
+            @if ($promocode != NULL)
+            <tr>
+                <td data-th="Product">
+                    Promo Code  
+                  </td>
+                  <td data-th="Price">{{$promocode->coupon_code}}</td>
+                  <td data-th="Quantity"></td>
+                  <td data-th="Subtotal" class="text-center">- RM{{ $promocode->amount }}</td>
+            </tr>
             <tr>
                 <td data-th="Product">
                   Total  
                 </td>
                 <td data-th="Price"></td>
                 <td data-th="Quantity"></td>
-                <td data-th="Subtotal" class="text-center">RM{{ $totalTax+$total+$totalServices }}</td>
+                <td data-th="Subtotal" class="text-center">RM{{ $totalTax+$total+$totalServices-$promocode->amount }}</td>
             </tr>
+            @endif
       @endif
   </tbody>
   <tfoot>
@@ -92,17 +102,24 @@
                 <input type="text" id="promo_code" name="promo_code"> --}}
         </td>
         </tr>
-        <tr>
+        {{-- <tr>
             <td colspan="5" class="text-right"><h3><strong>Total RM {{ $totalTax+$total+$totalServices }}</strong></h3></td>
             <td colspan="5" class="text-right"><h3><strong> <input type="hidden" id="TotalAll" name="TotalAll" value="{{$totalTax+$total+$totalServices}}"></td>
-        </tr>
+        </tr> --}}
         <tr>
             <td colspan="5" class="text-right">
                 <a href="{{ url('/menu') }}" class="btn btn-warning"><i class="fa fa-angle-left"></i> Continue Shopping</a>
                 @if(session('cart'))
+                <input type="hidden" id="promocodeID" name="promocodeID" value="{{$promocode->id}}">
+                <input type="hidden" id="total_price_calculate_all" name="total_price_calculate_all" value="{{$totalTax+$total+$totalServices-$promocode->amount}}">
+                <input type="hidden" id="total_price" name="total_price" value="{{$total+$totalServices}}">
+                <input type="hidden" id="discount" name="discount" value="{{$promocode->amount}}">
+                <input type="hidden" id="tax" name="tax" value="{{$totalTax}}">
+                <input type="hidden" id="service" name="service" value="{{$totalServices}}">
+
                 <button class="btn btn-primary" type="submit">
                     <i class="fa fa-angle-right"></i>
-                    Pay
+                    Checkout
                 </button>
                 @endif
                
