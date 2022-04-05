@@ -84,6 +84,15 @@ class User extends Authenticatable
         return $this->hasMany('App\Models\user_has_document', 'user_id', 'id')->where('is_deleted',0);
     }
 
+    public function getUserCategory()
+	{
+		return $this->hasOne('App\Models\rider_has_category', 'user_id', 'id');
+	}
+    public function getUsersCategory()
+	{
+		return $this->hasOne('App\Models\user_has_category', 'user_id', 'id');
+	}
+
     public static function getAllPermissions($id)
     {
         // find member has roles

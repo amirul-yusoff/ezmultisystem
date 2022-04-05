@@ -1,6 +1,6 @@
 @extends('dashboard.index')
 @section('content')
-
+@include('partials.message')
 <table id="cart" class="table table-hover table-condensed">
   <thead>
       <tr>

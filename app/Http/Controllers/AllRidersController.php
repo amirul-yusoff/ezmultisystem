@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Models\user_has_document;
+use App\Models\rider_category;
+use App\Models\rider_has_category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
@@ -25,8 +27,9 @@ class AllRidersController extends Controller
     {
         $user = Auth::user();
         $members = User :: where('user_group','=','4')->where('status','=','Request Approved')->get();
+        $riderCategoryList = rider_category :: all();
 
-        return view('all-riders.index',compact('user','members'));
+        return view('all-riders.index',compact('user','members','riderCategoryList'));
     }
 
     /**
@@ -60,8 +63,9 @@ class AllRidersController extends Controller
     {
         $user = Auth::user();
         $members = User :: find($id);
+        $riderCategoryList = rider_category :: all();
 
-        return view('all-riders.show',compact('user','members'));
+        return view('all-riders.show',compact('user','members','riderCategoryList'));
     }
 
     /**
@@ -73,9 +77,11 @@ class AllRidersController extends Controller
     public function edit($id)
     {
         $user = Auth::user();
-        $members = User :: find($id);
-        
-        return view('all-riders.edit',compact('user','members'));
+        $members = User :: with('getUserCategory.getcategoryName')->find($id);
+        $riderCategoryList = rider_category :: all();
+        // dd($members);
+
+        return view('all-riders.edit',compact('user','members','riderCategoryList'));
     }
 
     /**
@@ -90,6 +96,17 @@ class AllRidersController extends Controller
         $user = Auth::user();
         $members = User :: find($id);
         $input = $request->all();
+
+        //user_has_category
+        $inputUserHasCategory['user_id'] = $id;
+        $inputUserHasCategory['category_id'] = $input['user_category'];
+        $inputUserHasCategory['updated_by'] = $user->id;
+
+        //findPrev
+        $deletePrevCategory = rider_has_category::where('user_id',$id)->delete();
+
+        //create
+        $create = rider_has_category::create($inputUserHasCategory);
 
         $members->update($input);
 
