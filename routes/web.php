@@ -42,7 +42,7 @@ Route::get('/second_page', [App\Http\Controllers\HomeController::class, 'second_
 Route::get('/contact-us', [App\Http\Controllers\contactUsController::class, 'index'])->name('contact-us');
 
 //checkout
-Route::get('/checkout', [App\Http\Controllers\HomeController::class, 'checkout'])->name('checkout.index');
+Route::get('/checkout', [App\Http\Controllers\HomeController::class, 'checkout'])->name('checkout.checkout');
 Route::PUT('/checkout-payment', [App\Http\Controllers\HomeController::class, 'payment'])->name('checkout.payment');
 
 //coupon
@@ -282,6 +282,15 @@ Route::delete('remove-from-cart', [App\Http\Controllers\MyMenuController::class,
 
 //-----------------------------------------------------------------Invoice-----------------------------------------------------------------
 Route::get('/invoice', [App\Http\Controllers\InvoiceController::class, 'index']);
+
+Route::get('/rider-category', [App\Http\Controllers\RiderCategoryController::class, 'index']);
+Route::get('/rider-category/create', [App\Http\Controllers\RiderCategoryController::class, 'create'])->name('rider-category.create');
+Route::get('/rider-category/edit', [App\Http\Controllers\RiderCategoryController::class, 'edit'])->name('rider-category.edit');
+
+Route::get('/user-category', [App\Http\Controllers\UserCategoryController::class, 'index']);
+Route::get('/user-category/create', [App\Http\Controllers\UserCategoryController::class, 'create'])->name('user-category.create');
+Route::get('/user-category/edit', [App\Http\Controllers\UserCategoryController::class, 'edit'])->name('user-category.edit');
+
 
 Route::group(['middleware' => ['guest']], function() {
 });

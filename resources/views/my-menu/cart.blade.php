@@ -1,5 +1,7 @@
 @extends('dashboard.index')
 @section('content')
+@if(session('cart'))
+{{ Form::open(['url' => route('checkout.checkout'), 'method' => 'GET'])}}
 
 <table id="cart" class="table table-hover table-condensed">
   <thead>
@@ -14,7 +16,7 @@
   <tbody>
       @php $total = 0 @endphp
       {{-- @php dd(session('cart')); @endphp --}}
-      @if(session('cart'))
+      {{-- @if(session('cart')) --}}
           @foreach(session('cart') as $id => $details)
               @php 
             //   dd($details);
@@ -48,7 +50,7 @@
             </td>
           </tr>
          
-      @endif
+      {{-- @endif --}}
   </tbody>
   <tfoot>
       <tr>
@@ -57,13 +59,18 @@
       <tr>
           <td colspan="5" class="text-right">
               <a href="{{ url('/home') }}" class="btn btn-warning"><i class="fa fa-angle-left"></i> Continue Shopping</a>
-              @if(session('cart'))
+              
               <a href="{{ url('/checkout') }}" class="btn btn-success"><i class="fa fa-angle-right"></i> Checkout</a>
-              @endif
+              <button class="btn btn-primary" type="submit"><i class="fa fa-angle-right"></i>
+              Pay
+            </button>
           </td>
       </tr>
   </tfoot>
 </table>
+{{ Form::close() }}
+
+@endif
 <script type="text/javascript">
   $(".update-cart").change(function (e) {
     e.preventDefault();
