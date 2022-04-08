@@ -55,8 +55,8 @@ class MyReportController extends Controller
     public function generatePDF($id)
     {
         $user = Auth::user();
-        $myInvoice = checkout::with('menu.getOwner')->first();
-        dd($id,$myInvoice);
+        $myInvoice = checkout::with('menu.getOwner')->where('id',$id)->first();
+        // dd($id,$myInvoice);
         // dd("asda");
         // return view('report.generatePDF',compact('user'));
         

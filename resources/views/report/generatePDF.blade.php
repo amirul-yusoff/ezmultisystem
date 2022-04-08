@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Hi</title>
+    <title>Invoice</title>
 </head>
 <body>
     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
