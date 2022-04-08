@@ -45,7 +45,7 @@
                       <td>{{$menu->quantity}}</td>
                       <td>{{$menu->price}}</td>
                       <td><button type="button" class="btn btn-tool">
-                        <a href="{{route('my-report.generatePDF')}}"><i class="fa-solid fa-circle-plus"></i></a>
+                        <a href="{{route('my-report.generatePDF',$menu->id)}}"><i class="fa-solid fa-circle-plus"></i></a>
                       </button></td>
                       
                     </tr> 

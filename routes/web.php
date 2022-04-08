@@ -86,7 +86,7 @@ Route::get('/invoice', [App\Http\Controllers\MyInvoiceController::class, 'index'
 
 
 Route::get('/report', [App\Http\Controllers\MyReportController::class, 'index']);
-Route::get('/report-generate-report', [App\Http\Controllers\MyReportController::class, 'generatePDF'])->name('my-report.generatePDF');
+Route::get('/report-generate-report/{id}', [App\Http\Controllers\MyReportController::class, 'generatePDF'])->name('my-report.generatePDF');
 // my-report.generatePDF
 
 
