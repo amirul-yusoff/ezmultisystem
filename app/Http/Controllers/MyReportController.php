@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\checkout;
 use Illuminate\Support\Facades\Auth;
-
+use PDF;
 use Illuminate\Http\Request;
 
 class MyReportController extends Controller
@@ -50,5 +50,16 @@ class MyReportController extends Controller
         $user = Auth::user();
         // dd("asda");
         return view('order.view',compact('user'));
+    }
+
+    public function generatePDF()
+    {
+        $user = Auth::user();
+        // dd("asda");
+        // return view('report.generatePDF',compact('user'));
+        
+        $pdf = PDF::loadView('report.generatePDF', compact('user'));
+        // return $pdf->download('itsolutionstuff.pdf');
+        return $pdf->stream('xcc.pdf');
     }
 }

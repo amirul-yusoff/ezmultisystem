@@ -33,6 +33,7 @@
                   <th>Restorant</th>
                   <th>Qty</th>
                   <th>Price</th>
+                  <th>Action</th>
                 </tr>
               </thead>
               <tbody>
@@ -43,6 +44,10 @@
                       <td>{{$menu->menu->getOwner->name}}</td>
                       <td>{{$menu->quantity}}</td>
                       <td>{{$menu->price}}</td>
+                      <td><button type="button" class="btn btn-tool">
+                        <a href="{{route('my-report.generatePDF')}}"><i class="fa-solid fa-circle-plus"></i></a>
+                      </button></td>
+                      
                     </tr> 
                   @endforeach
               </tbody>
