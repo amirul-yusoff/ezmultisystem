@@ -25,7 +25,9 @@
               <i class="fas fa-minus"></i>
             </button>
           </div>
-          <table id="adminMembers"  class="table table-striped projects"data-page-length="25" max-width =  "10px">
+        </div>
+        <div class="card-body p-0">
+        <table id="adminMembers"  class="table table-striped projects"data-page-length="25" max-width =  "10px">
               <thead>
                 <tr>
                   <th>ID</th>
@@ -33,6 +35,7 @@
                   <th>Restorant</th>
                   <th>Qty</th>
                   <th>Price</th>
+                  <th>Action</th>
                 </tr>
               </thead>
               <tbody>
@@ -43,6 +46,10 @@
                       <td>{{$menu->menu->getOwner->name}}</td>
                       <td>{{$menu->quantity}}</td>
                       <td>{{$menu->price}}</td>
+                      <td><button type="button" class="btn btn-tool">
+                        <a href="{{route('my-report.generatePDF',$menu->id)}}"><i class="fa-solid fa-print"></i></a>
+                      </button></td>
+                      
                     </tr> 
                   @endforeach
               </tbody>
