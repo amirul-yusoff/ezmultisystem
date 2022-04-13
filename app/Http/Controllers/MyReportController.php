@@ -56,11 +56,29 @@ class MyReportController extends Controller
     {
         $user = Auth::user();
         $myInvoice = checkout::with('menu.getOwner')->where('id',$id)->first();
+        // $grandTotal = checkout::with('menu.getOwner')->where('id',$id)->sum('price');
         // dd($id,$myInvoice);
         // dd("asda");
         // return view('report.generatePDF',compact('user'));
+        $myOrderHistory = checkout::with('menu.getOwner')
+        ->where('user_id',$user->id)
+        ->where(function($query) use($user) {
+            return $query
+            ->Where('user_id',$user->id)
+            ->orWhere('merchant_id',$user->id)
+            ->orWhere('rider_id',$user->id);
+        })->where('status','=','Order Delivered')->get();
+        $grandTotal = checkout::with('menu.getOwner')
+        ->where('user_id',$user->id)
+        ->where(function($query) use($user) {
+            return $query
+            ->Where('user_id',$user->id)
+            ->orWhere('merchant_id',$user->id)
+            ->orWhere('rider_id',$user->id);
+        })->where('status','=','Order Delivered')->sum('price');
+        // dd($grandTotal);
         
-        $pdf = PDF::loadView('report.generatePDF', compact('user'));
+        $pdf = PDF::loadView('report.generatePDF', compact('user','myOrderHistory','grandTotal','myInvoice'));
         // return $pdf->download('itsolutionstuff.pdf');
         return $pdf->stream('xcc.pdf');
     }
