@@ -56,10 +56,10 @@
                     @endif
                     <td>
                       @if ($menu->status == 'Order sent to Merchant')
-                      <a class="btn btn-danger btn-sm" href="{{ route('order-received.rejectOrder',$menu->id)}}">
+                      {{-- <a class="btn btn-danger btn-sm" href="{{ route('order-received.rejectOrder',$menu->id)}}">
                         <i class="fa-regular fa-circle-xmark"> </i>
                         Reject Order
-                      </a>  
+                      </a>   --}}
                       <a class="btn btn-primary btn-sm" href="{{ route('order-received.prepareOrder',$menu->id)}}">
                         <i class="fa-regular fa-circle-check"></i>
                         Preparing the Food
