@@ -32,7 +32,7 @@
             <td>
                 INVOICE NO<br>
                 ________________<br>
-                \\Invoice Number//
+                {{$myInvoice->id}}
             </td>
           </tr>
           <tr>
@@ -65,10 +65,10 @@
                 <td>{{$key+1}}</td>
                 <td>{{$menu->menu->name}}</td>
                 <td>{{$menu->menu->getOwner->name}}</td>
+                <td>{{number_format($menu->price,2)}}</td>
                 <td>{{$menu->quantity}}</td>
-                <td>{{$menu->price}}</td>
                 <td>
-                    
+                    {{number_format($menu->price,2)}}
                 </td>
               </tr> 
             @endforeach

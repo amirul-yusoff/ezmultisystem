@@ -61,6 +61,7 @@ class MyReportController extends Controller
         // dd("asda");
         // return view('report.generatePDF',compact('user'));
         $myOrderHistory = checkout::with('menu.getOwner')
+        ->where('id',$id)
         ->where('user_id',$user->id)
         ->where(function($query) use($user) {
             return $query
@@ -69,6 +70,7 @@ class MyReportController extends Controller
             ->orWhere('rider_id',$user->id);
         })->where('status','=','Order Delivered')->get();
         $grandTotal = checkout::with('menu.getOwner')
+        ->where('id',$id)
         ->where('user_id',$user->id)
         ->where(function($query) use($user) {
             return $query
