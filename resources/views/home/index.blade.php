@@ -75,7 +75,11 @@
                       <p>Category : {{$item->category}}</p>
                       <p>Price : RM {{$item->price}}</p>
                      
-                      @if ($item->geDefaultAddress != NULL)
+                      @if ($myCurrentAddress == NULL)
+                      <p>
+                        Distance :  <i style="color: #d10000;">Please Update your Address!!</i>
+                      </p>   
+                      @elseif ($item->geDefaultAddress != NULL)
                       @php
                       $latitudeFrom    = $item->geDefaultAddress->latitude;
                       $longitudeFrom    = $item->geDefaultAddress->longitude;
@@ -96,7 +100,7 @@
                       // Convert unit and return distance
                       // $unit = strtoupper($unit);
                       $distance =  round($miles * 1.609344, 2).' km';
-                  @endphp
+                      @endphp
                       <p>Distance :  {{$distance}}</p>
                       <p> <a href="{{$goToMaps}}">Go to Map</a></p>
                       <p> <a href="{{$goToWaze}}">Go to Waze</a></p>
